@@ -191,9 +191,8 @@ const Home = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
-            <Alert variant="filled" severity="warning">
-              An issue related to boardroom payout has been detected and already corrected. Updated Smart contract has been deployed but not yet active on site. <br />
-              <b>Please unstake all BSHARE for now. Timer to withdraw will be removed shortly. </b><br />We are very sorry for the inconvenience.
+            <Alert variant="filled" severity="error">
+              This is an old version of our site strictly for removing BSHARE from old boardroom.
 
             </Alert>
 

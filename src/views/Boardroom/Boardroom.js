@@ -128,11 +128,9 @@ const Boardroom = () => {
                 {/* <Alert variant="filled" severity="info">
                   Boardroom will resume printing BOMB once the price of BOMB is above its peg of 1.01.
                 </Alert> */}
-                <Alert variant="filled" severity="warning">
-                  An issue related to boardroom payout has been detected and already corrected. Updated Smart contract has been deployed but not yet active on site. <br />
-                  <b>Please unstake all BSHARE for now.<br />
-                    We are very sorry for the inconvenience.</b><br /><br />
-                  Timer to withdraw is going to be removed shortly.
+                <Alert variant="filled" severity="error">
+                  This is an old version of our site strictly for removing BSHARE from old boardroom.
+
                 </Alert>
 
               </Box>
