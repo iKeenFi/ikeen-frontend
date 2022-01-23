@@ -31,6 +31,7 @@ export class BombFinance {
   BOMB: ERC20;
   BSHARE: ERC20;
   BBOND: ERC20;
+  XBOMB: ERC20;
   BNB: ERC20;
   BTC: ERC20;
 
@@ -52,6 +53,7 @@ export class BombFinance {
     this.BBOND = new ERC20(deployments.BBond.address, provider, 'BBOND');
     this.BNB = this.externalTokens['WBNB'];
     this.BTC = this.externalTokens['BTCB'];
+    this.XBOMB = new ERC20(deployments.xBOMB.address, provider, 'xBOMB');
 
     // Uniswap V2 Pair
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
@@ -711,6 +713,24 @@ export class BombFinance {
     return realAPR;
   }
 
+  async getBombStakeAPR() {
+    const Boardroom = this.currentBoardroom();
+    const latestSnapshotIndex = await Boardroom.latestSnapshotIndex();
+    const lastHistory = await Boardroom.boardroomHistory(latestSnapshotIndex);
+
+    const lastRewardsReceived = lastHistory[1];
+
+    const BOMBPrice = (await this.getBombStat()).priceInDollars;
+    const epochRewardsPerShare = lastRewardsReceived / 1e18;
+
+    //Mgod formula
+    const amountOfRewardsPerDay = epochRewardsPerShare * Number(BOMBPrice) * 4;
+    const xBombBombBalanceOf = await this.BOMB.balanceOf(this.XBOMB.address);
+    const bombTVL = Number(getDisplayBalance(xBombBombBalanceOf, this.XBOMB.decimal)) * Number(BOMBPrice);
+    const realAPR = ((amountOfRewardsPerDay * 20) / bombTVL) * 365;
+    return realAPR;
+  }
+
   /**
    * Checks if the user is allowed to retrieve their reward from the Boardroom
    * @returns true if user can withdraw reward, false if they can't
@@ -752,12 +772,42 @@ export class BombFinance {
     return await Boardroom.stake(decimalToBalance(amount));
   }
 
+  async stakeToBomb(amount: string): Promise<TransactionResponse> {
+    const Xbomb = this.contracts.xBOMB;
+    return await Xbomb.enter(decimalToBalance(amount));
+  }
+
   async getStakedSharesOnBoardroom(): Promise<BigNumber> {
     const Boardroom = this.currentBoardroom();
     if (this.boardroomVersionOfUser === 'v1') {
       return await Boardroom.getShareOf(this.myAccount);
     }
     return await Boardroom.balanceOf(this.myAccount);
+  }
+
+  async getStakedBomb(): Promise<BigNumber> {
+    const Xbomb = this.contracts.xBOMB;
+    return await Xbomb.balanceOf(this.myAccount);
+  }
+
+  async getTotalStakedBomb(): Promise<BigNumber> {
+    const Xbomb = this.contracts.xBOMB;
+    const bomb = this.BOMB;
+    return await bomb.balanceOf(Xbomb.address);
+  }
+
+  async getXbombExchange(): Promise<BigNumber> {
+    const Xbomb = this.contracts.xBOMB;
+    const XbombExchange = await Xbomb.getExchangeRate();
+
+    const xBombPerBomb = parseFloat(XbombExchange) / 1000000000000000000;
+    const xBombRate = xBombPerBomb.toString();
+    return parseUnits(xBombRate, 18);
+  }
+
+  async withdrawFromBomb(amount: string): Promise<TransactionResponse> {
+    const Xbomb = this.contracts.xBOMB;
+    return await Xbomb.leave(decimalToBalance(amount));
   }
 
   async getEarningsOnBoardroom(): Promise<BigNumber> {

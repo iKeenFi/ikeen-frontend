@@ -133,6 +133,9 @@ const Nav = () => {
               <Link to="/boardroom" className={'navLink ' + classes.link}>
                 Boardroom
               </Link>
+              <Link to="/xbomb" className={'navLink ' + classes.link}>
+                xBOMB
+              </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bond
               </Link>
