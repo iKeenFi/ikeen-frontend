@@ -70,8 +70,10 @@ const Staking = () => {
           <Grid container justify="center">
             <Box mt={3} style={{ width: '600px' }}>
               <Alert variant="filled" severity="info">
-                <b> All rewards are generated from boardroom printing! </b><br />
-                If TWAP of BOMB peg is not over 1.01, no rewards will be accumulated here.<br />
+                <b> Most rewards are generated from boardroom printing! Reward come from:</b><br />
+                - 80% of autocompounder fees are used to buy BOMB on the open market<br />
+                - 20% of all BOMB minted - from protocol allocation, does not impact BSHARE boardroom printing.<br />
+                If TWAP of BOMB peg is not over 1.01, APR will be greatly reduced.<br />
                 APR is based on boardroom printing every epoch
               </Alert>
 
