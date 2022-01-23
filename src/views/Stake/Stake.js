@@ -148,6 +148,7 @@ const Staking = () => {
                       <Card>
                         <CardContent>
                           <h2>About xBOMB & Rewards</h2>
+                          <p><strong>Early staker bonus! Between January 24 and February 7th 50,000 BOMB will be deposited as free rewards for all stakers. This will happen at randomized times.</strong></p>
                           <p>xBOMB will be the governance token required to cast votes on protocol decisions.</p>
                           <p>20% of all BOMB minted will be deposited into the xBOMB smart contract, increasing the amount of BOMB that can be redeemed for each xBOMB. Rewards will be deposited at random times to prevent abuse.</p>
                           <p>Functionality will be developed around xBOMB including using it as collateral to borrow other assets.</p>

@@ -189,10 +189,12 @@ const Home = () => {
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
             <Alert variant="filled" severity="info">
-              <strong>Please Note:</strong> We were not impacted by any of the recent exploits. &nbsp;
-              <a rel="noopener noreferrer" href="https://medium.com/@bombbshare/dec-18-quick-update-regarding-grim-exploit-4f1a0c989fba" target="_blank">
-                Read more here.
-              </a>
+              <h2>BOMB STAKING IS LIVE!</h2>
+              <h4>
+                Get your xBOMB now by staking BOMB.   <Button href="/xbomb" className="shinyButton" style={{ margin: '10px' }}>
+                  Get xBOMB
+                </Button>
+              </h4>
 
             </Alert>
 
