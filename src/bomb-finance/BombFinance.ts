@@ -423,10 +423,15 @@ export class BombFinance {
     }
 
     const BSHAREPrice = (await this.getShareStat()).priceInDollars;
-    const boardroomtShareBalanceOf = await this.BSHARE.balanceOf(this.currentBoardroom().address);
-    const boardroomTVL = Number(getDisplayBalance(boardroomtShareBalanceOf, this.BSHARE.decimal)) * Number(BSHAREPrice);
+    const BOMBPrice = (await this.getBombStat()).priceInDollars;
 
-    return totalValue + boardroomTVL;
+    const boardroomtShareBalanceOf = await this.BSHARE.balanceOf(this.currentBoardroom().address);
+    const bombStakeBalanceOf = await this.BOMB.balanceOf(this.XBOMB.address);
+
+    const boardroomTVL = Number(getDisplayBalance(boardroomtShareBalanceOf, this.BSHARE.decimal)) * Number(BSHAREPrice);
+    const bombTVL = Number(getDisplayBalance(bombStakeBalanceOf, this.BOMB.decimal)) * Number(BOMBPrice);
+
+    return totalValue + boardroomTVL + bombTVL;
   }
 
   /**
