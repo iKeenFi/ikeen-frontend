@@ -222,7 +222,8 @@ const Nav = () => {
                   <AccountButton text="Connect" />
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="Farm" to="/farm" />
+                  <ListItemLink primary="Farm" to="/farm" />
+                       <ListItemLink primary="xBOMB" to="/xbomb" />
                 <ListItemLink primary="Boardroom" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
                 {/* <ListItemLink primary="SBS" to="/sbs" /> */}
