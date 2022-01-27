@@ -14,13 +14,16 @@ const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
   const bombFinance = useBombFinance();
 
   const bombBalance = useTokenBalance(bombFinance.BOMB);
-  const displayBombBalance = useMemo(() => getDisplayBalance(bombBalance), [bombBalance]);
+  const displayBombBalance = useMemo(() => getDisplayBalance(bombBalance, 18, 2), [bombBalance]);
 
   const bshareBalance = useTokenBalance(bombFinance.BSHARE);
-  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance), [bshareBalance]);
+  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance, 18, 2), [bshareBalance]);
 
   const bbondBalance = useTokenBalance(bombFinance.BBOND);
-  const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance), [bbondBalance]);
+  const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance, 18, 2), [bbondBalance]);
+
+    const xbombBalance = useTokenBalance(bombFinance.XBOMB);
+  const displayXbombBalance = useMemo(() => getDisplayBalance(xbombBalance, 18, 2), [xbombBalance]);
 
   const matches = useMediaQuery('(min-width:900px)');
 
@@ -44,7 +47,13 @@ const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
             <Label text="BSHARE Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
-
+        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+          <TokenSymbol symbol="XBOMB" />
+          <StyledBalance>
+            <StyledValue>{displayXbombBalance}</StyledValue>
+            <Label text="XBOMB Available" />
+          </StyledBalance>
+        </StyledBalanceWrapper>
         <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
           <TokenSymbol symbol="BBOND" />
           <StyledBalance>

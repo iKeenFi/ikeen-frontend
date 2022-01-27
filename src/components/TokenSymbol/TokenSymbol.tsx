@@ -4,6 +4,8 @@ import React from 'react';
 import bombLogo from '../../assets/img/bomb.png';
 import tShareLogo from '../../assets/img/bshares.png';
 import bombLogoPNG from '../../assets/img/bomb.png';
+import xbombLogo from '../../assets/img/xbomb.png';
+
 import tShareLogoPNG from '../../assets/img/bshares.png';
 import tBondLogo from '../../assets/img/bbond.png';
 
@@ -19,6 +21,7 @@ const logosBySymbol: {[title: string]: string} = {
   BOMB: bombLogo,
   BOMBPNG: bombLogoPNG,
   BSHAREPNG: tShareLogoPNG,
+  XBOMB: xbombLogo,
   BSHARE: tShareLogo,
   BBOND: tBondLogo,
   WBNB: bnbLogo,

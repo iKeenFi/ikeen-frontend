@@ -929,6 +929,9 @@ export class BombFinance {
       } else if (assetName === 'BBOND') {
         asset = this.BBOND;
         assetUrl = 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/bbond-512.png';
+      } else if (assetName === 'XBOMB') {
+        asset = this.XBOMB;
+        assetUrl = 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/xbomb-512.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',

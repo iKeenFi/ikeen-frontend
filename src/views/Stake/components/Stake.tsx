@@ -42,7 +42,7 @@ const Stake: React.FC = () => {
 console.log("stakedbomb", stakedBalance)
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance) / 1000000000000000000;
-  const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('XBOMB', bombFinance.BOMB)) * xbombRate;
+  const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('BOMB', bombFinance.BOMB)) * xbombRate;
   
   
   const tokenPriceInDollars = useMemo(
@@ -86,7 +86,7 @@ console.log("stakedbomb", stakedBalance)
           <StyledCardContentInner>
             <StyledCardHeader>
                   <CardIcon>
-                <TokenSymbol symbol="BOMB" />
+                <TokenSymbol symbol="XBOMB" />
               </CardIcon>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />

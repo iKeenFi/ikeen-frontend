@@ -14,6 +14,7 @@ import Page from '../../components/Page';
 import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
 import useXbombBalance from '../../hooks/useXbombBalance';
 import useFetchBombAPR from '../../hooks/useFetchBombAPR';
+import useBombStats from '../../hooks/useBombStats';
 
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useStakedBombBalance from '../../hooks/useStakedBombBalance';
@@ -47,11 +48,9 @@ const Staking = () => {
   const stakedBombBalance = useStakedBombBalance();
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
-  console.log('balance', Number(xbombRate));
-  const stakedTotalBombBalance = useStakedTotalBombBalance();
-  const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(4);
 
-  console.log('total balance', Number(bombTotalStaked));
+  const stakedTotalBombBalance = useStakedTotalBombBalance();
+  const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(0);
 
   const cashStat = useCashPriceInEstimatedTWAP();
   const boardroomAPR = useFetchBombAPR();
