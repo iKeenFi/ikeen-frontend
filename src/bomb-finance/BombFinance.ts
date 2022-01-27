@@ -53,7 +53,7 @@ export class BombFinance {
     this.BBOND = new ERC20(deployments.BBond.address, provider, 'BBOND');
     this.BNB = this.externalTokens['WBNB'];
     this.BTC = this.externalTokens['BTCB'];
-    this.XBOMB = new ERC20(deployments.xBOMB.address, provider, 'xBOMB');
+    this.XBOMB = new ERC20(deployments.xBOMB.address, provider, 'XBOMB');
 
     // Uniswap V2 Pair
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
@@ -108,7 +108,7 @@ export class BombFinance {
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.BOMB);
     // const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
     const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
-    const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
+    //const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
     const priceOfBombInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC)) / 10000).toFixed(2);
     //console.log('priceOfBombInDollars', priceOfBombInDollars);
 

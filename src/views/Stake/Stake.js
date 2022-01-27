@@ -44,15 +44,15 @@ const useStyles = makeStyles((theme) => ({
 const Staking = () => {
   const classes = useStyles();
   const { account } = useWallet();
-  const { onRedeem } = useRedeemOnBoardroom();
-  const stakedBombBalance = useStakedBombBalance();
+  // const { onRedeem } = useRedeemOnBoardroom();
+  //  const stakedBombBalance = useStakedBombBalance();
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
 
   const stakedTotalBombBalance = useStakedTotalBombBalance();
   const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(0);
 
-  const cashStat = useCashPriceInEstimatedTWAP();
+  // const cashStat = useCashPriceInEstimatedTWAP();
   const boardroomAPR = useFetchBombAPR();
 
   return (
@@ -131,7 +131,9 @@ const Staking = () => {
                     <Harvest />
                   </StyledCardWrapper> */}
                   {/* <Spacer /> */}
+
                   <StyledCardWrapper>
+
                     <Stake />
                   </StyledCardWrapper>
                 </StyledCardsWrapper>

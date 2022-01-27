@@ -16,7 +16,8 @@ import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useWithdrawCheck from '../../../hooks/boardroom/useWithdrawCheck';
-
+import bombFinance from '../../../bomb-finance';
+import MetamaskFox from '../../../assets/img/metamask-fox.svg';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
@@ -82,12 +83,26 @@ console.log("stakedbomb", stakedBalance)
   return (
     <Box>
       <Card>
+    
         <CardContent>
+      
           <StyledCardContentInner>
             <StyledCardHeader>
                   <CardIcon>
                 <TokenSymbol symbol="XBOMB" />
+                
               </CardIcon>
+              
+                          <Button className={'shinyButton'}
+                    onClick={() => {
+                      bombFinance.watchAssetInMetamask('XBOMB');
+                    }}
+                    style={{ position: 'static', top: '10px', right: '10px', border: '1px grey solid', paddingBottom: '5px', marginBottom: '20px' }}
+                  >
+                    {' '}
+                    <b>+</b>&nbsp;&nbsp;
+                    <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
+                  </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
               <Label text={'xBOMB Balance'} variant="yellow" />
