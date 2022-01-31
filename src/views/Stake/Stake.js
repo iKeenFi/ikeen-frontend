@@ -5,6 +5,7 @@ import Stake from './components/Stake';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
+import { roundAndFormatNumber } from '../../0x';
 
 import { Alert } from '@material-ui/lab';
 
@@ -15,7 +16,7 @@ import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
 import useXbombBalance from '../../hooks/useXbombBalance';
 import useFetchBombAPR from '../../hooks/useFetchBombAPR';
 import useBombStats from '../../hooks/useBombStats';
-
+import useXbombAPR from '../../hooks/useXbombAPR';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useStakedBombBalance from '../../hooks/useStakedBombBalance';
 import useStakedTotalBombBalance from '../../hooks/useTotalStakedBombBalance';
@@ -48,9 +49,16 @@ const Staking = () => {
   //  const stakedBombBalance = useStakedBombBalance();
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
+  const xbombAPR = useXbombAPR();
 
+  //const xbombTVL = xbombAPR.TVL;
   const stakedTotalBombBalance = useStakedTotalBombBalance();
   const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(0);
+  const xbombTVL = useMemo(() => (xbombAPR ? Number(xbombAPR.TVL).toFixed(0) : null), [xbombAPR]);
+  const xbombDailyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.dailyAPR).toFixed(2) : null), [xbombAPR]);
+  const xbombYearlyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.yearlyAPR).toFixed(2) : null), [xbombAPR]);
+
+  // console.log('xbombAPR', xbombYearlyAPR);
 
   // const cashStat = useCashPriceInEstimatedTWAP();
   const boardroomAPR = useFetchBombAPR();
@@ -72,8 +80,8 @@ const Staking = () => {
                 <b> Most rewards are generated from boardroom printing! Rewards come from:</b><br />
                 - 80% of autocompounder fees are used to buy BOMB on the open market<br />
                 - 20% of all BOMB minted - from protocol allocation, does not impact BSHARE boardroom printing.<br />
-                If TWAP of BOMB peg is not over 1.01, APR will be greatly reduced.<br />
-                APR is based on boardroom printing every epoch
+                If TWAP of BOMB peg is not over 1.01, yield will be reduced.<br />
+                APR is based on performance since launch on January 24th, 2022.
               </Alert>
 
             </Box>
@@ -109,7 +117,15 @@ const Staking = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR</Typography>
-                    <Typography>{boardroomAPR.toFixed(2)}%</Typography>
+                    <Typography>{xbombYearlyAPR}%</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>Daily APR</Typography>
+                    <Typography>{xbombDailyAPR}%</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -117,7 +133,15 @@ const Staking = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BOMB Staked</Typography>
-                    <Typography>{Number(bombTotalStaked)}</Typography>
+                    <Typography>{roundAndFormatNumber(bombTotalStaked)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TVL</Typography>
+                    <Typography>${roundAndFormatNumber(xbombTVL, 2)}</Typography>
                   </CardContent>
                 </Card>
               </Grid>

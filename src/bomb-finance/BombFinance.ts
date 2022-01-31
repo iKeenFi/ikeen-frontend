@@ -301,6 +301,47 @@ export class BombFinance {
     };
   }
 
+  async getXbombAPR(): Promise<PoolStats> {
+    if (this.myAccount === undefined) return;
+    const bombToken = this.BOMB;
+    const xbombToken = this.XBOMB;
+
+    const xbombExchange = await this.getXbombExchange();
+    const xbombPercent = await xbombExchange;
+    const xbombPercentTotal = (Number(xbombPercent) / 1000000000000000000) * 100 - 100;
+
+    const depositTokenPrice = await this.getDepositTokenPriceInDollars(bombToken.symbol, bombToken);
+
+    const stakeInPool = await bombToken.balanceOf(xbombToken.address);
+
+    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, bombToken.decimal));
+
+    const startDate = new Date('January 24, 2022');
+    const nowDate = new Date(Date.now());
+    const difference = nowDate.getTime() - startDate.getTime();
+    const days = difference / 60 / 60 / 24 / 1000;
+    const aprPerDay = xbombPercentTotal / days;
+
+    // Determine days between now and a date
+
+    // const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+    // const totalRewardPricePerYear =
+    //   Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
+    // const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+    // const totalStakingTokenInPool =
+    //   Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+    // const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
+    // const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
+
+    const dailyAPR = aprPerDay;
+    const yearlyAPR = aprPerDay * 365;
+    return {
+      dailyAPR: dailyAPR.toFixed(2).toString(),
+      yearlyAPR: yearlyAPR.toFixed(2).toString(),
+      TVL: TVL.toFixed(2).toString(),
+    };
+  }
+
   /**
    * Method to return the amount of tokens the pool yields per second
    * @param earnTokenName the name of the token that the pool is earning

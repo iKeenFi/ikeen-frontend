@@ -40,7 +40,6 @@ const Stake: React.FC = () => {
   //const stakedBalance = useStakedBomb();
   const stakedBalance = useTokenBalance(bombFinance.XBOMB);
 
-console.log("stakedbomb", stakedBalance)
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance) / 1000000000000000000;
   const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('BOMB', bombFinance.BOMB)) * xbombRate;
