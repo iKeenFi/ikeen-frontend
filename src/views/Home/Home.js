@@ -12,8 +12,6 @@ import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/usebShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { Bomb as bombTesting, BShare as bShareTesting } from '../../bomb-finance/deployments/deployments.testing.json';
-import { Bomb as bombProd, BShare as bShareProd } from '../../bomb-finance/deployments/deployments.mainnet.json';
 import { roundAndFormatNumber } from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
@@ -62,14 +60,6 @@ const Home = () => {
   const bombFinance = useBombFinance();
 
   let bomb;
-  let bShare;
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    bomb = bombTesting;
-    bShare = bShareTesting;
-  } else {
-    bomb = bombProd;
-    bShare = bShareProd;
-  }
 
   const buyBombAddress =
     //  'https://pancakeswap.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +

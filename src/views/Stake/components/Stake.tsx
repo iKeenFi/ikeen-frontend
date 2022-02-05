@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
-import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
+import {Box, Button, Card, CardContent} from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
@@ -15,18 +15,13 @@ import Value from '../../../components/Value';
 import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useWithdrawCheck from '../../../hooks/boardroom/useWithdrawCheck';
-import bombFinance from '../../../bomb-finance';
 import MetamaskFox from '../../../assets/img/metamask-fox.svg';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import useBombFinance from '../../../hooks/useBombFinance';
-import ProgressCountdown from './ProgressCountdown';
-import useStakedBomb from '../../../hooks/useStakedBomb';
 import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
-import useUnstakeTimerBoardroom from '../../../hooks/boardroom/useUnstakeTimerBoardroom';
 import TokenSymbol from '../../../components/TokenSymbol';
 import useStakeToBomb from '../../../hooks/useStakeToBomb';
 import useWithdrawFromBomb from '../../../hooks/useWithdrawFromBomb';
@@ -43,8 +38,7 @@ const Stake: React.FC = () => {
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance) / 1000000000000000000;
   const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('BOMB', bombFinance.BOMB)) * xbombRate;
-  
-  
+
   const tokenPriceInDollars = useMemo(
     () =>
       stakedTokenPriceInDollars
@@ -82,26 +76,31 @@ const Stake: React.FC = () => {
   return (
     <Box>
       <Card>
-    
         <CardContent>
-      
           <StyledCardContentInner>
             <StyledCardHeader>
-                  <CardIcon>
+              <CardIcon>
                 <TokenSymbol symbol="XBOMB" />
-                
               </CardIcon>
-              
-                          <Button className={'shinyButton'}
-                    onClick={() => {
-                      bombFinance.watchAssetInMetamask('XBOMB');
-                    }}
-                    style={{ position: 'static', top: '10px', right: '10px', border: '1px grey solid', paddingBottom: '5px', marginBottom: '20px' }}
-                  >
-                    {' '}
-                    <b>+</b>&nbsp;&nbsp;
-                    <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
-                  </Button>
+
+              <Button
+                className={'shinyButton'}
+                onClick={() => {
+                  bombFinance.watchAssetInMetamask('XBOMB');
+                }}
+                style={{
+                  position: 'static',
+                  top: '10px',
+                  right: '10px',
+                  border: '1px grey solid',
+                  paddingBottom: '5px',
+                  marginBottom: '20px',
+                }}
+              >
+                {' '}
+                <b>+</b>&nbsp;&nbsp;
+                <img alt="metamask fox" style={{width: '20px', filter: 'grayscale(100%)'}} src={MetamaskFox} />
+              </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
               <Label text={'xBOMB Balance'} variant="yellow" />
@@ -118,12 +117,12 @@ const Stake: React.FC = () => {
                 </Button>
               ) : (
                 <>
-                  <IconButton  onClick={onPresentWithdraw}>
+                  <IconButton onClick={onPresentWithdraw}>
                     <RemoveIcon color={'yellow'} />
                   </IconButton>
                   <StyledActionSpacer />
                   <IconButton onClick={onPresentDeposit}>
-                    <AddIcon color={'yellow'}/>
+                    <AddIcon color={'yellow'} />
                   </IconButton>
                 </>
               )}

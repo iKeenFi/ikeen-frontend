@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react';
 
-import {Button, Select, MenuItem, InputLabel, Typography, withStyles} from '@material-ui/core';
+import {Button, Select, MenuItem, InputLabel, withStyles} from '@material-ui/core';
 // import Button from '../../../components/Button'
 import Modal, {ModalProps} from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';

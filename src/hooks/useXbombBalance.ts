@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {BigNumber} from 'ethers';
 import useBombFinance from './useBombFinance';
 import useRefresh from './useRefresh';
-import {parseUnits} from 'ethers/lib/utils';
 
 const useXbombBalance = () => {
   const {slowRefresh} = useRefresh();

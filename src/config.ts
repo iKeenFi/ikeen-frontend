@@ -1,4 +1,3 @@
-import {ChainId} from '@pancakeswap/sdk';
 import {Configuration} from './bomb-finance/config';
 import {BankInfo} from './bomb-finance';
 

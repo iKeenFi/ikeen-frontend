@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Stake from './components/Stake';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
+import { Box, Card, CardContent, Typography, Grid } from '@material-ui/core';
 import { roundAndFormatNumber } from '../../0x';
 
 import { Alert } from '@material-ui/lab';
@@ -12,13 +12,8 @@ import { Alert } from '@material-ui/lab';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 
-import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
 import useXbombBalance from '../../hooks/useXbombBalance';
-import useFetchBombAPR from '../../hooks/useFetchBombAPR';
-import useBombStats from '../../hooks/useBombStats';
 import useXbombAPR from '../../hooks/useXbombAPR';
-import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
-import useStakedBombBalance from '../../hooks/useStakedBombBalance';
 import useStakedTotalBombBalance from '../../hooks/useTotalStakedBombBalance';
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet'
@@ -61,7 +56,6 @@ const Staking = () => {
   // console.log('xbombAPR', xbombYearlyAPR);
 
   // const cashStat = useCashPriceInEstimatedTWAP();
-  const boardroomAPR = useFetchBombAPR();
 
   return (
     <Page>
