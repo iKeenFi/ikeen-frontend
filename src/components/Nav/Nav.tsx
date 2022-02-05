@@ -92,7 +92,7 @@ const Nav = () => {
   const btcStats = useBtcStats();
   const shareStats = useShareStats();
 
- // const [connected, setConnected] = React.useState(false);
+  // const [connected, setConnected] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -123,7 +123,7 @@ const Nav = () => {
                 <img alt="bomb.money" src={bombLogo} height="60px" />
               </Link>
             </Typography>
-            <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
+            <Box style={{paddingLeft: '15px', fontSize: '1rem', flexGrow: '1'}}>
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
@@ -149,10 +149,20 @@ const Nav = () => {
               <Link color="textPrimary" to="/regulations" className={classes.link}>
                 Regulations
               </Link> */}
-              <a href="https://docs.bomb.money" className={'navLink ' + classes.link} rel="noopener noreferrer" target="_blank">
+              <a
+                href="https://docs.bomb.money"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 Docs
               </a>
-                <a href="https://bomb.farm" className={'navLink ' + classes.link} rel="noopener noreferrer" target="_blank">
+              <a
+                href="https://bomb.farm"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 AutoVaults
               </a>
             </Box>
@@ -196,8 +206,8 @@ const Nav = () => {
             />
             <AccountButton text="Connect" />
             <Drawer
-                className={classes.drawer}
-                onClose={handleDrawerClose}
+              className={classes.drawer}
+              onClose={handleDrawerClose}
               // onEscapeKeyDown={handleDrawerClose}
               // onBackdropClick={handleDrawerClose}
               variant="temporary"
@@ -222,8 +232,8 @@ const Nav = () => {
                   <AccountButton text="Connect" />
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
-                  <ListItemLink primary="Farm" to="/farm" />
-                       <ListItemLink primary="xBOMB" to="/xbomb" />
+                <ListItemLink primary="Farm" to="/farm" />
+                <ListItemLink primary="xBOMB" to="/xbomb" />
                 <ListItemLink primary="Boardroom" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
                 {/* <ListItemLink primary="SBS" to="/sbs" /> */}
@@ -231,8 +241,8 @@ const Nav = () => {
                 {/* <ListItemLink primary="Regulations" to="/regulations" /> */}
                 <ListItem button component="a" href="https://docs.bomb.money">
                   <ListItemText>Docs</ListItemText>
-                  </ListItem>
-                   <ListItem button component="a" href="https://bomb.farm">
+                </ListItem>
+                <ListItem button component="a" href="https://bomb.farm">
                   <ListItemText>AutoVaults</ListItemText>
                 </ListItem>
               </List>
