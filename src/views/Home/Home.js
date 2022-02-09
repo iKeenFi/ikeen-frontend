@@ -12,8 +12,8 @@ import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/usebShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Bomb as bombTesting, BShare as bShareTesting} from '../../bomb-finance/deployments/deployments.testing.json';
-import {Bomb as bombProd, BShare as bShareProd} from '../../bomb-finance/deployments/deployments.mainnet.json';
+import {Bomb as bombTesting} from '../../bomb-finance/deployments/deployments.testing.json';
+import {Bomb as bombProd} from '../../bomb-finance/deployments/deployments.mainnet.json';
 import {roundAndFormatNumber} from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import {Box, Button, Card, CardContent, Grid, Paper} from '@material-ui/core';
@@ -62,13 +62,10 @@ const Home = () => {
   const bombFinance = useBombFinance();
 
   let bomb;
-  let bShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     bomb = bombTesting;
-    bShare = bShareTesting;
   } else {
     bomb = bombProd;
-    bShare = bShareProd;
   }
 
   const buyBombAddress =
@@ -270,9 +267,9 @@ const Home = () => {
                 </span>
               </Box>
               <span style={{fontSize: '12px'}}>
-                Market Cap: <b>${roundAndFormatNumber(bombCirculatingSupply * bombPriceInDollars, 2)}</b> <br />
-                Circulating Supply: <b>{roundAndFormatNumber(bombCirculatingSupply, 2)}</b> <br />
-                Total Supply: <b>{roundAndFormatNumber(bombTotalSupply, 2)}</b>
+                Market Cap: ${roundAndFormatNumber(bombCirculatingSupply * bombPriceInDollars, 2)} <br />
+                Circulating Supply: {roundAndFormatNumber(bombCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(bombTotalSupply, 2)}
               </span>
             </CardContent>
           </Card>
@@ -308,10 +305,10 @@ const Home = () => {
                 <span style={{fontSize: '16px'}}>${bSharePriceInDollars ? bSharePriceInDollars : '-.--'} / BSHARE</span>
               </Box>
               <span style={{fontSize: '12px'}}>
-                Market Cap:{' '}
-                <b>${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars).toFixed(2), 2)}</b> <br />
-                Circulating Supply: <b>{roundAndFormatNumber(bShareCirculatingSupply, 2)}</b> <br />
-                Total Supply: <b>{roundAndFormatNumber(bShareTotalSupply, 2)}</b>
+                Market Cap: ${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars).toFixed(2), 2)}{' '}
+                <br />
+                Circulating Supply: {roundAndFormatNumber(bShareCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(bShareTotalSupply, 2)}
               </span>
             </CardContent>
           </Card>
@@ -347,10 +344,9 @@ const Home = () => {
                 <span style={{fontSize: '16px'}}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'} / BBOND</span>
               </Box>
               <span style={{fontSize: '12px'}}>
-                Market Cap: <b>${roundAndFormatNumber((tBondCirculatingSupply * tBondPriceInDollars).toFixed(2), 2)}</b>{' '}
-                <br />
-                Circulating Supply: <b>{roundAndFormatNumber(tBondCirculatingSupply, 2)}</b> <br />
-                Total Supply: <b>{roundAndFormatNumber(tBondTotalSupply, 2)}</b>
+                Market Cap: ${roundAndFormatNumber((tBondCirculatingSupply * tBondPriceInDollars).toFixed(2), 2)} <br />
+                Circulating Supply: {roundAndFormatNumber(tBondCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(tBondTotalSupply, 2)}
               </span>
             </CardContent>
           </Card>
