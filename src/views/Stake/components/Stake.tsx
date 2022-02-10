@@ -1,22 +1,22 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import {Box, Button, Card, CardContent} from '@material-ui/core';
+import { Box, Button, Card, CardContent } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
-import {AddIcon, RemoveIcon} from '../../../components/icons';
+import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 //import useXbombBalance from '../../../hooks/useXbombBalance';
-import useApprove, {ApprovalState} from '../../../hooks/useApprove';
+import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import MetamaskFox from '../../../assets/img/metamask-fox.svg';
-import {getDisplayBalance} from '../../../utils/formatBalance';
+import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
@@ -41,16 +41,17 @@ const Stake: React.FC = () => {
   const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
 
   const tokenPriceInDollars = useMemo(
-    () =>
-      stakedTokenPriceInDollars
+    () => {
+      return stakedTokenPriceInDollars
         ? (Number(stakedTokenPriceInDollars) * Number(getDisplayBalance(stakedBalance))).toFixed(2).toString()
-        : null,
+        : null;
+    },
     [stakedTokenPriceInDollars, stakedBalance],
   );
   // const isOldBoardroomMember = boardroomVersion !== 'latest';
 
-  const {onStake} = useStakeToBomb();
-  const {onWithdraw} = useWithdrawFromBomb();
+  const { onStake } = useStakeToBomb();
+  const { onWithdraw } = useWithdrawFromBomb();
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -100,7 +101,7 @@ const Stake: React.FC = () => {
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{width: '20px', filter: 'grayscale(100%)'}} src={MetamaskFox} />
+                <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={'xBOMB Balance'} variant="yellow" />
@@ -111,7 +112,7 @@ const Stake: React.FC = () => {
                 <Button
                   disabled={approveStatus !== ApprovalState.NOT_APPROVED}
                   className={approveStatus !== ApprovalState.NOT_APPROVED ? 'shinyButton' : 'shinyButtonDisabled'}
-                  style={{marginTop: '20px'}}
+                  style={{ marginTop: '20px' }}
                   onClick={approve}
                 >
                   Approve BOMB
