@@ -38,6 +38,7 @@ const Stake: React.FC = () => {
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance) / 1000000000000000000;
   const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('BOMB', bombFinance.BOMB)) * xbombRate;
+  const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
 
   const tokenPriceInDollars = useMemo(
     () =>
@@ -102,8 +103,8 @@ const Stake: React.FC = () => {
                 <img alt="metamask fox" style={{width: '20px', filter: 'grayscale(100%)'}} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
-              <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
               <Label text={'xBOMB Balance'} variant="yellow" />
+              <Label text={`≈ ${xbombToBombEquivalent.toFixed(2)} BOMB / $${tokenPriceInDollars}`} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>
               {approveStatus !== ApprovalState.APPROVED ? (
