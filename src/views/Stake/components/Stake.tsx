@@ -12,6 +12,7 @@ import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 //import useXbombBalance from '../../../hooks/useXbombBalance';
+import useBombStats from '../../../hooks/useBombStats';
 import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
@@ -21,7 +22,7 @@ import {getDisplayBalance} from '../../../utils/formatBalance';
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import useBombFinance from '../../../hooks/useBombFinance';
-import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
+//import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';   //May not be needed anymore.
 import TokenSymbol from '../../../components/TokenSymbol';
 import useStakeToBomb from '../../../hooks/useStakeToBomb';
 import useWithdrawFromBomb from '../../../hooks/useWithdrawFromBomb';
@@ -29,6 +30,8 @@ import useXbombBalance from '../../../hooks/useXbombBalance';
 
 const Stake: React.FC = () => {
   const bombFinance = useBombFinance();
+  const bombStats = useBombStats();
+
   const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.xBOMB.address);
 
   const tokenBalance = useTokenBalance(bombFinance.BOMB);
@@ -37,8 +40,14 @@ const Stake: React.FC = () => {
 
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance) / 1000000000000000000;
-  const stakedTokenPriceInDollars = Number(useStakedTokenPriceInDollars('BOMB', bombFinance.BOMB)) * xbombRate;
   const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
+
+  const bombPriceInDollars = useMemo(
+    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
+    [bombStats],
+  );
+
+  const stakedTokenPriceInDollars = Number(bombPriceInDollars) * xbombRate;
 
   const tokenPriceInDollars = useMemo(
     () =>
