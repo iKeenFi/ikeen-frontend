@@ -97,6 +97,18 @@ code {
   box-shadow: 0px 0px 5px 0px rgba(251, 221, 76, 1);
 }
 
+.shinyButtonGreen {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  border-radius: 15px;
+  font-size: 1rem !important;
+  padding-left: 5px;
+  color: #00ff00 !important;
+  box-shadow: 0px 0px 5px 0px rgb(0, 255, 0);
+}
+
 .shinyButtonDisabled {
   border-radius: 15px;
 
@@ -106,6 +118,11 @@ code {
 
 .shinyButton:hover {
   background-color: #f9d749 !important;
+  color: #171923 !important;
+}
+
+.shinyButtonGreen:hover {
+  background-color: #00ff00 !important;
   color: #171923 !important;
 }
 
