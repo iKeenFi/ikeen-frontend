@@ -211,16 +211,13 @@ const Home = () => {
           <Card style={{height: '100%'}}>
             <CardContent align="center" style={{marginTop: '2.5%'}}>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="/boardroom" className="shinyButton" style={{margin: '10px'}}>
-                Stake Now
-              </Button>
-              <Button href="/farm" className="shinyButton" style={{margin: '10px'}}>
-                Farm Now
+              <Button target="_blank" href="http://bomb.farm/" className="shinyButtonGreen" style={{margin: '5px'}}>
+                Autovaults
               </Button>
               <Button
                 target="_blank"
                 href={buyBombAddress}
-                style={{margin: '10px'}}
+                style={{margin: '5px'}}
                 className={'shinyButton ' + classes.button}
               >
                 Buy BOMB
@@ -229,9 +226,15 @@ const Home = () => {
                 target="_blank"
                 href={buyBShareAddress}
                 className={'shinyButton ' + classes.button}
-                style={{marginLeft: '10px'}}
+                style={{margin: '5px'}}
               >
                 Buy BSHARE
+              </Button>
+              <Button target="_blank" href="https://dexscreener.com/bsc/0x84392649eb0bc1c1532f2180e58bae4e1dabd8d6" className="shinyButton" style={{margin: '5px'}}>
+                BOMB Chart
+              </Button>
+              <Button target="_blank" href="https://dexscreener.com/bsc/0x1303246855b5b5ebc71f049fdb607494e97218f8" className="shinyButton" style={{margin: '5px'}}>
+                BSHARE Chart
               </Button>
             </CardContent>
           </Card>
