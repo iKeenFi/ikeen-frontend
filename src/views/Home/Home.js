@@ -211,11 +211,10 @@ const Home = () => {
           <Card style={{height: '100%'}}>
             <CardContent align="center" style={{marginTop: '2.5%'}}>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button target="_blank" href="http://bomb.farm/" className="shinyButtonGreen" style={{margin: '5px'}}>
+              <Button href="https://bomb.farm/" className="shinyButtonGreen" style={{margin: '5px'}}>
                 Autovaults
               </Button>
               <Button
-                target="_blank"
                 href={buyBombAddress}
                 style={{margin: '5px'}}
                 className={'shinyButton ' + classes.button}
@@ -223,7 +222,6 @@ const Home = () => {
                 Buy BOMB
               </Button>
               <Button
-                target="_blank"
                 href={buyBShareAddress}
                 className={'shinyButton ' + classes.button}
                 style={{margin: '5px'}}
