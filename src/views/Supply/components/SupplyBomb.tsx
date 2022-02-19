@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Box, Button, Card, CardContent } from '@material-ui/core';
+import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
@@ -24,32 +24,30 @@ import WithdrawModal from './WithdrawModal';
 import useBombFinance from '../../../hooks/useBombFinance';
 //import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';   //May not be needed anymore.
 import TokenSymbol from '../../../components/TokenSymbol';
-import useStakeToBomb from '../../../hooks/useStakeToBomb';
-import useWithdrawFromBomb from '../../../hooks/useWithdrawFromBomb';
-import useXbombBalance from '../../../hooks/useXbombBalance';
+import useSupplyToBomb from '../../../hooks/useSupplyToBomb';
+import useRedeemFromBomb from '../../../hooks/useRedeemFromBomb';
 
-const Stake: React.FC = () => {
+const SupplyBomb: React.FC = () => {
   const bombFinance = useBombFinance();
   const bombStats = useBombStats();
 
-  const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.xBOMB.address);
-
-
+  const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.BombRouter.address);
+  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BOMB, bombFinance.contracts.BombRouter.address);
 
   const tokenBalance = useTokenBalance(bombFinance.BOMB);
   //const stakedBalance = useStakedBomb();
-  const stakedBalance = useTokenBalance(bombFinance.XBOMB);
+  const stakedBalance = useTokenBalance(bombFinance.BBOMB_BOMB);
 
-  const xbombBalance = useXbombBalance();
-  const xbombRate = Number(xbombBalance) / 1000000000000000000;
-  const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
+  // const xbombBalance = useXbombBalance();
+  // const xbombRate = Number(xbombBalance) / 1000000000000000000;
+  // const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
 
   const bombPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
     [bombStats],
   );
 
-  const stakedTokenPriceInDollars = Number(bombPriceInDollars) * xbombRate;
+  const stakedTokenPriceInDollars = Number(bombPriceInDollars);
 
   const tokenPriceInDollars = useMemo(
     () => {
@@ -61,8 +59,8 @@ const Stake: React.FC = () => {
   );
   // const isOldBoardroomMember = boardroomVersion !== 'latest';
 
-  const { onStake } = useStakeToBomb();
-  const { onWithdraw } = useWithdrawFromBomb();
+  const { onStake } = useSupplyToBomb();
+  const { onWithdraw } = useRedeemFromBomb();
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -82,7 +80,7 @@ const Stake: React.FC = () => {
         onWithdraw(value);
         onDismissWithdraw();
       }}
-      tokenName={'xBOMB'}
+      tokenName={'BOMB'}
     />,
   );
 
@@ -92,14 +90,17 @@ const Stake: React.FC = () => {
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
+              <Typography variant='h5' component='h2'>
+                Supply BOMB
+              </Typography>
               <CardIcon>
-                <TokenSymbol symbol="XBOMB" />
+                <TokenSymbol symbol="BOMB" />
               </CardIcon>
 
               <Button
                 className={'shinyButton'}
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('XBOMB');
+                  bombFinance.watchAssetInMetamask('BOMB');
                 }}
                 style={{
                   position: 'static',
@@ -115,8 +116,8 @@ const Stake: React.FC = () => {
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
-              <Label text={'xBOMB Balance'} variant="yellow" />
-              <Label text={`≈ ${xbombToBombEquivalent.toFixed(2)} BOMB / $${tokenPriceInDollars}`} variant="yellow" />
+              <Label text={'BOMB Supplied'} variant="yellow" />
+              <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>
               {approveStatus !== ApprovalState.APPROVED ? (
@@ -129,10 +130,20 @@ const Stake: React.FC = () => {
                   Approve BOMB
                 </Button>
               ) : (
-                <>
-                  <IconButton onClick={onPresentWithdraw}>
-                    <RemoveIcon color={'yellow'} />
-                  </IconButton>
+                  <>
+                    {approveStatusW !== ApprovalState.APPROVED ? (
+            
+                      <IconButton onClick={approveW}>
+                        A
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={onPresentWithdraw}>
+                        <RemoveIcon color={'yellow'} />
+                      </IconButton>
+                        
+                          
+                            )}
+                          
                   <StyledActionSpacer />
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon color={'yellow'} />
@@ -184,4 +195,4 @@ const StyledCardContentInner = styled.div`
   justify-content: space-between;
 `;
 
-export default Stake;
+export default SupplyBomb;

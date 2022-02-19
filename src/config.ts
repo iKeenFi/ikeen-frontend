@@ -1,7 +1,7 @@
-import {Configuration} from './bomb-finance/config';
-import {BankInfo} from './bomb-finance';
+import { Configuration } from './bomb-finance/config';
+import { BankInfo } from './bomb-finance';
 
-const configurations: {[env: string]: Configuration} = {
+const configurations: { [env: string]: Configuration } = {
   // development: {
   //   chainId: 97,
   //   networkName: 'BSC Testnet',
@@ -38,6 +38,8 @@ const configurations: {[env: string]: Configuration} = {
       SVL: ['0x37F14E7c2FadC2A01dBD93b8a1F69D41c6c3d554', 18],
       CAKE: ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', 18],
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
+      'BBOMB-BOMB': ['0xEcE54DEef477A7c5ACAD45aa93cAE5B112AFA0D4', 18],
+      'BBOMB-BTCB': ['0x7Ae7d75aB0a0B3ef038F94010F5C4941f224BA96', 18],
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16', 18],
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
@@ -63,6 +65,8 @@ const configurations: {[env: string]: Configuration} = {
       FUSDT: ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', 18], // This is actually BUSD on mainnet not fusdt
       BTCB: ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c', 18],
       SBTC: ['0x1d28cd41fc594232D05F2AbdAFBb556E7F78Dc2a', 18],
+      'BBOMB-BOMB': ['0xEcE54DEef477A7c5ACAD45aa93cAE5B112AFA0D4', 18],
+      'BBOMB-BTCB': ['0x7Ae7d75aB0a0B3ef038F94010F5C4941f224BA96', 18],
       SVL: ['0x37F14E7c2FadC2A01dBD93b8a1F69D41c6c3d554', 18],
       SUSD: ['0x12017c89444624C0268A1053467e22954F4fd362', 18],
       CAKE: ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', 18],
@@ -83,7 +87,7 @@ const configurations: {[env: string]: Configuration} = {
   },
 };
 
-export const bankDefinitions: {[contractName: string]: BankInfo} = {
+export const bankDefinitions: { [contractName: string]: BankInfo } = {
   /*
   Explanation:
   name: description of the card
