@@ -34,8 +34,6 @@ const Stake: React.FC = () => {
 
   const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.xBOMB.address);
 
-
-
   const tokenBalance = useTokenBalance(bombFinance.BOMB);
   //const stakedBalance = useStakedBomb();
   const stakedBalance = useTokenBalance(bombFinance.XBOMB);

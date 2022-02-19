@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Box, Button, Card, CardContent } from '@material-ui/core';
+import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
@@ -12,7 +12,7 @@ import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 //import useXbombBalance from '../../../hooks/useXbombBalance';
-import useBombStats from '../../../hooks/useBombStats';
+import useBtcStats from '../../../hooks/useBtcStats';
 import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
@@ -24,32 +24,30 @@ import WithdrawModal from './WithdrawModal';
 import useBombFinance from '../../../hooks/useBombFinance';
 //import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';   //May not be needed anymore.
 import TokenSymbol from '../../../components/TokenSymbol';
-import useStakeToBomb from '../../../hooks/useStakeToBomb';
-import useWithdrawFromBomb from '../../../hooks/useWithdrawFromBomb';
-import useXbombBalance from '../../../hooks/useXbombBalance';
+import useSupplyToBtcb from '../../../hooks/useSupplyToBtcb';
+import useRedeemFromBtcb from '../../../hooks/useRedeemFromBtcb';
 
-const Stake: React.FC = () => {
+const SupplyBtcb: React.FC = () => {
   const bombFinance = useBombFinance();
-  const bombStats = useBombStats();
+  const btcStats = useBtcStats();
 
-  const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.xBOMB.address);
+  const [approveStatus, approve] = useApprove(bombFinance.BTC, bombFinance.contracts.BombRouter.address);
+  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BTCB, bombFinance.contracts.BombRouter.address);
 
-
-
-  const tokenBalance = useTokenBalance(bombFinance.BOMB);
+  const tokenBalance = useTokenBalance(bombFinance.BTC);
   //const stakedBalance = useStakedBomb();
-  const stakedBalance = useTokenBalance(bombFinance.XBOMB);
+  const stakedBalance = useTokenBalance(bombFinance.BBOMB_BTCB);
 
-  const xbombBalance = useXbombBalance();
-  const xbombRate = Number(xbombBalance) / 1000000000000000000;
-  const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
+  // const xbombBalance = useXbombBalance();
+  // const xbombRate = Number(xbombBalance) / 1000000000000000000;
+  // const xbombToBombEquivalent = Number(getDisplayBalance(stakedBalance)) * xbombRate;
 
-  const bombPriceInDollars = useMemo(
-    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+  const btcPriceInDollars = useMemo(
+    () => (btcStats ? Number(btcStats).toFixed(2) : null),
+    [btcStats],
   );
 
-  const stakedTokenPriceInDollars = Number(bombPriceInDollars) * xbombRate;
+  const stakedTokenPriceInDollars = Number(btcPriceInDollars);
 
   const tokenPriceInDollars = useMemo(
     () => {
@@ -61,8 +59,8 @@ const Stake: React.FC = () => {
   );
   // const isOldBoardroomMember = boardroomVersion !== 'latest';
 
-  const { onStake } = useStakeToBomb();
-  const { onWithdraw } = useWithdrawFromBomb();
+  const { onStake } = useSupplyToBtcb();
+  const { onWithdraw } = useRedeemFromBtcb();
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -71,7 +69,7 @@ const Stake: React.FC = () => {
         onStake(value);
         onDismissDeposit();
       }}
-      tokenName={'BOMB'}
+      tokenName={'BTCB'}
     />,
   );
 
@@ -82,7 +80,7 @@ const Stake: React.FC = () => {
         onWithdraw(value);
         onDismissWithdraw();
       }}
-      tokenName={'xBOMB'}
+      tokenName={'BTCB'}
     />,
   );
 
@@ -92,14 +90,17 @@ const Stake: React.FC = () => {
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
+                 <Typography variant="h5" component="h2">
+              Supply BTCB
+            </Typography>
               <CardIcon>
-                <TokenSymbol symbol="XBOMB" />
+                <TokenSymbol symbol="BTCB" />
               </CardIcon>
 
               <Button
                 className={'shinyButton'}
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('XBOMB');
+                  bombFinance.watchAssetInMetamask('BTCB');
                 }}
                 style={{
                   position: 'static',
@@ -115,8 +116,8 @@ const Stake: React.FC = () => {
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
-              <Label text={'xBOMB Balance'} variant="yellow" />
-              <Label text={`≈ ${xbombToBombEquivalent.toFixed(2)} BOMB / $${tokenPriceInDollars}`} variant="yellow" />
+              <Label text={'BTCB Supplied'} variant="yellow" />
+              <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>
               {approveStatus !== ApprovalState.APPROVED ? (
@@ -126,13 +127,24 @@ const Stake: React.FC = () => {
                   style={{ marginTop: '20px' }}
                   onClick={approve}
                 >
-                  Approve BOMB
+                  Approve BTCB
                 </Button>
               ) : (
-                <>
-                  <IconButton onClick={onPresentWithdraw}>
-                    <RemoveIcon color={'yellow'} />
-                  </IconButton>
+                  <>
+                    {approveStatusW !== ApprovalState.APPROVED ? (
+            
+                      <IconButton onClick={approveW}>
+                        A
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={onPresentWithdraw}>
+                        <RemoveIcon color={'yellow'} />
+                      </IconButton>
+                        
+                          
+                            )}
+                          
+                           
                   <StyledActionSpacer />
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon color={'yellow'} />
@@ -184,4 +196,4 @@ const StyledCardContentInner = styled.div`
   justify-content: space-between;
 `;
 
-export default Stake;
+export default SupplyBtcb;
