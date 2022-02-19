@@ -842,7 +842,7 @@ export class BombFinance {
     const BombRouter = this.contracts.BombRouter;
     const expiry = new Date(Date.now() + 2880);
     return await BombRouter.redeem(
-      this.BBOMB_BOMB.address,
+      this.BBOMB_BTCB.address,
       decimalToBalance(amount),
       this.myAccount,
       expiry.getTime(),
