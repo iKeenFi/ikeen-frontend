@@ -34,6 +34,8 @@ const SupplyBtcb: React.FC = () => {
   const [approveStatus, approve] = useApprove(bombFinance.BTC, bombFinance.contracts.BombRouter.address);
   const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BTCB, bombFinance.contracts.BombRouter.address);
 
+  console.log("bombFinance.BBOMB_BTCB" , bombFinance.BBOMB_BTCB)
+
   const tokenBalance = useTokenBalance(bombFinance.BTC);
   //const stakedBalance = useStakedBomb();
   const stakedBalance = useTokenBalance(bombFinance.BBOMB_BTCB);
@@ -123,7 +125,7 @@ const SupplyBtcb: React.FC = () => {
               {approveStatus !== ApprovalState.APPROVED ? (
                 <Button
                   disabled={approveStatus !== ApprovalState.NOT_APPROVED}
-                  className={approveStatus !== ApprovalState.NOT_APPROVED ? 'shinyButton' : 'shinyButtonDisabled'}
+                  className={approveStatus === ApprovalState.NOT_APPROVED ? 'shinyButton' : 'shinyButtonDisabled'}
                   style={{ marginTop: '20px' }}
                   onClick={approve}
                 >

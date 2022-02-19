@@ -10,6 +10,8 @@ import ERC20 from './ERC20';
 import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
+import IBombBorrowableABI from './IBombBorrowable.abi.json';
+
 import config, { bankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
@@ -34,6 +36,8 @@ export class BombFinance {
   XBOMB: ERC20;
   BNB: ERC20;
   BTC: ERC20;
+  // BBOMB_BOMB: Contract;
+  // BBOMB_BTCB: Contract;
   BBOMB_BOMB: ERC20;
   BBOMB_BTCB: ERC20;
 
@@ -56,7 +60,13 @@ export class BombFinance {
     this.BNB = this.externalTokens['WBNB'];
     this.BTC = this.externalTokens['BTCB'];
     this.XBOMB = new ERC20(deployments.xBOMB.address, provider, 'XBOMB');
+    // this.BBOMB_BOMB = new ERC20(deployments.BombBorrowable.address, provider, 'bBOMB');
+    // this.BBOMB_BTCB = new ERC20(deployments.BtcbBorrowable.address, provider, 'bBOMB');
+
+    // this.BBOMB_BOMB = new Contract(externalTokens['BBOMB-BOMB'][0], IBombBorrowableABI, provider);
+    // this.BBOMB_BTCB = new Contract(externalTokens['BBOMB-BTCB'][0], IBombBorrowableABI, provider);
     this.BBOMB_BOMB = this.externalTokens['BBOMB-BOMB'];
+
     this.BBOMB_BTCB = this.externalTokens['BBOMB-BTCB'];
     // Uniswap V2 Pair
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
