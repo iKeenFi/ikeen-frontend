@@ -70,46 +70,46 @@ const Supply = () => {
       <Helmet>
         <title>{TITLE}</title>
       </Helmet>
-      {!!account ? (
-        <>
-          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Supply Assets
-          </Typography>
-          <Grid container justify="center">
-            <Box mt={3} style={{ width: '600px' }}>
-              <Alert variant="filled" severity="error">
-                <h2>All features are not available yet!</h2>
-                <p>
-                  <b>Test our single asset staking features while we finish building our new web UI!</b>
-                </p>
+      {/* {!!account ? ( */}
+      <>
+        <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+          Supply Assets
+        </Typography>
+        <Grid container justify="center">
+          <Box mt={3} style={{ width: '600px' }}>
+            <Alert variant="filled" severity="error">
+              <h2>All features are not available yet!</h2>
+              <p>
+                <b>Test our single asset staking features while we finish building our new web UI!</b>
+              </p>
 
-              </Alert>
+            </Alert>
 
-            </Box>
-          </Grid>
+          </Box>
+        </Grid>
 
 
 
-          <Box mt={5}>
-            <Grid container justify="center" spacing={3}>
+        <Box mt={5}>
+          <Grid container justify="center" spacing={3}>
 
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BTCB</Typography>
-                    <Typography>{Number(stakedBtcbBalance)} BTCB</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BOMB</Typography>
-                    <Typography>{Number(stakedBombBalance)} BOMB</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              {/* <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Card className={classes.gridItem}>
+                <CardContent align="center">
+                  <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BTCB</Typography>
+                  <Typography>{Number(stakedBtcbBalance)} BTCB</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Card className={classes.gridItem}>
+                <CardContent align="center">
+                  <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BOMB</Typography>
+                  <Typography>{Number(stakedBombBalance)} BOMB</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            {/* <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>
@@ -122,7 +122,7 @@ const Supply = () => {
                   </CardContent>
                 </Card>
               </Grid> */}
-              {/* <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+            {/* <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR</Typography>
@@ -154,37 +154,37 @@ const Supply = () => {
                   </CardContent>
                 </Card>
               </Grid> */}
-            </Grid>
+          </Grid>
 
 
-            <Box mt={4}>
-              <StyledBoardroom>
-                <StyledCardsWrapper>
-                  {/* <StyledCardWrapper>
+          <Box mt={4}>
+            <StyledBoardroom>
+              <StyledCardsWrapper>
+                {/* <StyledCardWrapper>
                     <Harvest />
                   </StyledCardWrapper> */}
-                  {/* <Spacer /> */}
-                  <StyledCardWrapper>
+                {/* <Spacer /> */}
+                <StyledCardWrapper>
 
-                    <SupplyBtcb />
-                  </StyledCardWrapper>
-                  <Spacer />
-                  <StyledCardWrapper>
+                  <SupplyBtcb />
+                </StyledCardWrapper>
+                <Spacer />
+                <StyledCardWrapper>
 
-                    <SupplyBomb />
-                  </StyledCardWrapper>
-                </StyledCardsWrapper>
-              </StyledBoardroom>
-            </Box>
-            <Box mt={4}>
-              <StyledBoardroom>
-                <StyledCardsWrapper>
-                  {/* <StyledCardWrapper>
+                  <SupplyBomb />
+                </StyledCardWrapper>
+              </StyledCardsWrapper>
+            </StyledBoardroom>
+          </Box>
+          <Box mt={4}>
+            <StyledBoardroom>
+              <StyledCardsWrapper>
+                {/* <StyledCardWrapper>
                     <Harvest />
                   </StyledCardWrapper> */}
-                  {/* <Spacer /> */}
-                  <StyledCardWrapper>
-                    {/* <Box>
+                {/* <Spacer /> */}
+                <StyledCardWrapper>
+                  {/* <Box>
                       <Card>
                         <CardContent>
                           <h2>About xBOMB & Rewards</h2>
@@ -196,11 +196,11 @@ const Supply = () => {
                         </CardContent>
                       </Card>
                     </Box> */}
-                  </StyledCardWrapper>
-                </StyledCardsWrapper>
-              </StyledBoardroom>
-            </Box>
-            {/* <Grid container justify="center" spacing={3}>
+                </StyledCardWrapper>
+              </StyledCardsWrapper>
+            </StyledBoardroom>
+          </Box>
+          {/* <Grid container justify="center" spacing={3}>
             <Grid item xs={4}>
               <Card>
                 <CardContent align="center">
@@ -229,8 +229,8 @@ const Supply = () => {
               </Card>
             </Grid>
           </Grid> */}
-          </Box>
-          {/* 
+        </Box>
+        {/* 
           <Box mt={5}>
             <Grid container justify="center" spacing={3} mt={10}>
               <Button
@@ -246,10 +246,10 @@ const Supply = () => {
               </Button>
             </Grid>
           </Box> */}
-        </>
-      ) : (
-        <UnlockWallet />
-      )}
+      </>
+      {/* ) : (
+        <UnlockWallet /> */}
+      {/* )} */}
     </Page>
   );
 };
