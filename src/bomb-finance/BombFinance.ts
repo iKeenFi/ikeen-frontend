@@ -36,8 +36,8 @@ export class BombFinance {
   XBOMB: ERC20;
   BNB: ERC20;
   BTC: ERC20;
-  // BBOMB_BOMB: Contract;
-  // BBOMB_BTCB: Contract;
+  BOMB_BORROWABLE: Contract;
+  BTCB_BORROWABLE: Contract;
   BBOMB_BOMB: ERC20;
   BBOMB_BTCB: ERC20;
 
@@ -65,10 +65,14 @@ export class BombFinance {
 
     // this.BBOMB_BOMB = new Contract(externalTokens['BBOMB-BOMB'][0], IBombBorrowableABI, provider);
     // this.BBOMB_BTCB = new Contract(externalTokens['BBOMB-BTCB'][0], IBombBorrowableABI, provider);
-    this.BBOMB_BOMB = this.externalTokens['BBOMB-BOMB'];
+    this.BBOMB_BOMB = new ERC20(deployments.BombBorrowable.address, provider, 'BBOMB-BOMB');
 
-    this.BBOMB_BTCB = this.externalTokens['BBOMB-BTCB'];
+    this.BBOMB_BTCB = new ERC20(deployments.BtcbBorrowable.address, provider, 'BBOMB-BTCB');
+    this.BOMB_BORROWABLE = new Contract(externalTokens['BBOMB-BOMB'][0], IBombBorrowableABI, provider);
+    this.BTCB_BORROWABLE = new Contract(externalTokens['BBOMB-BTCB'][0], IBombBorrowableABI, provider);
+
     // Uniswap V2 Pair
+
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
@@ -888,6 +892,24 @@ export class BombFinance {
     const Xbomb = this.contracts.xBOMB;
     const bomb = this.BOMB;
     return await bomb.balanceOf(Xbomb.address);
+  }
+
+  async getTotalSuppliedBomb(): Promise<BigNumber> {
+    const bbombBomb = this.BOMB_BORROWABLE;
+    // const bomb = this.BOMB;
+    const totalBomb = await bbombBomb.totalBalance();
+    //  const borrowBomb = await bbombBomb.totalBorrows();
+    // const totalSupplied = totalBomb + borrowBomb;
+    return totalBomb;
+  }
+
+  async getTotalSuppliedBtcb(): Promise<BigNumber> {
+    const bbombBomb = this.BTCB_BORROWABLE;
+    // const bomb = this.BOMB;
+    const totalBtcb = await bbombBomb.totalBalance();
+    //const borrowBtcb = await bbombBomb.totalBorrows();
+    //  const totalSupplied = totalBtcb + borrowBtcb;
+    return totalBtcb;
   }
 
   async getXbombExchange(): Promise<BigNumber> {

@@ -116,7 +116,7 @@ const SupplyBomb: React.FC = () => {
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
-              <Label text={'BOMB Supplied'} variant="yellow" />
+              <Label text={'bBOMB (BOMB)'} variant="yellow" />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>

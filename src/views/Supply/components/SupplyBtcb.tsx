@@ -27,14 +27,14 @@ import TokenSymbol from '../../../components/TokenSymbol';
 import useSupplyToBtcb from '../../../hooks/useSupplyToBtcb';
 import useRedeemFromBtcb from '../../../hooks/useRedeemFromBtcb';
 
+
+
 const SupplyBtcb: React.FC = () => {
   const bombFinance = useBombFinance();
   const btcStats = useBtcStats();
 
   const [approveStatus, approve] = useApprove(bombFinance.BTC, bombFinance.contracts.BombRouter.address);
   const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BTCB, bombFinance.contracts.BombRouter.address);
-
-  console.log("bombFinance.BBOMB_BTCB" , bombFinance.BBOMB_BTCB)
 
   const tokenBalance = useTokenBalance(bombFinance.BTC);
   //const stakedBalance = useStakedBomb();
@@ -118,7 +118,7 @@ const SupplyBtcb: React.FC = () => {
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
               <Value value={getDisplayBalance(stakedBalance)} />
-              <Label text={'BTCB Supplied'} variant="yellow" />
+              <Label text={'bBOMB (BTCB)'} variant="yellow" />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>
