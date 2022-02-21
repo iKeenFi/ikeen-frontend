@@ -2,7 +2,6 @@
   "name": "bomb-frontend",
   "version": "2.0.0",
   "repository": "https://github.com/bombmoney/bomb-frontend.git",
-  "private": false,
   "author": "Aaron <aaron@1coin.io>",
   "license": "MIT",
   "dependencies": {
@@ -76,5 +75,6 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
     "prettier": "2.3.1"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }

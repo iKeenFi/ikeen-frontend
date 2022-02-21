@@ -169,7 +169,7 @@ const Staking = () => {
                       <Card>
                         <CardContent>
                           <h2>About xBOMB & Rewards</h2>
-                          <p><strong>We are currently depositing 10,000 BOMB per week into the staking pool until our BTC Single Staking service is launched.</strong></p>
+                          {/* <p><strong>We are currently depositing 10,000 BOMB per week into the staking pool until our BTC Single Staking service is launched.</strong></p> */}
                           <p>xBOMB will be the governance token required to cast votes on protocol decisions.</p>
                           <p>20% of all BOMB minted will be deposited into the xBOMB smart contract, increasing the amount of BOMB that can be redeemed for each xBOMB. Rewards will be deposited at random times to prevent abuse.</p>
                           <p>Functionality will be developed around xBOMB including using it as collateral to borrow other assets.</p>

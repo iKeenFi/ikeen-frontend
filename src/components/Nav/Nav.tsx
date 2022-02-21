@@ -140,6 +140,11 @@ const Nav = () => {
                 Bond
               </Link>
 
+
+              
+ 
+              
+
               {/* <Link color="textPrimary" to="/sbs" className={classes.link}>
                 SBS
               </Link>
@@ -149,21 +154,46 @@ const Nav = () => {
               <Link color="textPrimary" to="/regulations" className={classes.link}>
                 Regulations
               </Link> */}
+                      <a
+                href="https://bombbtc.com"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+              //  target="_blank"
+              >
+                BTC Staking
+              </a>
+    
               <a
+                href="https://bomb.farm"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+              //  target="_blank"
+              >
+                Vaults
+              </a>
+                          <a
+                href="https://shop.bomb.money"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Merch
+              </a>
+                               <a
+                href="https://vote.bomb.money"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Vote
+              </a>
+                        <a
                 href="https://docs.bomb.money"
                 className={'navLink ' + classes.link}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 Docs
-              </a>
-              <a
-                href="https://bomb.farm"
-                className={'navLink ' + classes.link}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                AutoVaults
               </a>
             </Box>
 
@@ -240,10 +270,19 @@ const Nav = () => {
                 {/* <ListItemLink primary="Liquidity" to="/liquidity" /> */}
                 {/* <ListItemLink primary="Regulations" to="/regulations" /> */}
                 <ListItem button component="a" href="https://docs.bomb.money">
-                  <ListItemText>Docs</ListItemText>
+                  <ListItemText>Documentation</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://bomb.farm">
-                  <ListItemText>AutoVaults</ListItemText>
+                  <ListItemText>Vaults</ListItemText>
+                  </ListItem>
+                  <ListItem button component="a" href="https://shop.bomb.money">
+                  <ListItemText>Merch</ListItemText>
+                  </ListItem>
+                     <ListItem button component="a" href="https://vote.bomb.money">
+                  <ListItemText>Vote</ListItemText>
+                  </ListItem>
+                <ListItem button component="a" href="https://bombbtc.com">
+                  <ListItemText>BTC Staking</ListItemText>
                 </ListItem>
               </List>
             </Drawer>
