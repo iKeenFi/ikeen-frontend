@@ -39,9 +39,14 @@ const Bank: React.FC = () => {
   const statsOnPool = useStatsForPool(bank);
 
   let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB')) {
+  if (bank.depositTokenName.includes('BOMB-BTCB')) {
     vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  } else {
+  }
+  
+   else if (bank.depositTokenName.includes('BOMB-BSHARE')) {
+    vaultUrl = 'https://www.bomb.farm/#/bsc/';
+  }
+  else {
     vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-wbnb';
 
   }
@@ -50,7 +55,7 @@ const Bank: React.FC = () => {
     <>
       <PageHeader
         icon="💣"
-        subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
+   //     subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
         title={bank?.name}
       />
          <Box mt={5}>
@@ -129,11 +134,17 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   let pairName: string;
   let uniswapUrl: string;
  // let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB')) {
+  if (bank.depositTokenName.includes('BOMB-BTCB')) {
     pairName = 'BOMB-BTCB pair';
     uniswapUrl = 'https://pancakeswap.finance/add/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/' + bombAddr;
  //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  } else {
+  }
+  else if (bank.depositTokenName.includes('BOMB-BSHARE')) {
+    pairName = 'BOMB-BSHARE pair';
+    uniswapUrl = 'https://pancakeswap.finance/add/' + bombAddr + '/' + bshareAddr;
+ //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
+  }
+  else {
     pairName = 'BSHARE-BNB pair';
     uniswapUrl = 'https://pancakeswap.finance/add/BNB/' + bshareAddr;
  //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-bnb';

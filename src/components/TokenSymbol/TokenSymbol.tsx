@@ -36,6 +36,9 @@ const logosBySymbol: {[title: string]: string} = {
   SVL: bnbLogo,
   'BOMB-BNB-LP': bombFtmLpLogo,
   'BOMB-BTCB-LP': bombFtmLpLogo,
+  'BSHARE-BOMB-LP': bombFtmLpLogo,
+    'BOMB-BSHARE-LP': bombFtmLpLogo,
+
   'BSHARE-BNB-LP': bshareFtmLpLogo,
   'BSHARE-BNB-APELP': bshareFtmLpLogo,
   'BOMB-BTCB-APELP': bombFtmLpLogo,

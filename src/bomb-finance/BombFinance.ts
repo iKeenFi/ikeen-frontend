@@ -149,10 +149,13 @@ export class BombFinance {
    * @returns
    */
   async getLPStat(name: string): Promise<LPStat> {
+    console.log('NAME', name);
+
     const lpToken = this.externalTokens[name];
     const lpTokenSupplyBN = await lpToken.totalSupply();
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
     const token0 = name.startsWith('BOMB') ? this.BOMB : this.BSHARE;
+    console.log('NAME', name);
     const isBomb = name.startsWith('BOMB');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
@@ -395,10 +398,12 @@ export class BombFinance {
       return await poolContract.epochBombPerSecond(0);
     }
     const rewardPerSecond = await poolContract.tSharePerSecond();
-    if (depositTokenName.startsWith('BOMB')) {
-      return rewardPerSecond.mul(44625).div(59500);
+    if (depositTokenName.startsWith('BOMB-BTCB')) {
+      return rewardPerSecond.mul(41650).div(59500);
+    } else if (depositTokenName.startsWith('BOMB-BSHARE')) {
+      return rewardPerSecond.mul(5950).div(59500);
     } else {
-      return rewardPerSecond.mul(14875).div(59500);
+      return rewardPerSecond.mul(11900).div(59500);
     }
   }
 
@@ -420,6 +425,8 @@ export class BombFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.BOMB, true);
       } else if (tokenName === 'BSHARE-BNB-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BSHARE, false);
+      } else if (tokenName === 'BOMB-BSHARE-LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.BOMB, true);
       } else if (tokenName === 'BSHARE-BNB-APELP') {
         tokenPrice = await this.getApeLPTokenPrice(token, this.BSHARE, false);
       } else if (tokenName === 'BOMB-BTCB-APELP') {
