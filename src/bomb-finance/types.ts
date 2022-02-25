@@ -41,6 +41,15 @@ export type LPStat = {
   totalSupply: string;
 };
 
+// export type BorrowableStats = {
+//   totalSupply: string;
+//   totalBalance: string;
+//   totalBorrows: string;
+//   exchangeRate: string;
+//   kinkBorrowRate: string;
+//   borrowRate: string;
+// };
+
 export type AllocationTime = {
   from: Date;
   to: Date;

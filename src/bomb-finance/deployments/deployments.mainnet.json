@@ -1,6 +1,6 @@
 {
   "BtcbBorrowable": {
-    "address": "0x7F2ec302758587173099B6F24256B29D1B7Dade8",
+    "address": "0x23EFC2ff90e3423c3F84352b21b49FBcD4C3E32D",
     "abi": [
       {
         "inputs": [],
@@ -1456,7 +1456,7 @@
     ]
   },
   "BombBorrowable": {
-    "address": "0x153539Eb76013cf7fF99cd56540Dd39F1675f435",
+    "address": "0xcB72214d09a1804E4eecA9C3F3bB6ca49460237b",
     "abi": [
       {
         "inputs": [],
