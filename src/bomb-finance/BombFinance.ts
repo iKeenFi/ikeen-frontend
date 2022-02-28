@@ -40,6 +40,8 @@ export class BombFinance {
   BTCB_BORROWABLE: Contract;
   BBOMB_BOMB: ERC20;
   BBOMB_BTCB: ERC20;
+  BBOMBBOMB: ERC20;
+  BBOMBBTCB: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -65,9 +67,11 @@ export class BombFinance {
 
     // this.BBOMB_BOMB = new Contract(externalTokens['BBOMB-BOMB'][0], IBombBorrowableABI, provider);
     // this.BBOMB_BTCB = new Contract(externalTokens['BBOMB-BTCB'][0], IBombBorrowableABI, provider);
-    this.BBOMB_BOMB = new ERC20(deployments.BombBorrowable.address, provider, 'BBOMB-BOMB');
+    this.BBOMB_BOMB = new ERC20(deployments.BombBorrowable.address, provider, 'bBOMB');
+    this.BBOMBBOMB = this.externalTokens['BBOMB-BOMB'];
+    this.BBOMBBTCB = this.externalTokens['BBOMB-BTCB'];
 
-    this.BBOMB_BTCB = new ERC20(deployments.BtcbBorrowable.address, provider, 'BBOMB-BTCB');
+    this.BBOMB_BTCB = new ERC20(deployments.BtcbBorrowable.address, provider, 'bBOMB');
     this.BOMB_BORROWABLE = new Contract(externalTokens['BBOMB-BOMB'][0], IBombBorrowableABI, provider);
     this.BTCB_BORROWABLE = new Contract(externalTokens['BBOMB-BTCB'][0], IBombBorrowableABI, provider);
 

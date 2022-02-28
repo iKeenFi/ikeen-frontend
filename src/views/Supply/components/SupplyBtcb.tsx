@@ -34,7 +34,7 @@ const SupplyBtcb: React.FC = () => {
   const btcStats = useBtcStats();
 
   const [approveStatus, approve] = useApprove(bombFinance.BTC, bombFinance.contracts.BombRouter.address);
-  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BTCB, bombFinance.contracts.BombRouter.address);
+  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMBBTCB, bombFinance.contracts.BombRouter.address);
 
   const tokenBalance = useTokenBalance(bombFinance.BTC);
   //const stakedBalance = useStakedBomb();

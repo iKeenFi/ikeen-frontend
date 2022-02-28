@@ -33,7 +33,7 @@ const SupplyBomb: React.FC = () => {
   const bombStats = useBombStats();
 
   const [approveStatus, approve] = useApprove(bombFinance.BOMB, bombFinance.contracts.BombRouter.address);
-  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMB_BOMB, bombFinance.contracts.BombRouter.address);
+  const [approveStatusW, approveW] = useApprove(bombFinance.BBOMBBOMB, bombFinance.contracts.BombRouter.address);
 
   const tokenBalance = useTokenBalance(bombFinance.BOMB);
   //const stakedBalance = useStakedBomb();
