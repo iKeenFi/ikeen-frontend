@@ -96,7 +96,7 @@ const Supply = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BTCB</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BTCB AVAILABLE</Typography>
                     <Typography>{Number(stakedBtcbBalance)} BTCB</Typography>
                   </CardContent>
                 </Card>
@@ -104,7 +104,7 @@ const Supply = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TOTAL BOMB</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BOMB AVAILABLE</Typography>
                     <Typography>{Number(stakedBombBalance)} BOMB</Typography>
                   </CardContent>
                 </Card>
