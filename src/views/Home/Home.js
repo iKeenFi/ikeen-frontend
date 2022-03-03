@@ -185,13 +185,13 @@ const Home = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
             <Alert variant="filled" severity="info">
-              <h2>BOMB BTC MAINNET STAKING!</h2>
-              <h4>
-                Stake Bitcoin from BTC Mainnet!{' '}
-                <Button href="https://bombbtc.com" className="shinyButton" style={{ margin: '10px' }}>
-                  BOMBBTC.COM
-                </Button>
-              </h4>
+              <h2>xBOMB Promo + Regain PEG!</h2>
+
+              <b>Read about the promotion and game plan!</b>{' '}
+              <Button href="https://bombbshare.medium.com/operation-regain-peg-xbomb-promo-b8d59dc6e105" target={"_blank"} className="shinyButton" style={{ margin: '10px' }}>
+                READ ARTICLE
+              </Button>
+
             </Alert>
           </Grid>
         </Grid>
