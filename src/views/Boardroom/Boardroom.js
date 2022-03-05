@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
 
-//import { Alert } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
@@ -122,16 +122,17 @@ const Boardroom = () => {
               </Grid>
             </Grid>
 
-            {/* <Grid container justify="center">
+            <Grid container justify="center">
               <Box mt={3} style={{ width: '600px' }}>
-                <Alert variant="filled" severity="warning">
-                  <b> Boardroom smart contract has been updated! </b><br />
-                  If you have BSHARE in the previous Boardroom, visit here to retrieve it:<br />
-                  <a href="https://61aadb35c5a5c50007c2a61b--bomb-money.netlify.app/boardroom">https://61aadb35c5a5c50007c2a61b--bomb-money.netlify.app/boardroom</a><br /><br />
+                <Alert variant="filled" severity="info">
+                  <h2> Let's Maintain PEG Together! </h2>
+                  <a href="https://app.bomb.money/xbomb">xBOMB</a> is a great place to put your BOMB rewards
+                  , 20% of all minted BOMB goes directly to xBOMB stakers.<br /><br />
+                  Please consider putting your earned BOMB into xBOMB, especially when we are not over 1.1 peg.
                 </Alert>
 
               </Box>
-            </Grid> */}
+            </Grid>
 
             <Box mt={4}>
               <StyledBoardroom>
@@ -197,7 +198,7 @@ const Boardroom = () => {
       ) : (
         <UnlockWallet />
       )}
-    </Page>
+    </Page >
   );
 };
 

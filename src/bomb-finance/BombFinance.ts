@@ -801,7 +801,7 @@ export class BombFinance {
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(BOMBPrice) * 4;
     const xBombBombBalanceOf = await this.BOMB.balanceOf(this.XBOMB.address);
     const bombTVL = Number(getDisplayBalance(xBombBombBalanceOf, this.XBOMB.decimal)) * Number(BOMBPrice);
-    const realAPR = ((amountOfRewardsPerDay * 20) / bombTVL) * 365;
+    const realAPR = ((amountOfRewardsPerDay * 100 * 0.2) / bombTVL) * 365;
     return realAPR;
   }
 
