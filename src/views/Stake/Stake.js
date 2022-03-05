@@ -46,10 +46,10 @@ const Staking = () => {
   const xbombBalance = useXbombBalance();
   const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
   const xbombAPR = useXbombAPR();
-  console.log("xbombAPR", xbombAPR)
+  // console.log("xbombAPR", xbombAPR)
   //const xbombTVL = xbombAPR.TVL;
   const xbombPrintApr = useFetchBombAPR();
-  console.log("xbombPrintApr", xbombPrintApr)
+  // console.log("xbombPrintApr", xbombPrintApr)
 
   const xbombPrintAprNice = useMemo(() => (xbombPrintApr ? Number(xbombPrintApr).toFixed(2) : null), [xbombPrintApr]);
 
