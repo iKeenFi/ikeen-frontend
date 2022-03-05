@@ -405,9 +405,9 @@ export class BombFinance {
     if (depositTokenName.startsWith('BOMB-BTCB')) {
       return rewardPerSecond.mul(41650).div(59500);
     } else if (depositTokenName.startsWith('BOMB-BSHARE')) {
-      return rewardPerSecond.mul(5950).div(59500);
+      return rewardPerSecond.mul(0).div(59500);
     } else {
-      return rewardPerSecond.mul(11900).div(59500);
+      return rewardPerSecond.mul(17850).div(59500);
     }
   }
 
