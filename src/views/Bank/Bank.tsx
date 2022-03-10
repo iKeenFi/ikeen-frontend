@@ -46,7 +46,8 @@ const Bank: React.FC = () => {
    else if (bank.depositTokenName.includes('BOMB-BSHARE')) {
     vaultUrl = 'https://www.bomb.farm/#/bsc/';
   }
-  else {
+     else if (bank.depositTokenName.includes('BSHARE-BNB')) {
+
     vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-wbnb';
 
   }
@@ -59,7 +60,9 @@ const Bank: React.FC = () => {
         title={bank?.name}
       />
          <Box mt={5}>
-                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
+
+          {(vaultUrl) ? (
+                          <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
 
         <Alert variant="filled" severity="info">
             <h3>Our autocompounding vaults are live!</h3><br />
@@ -67,8 +70,9 @@ const Bank: React.FC = () => {
             Check it out here: <a href={vaultUrl}>{vaultUrl}</a>
 
 
-        </Alert></Grid>
-        </Box>
+            </Alert> </Grid> 
+          ) : ""};
+      </Box>
       <Box>
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>

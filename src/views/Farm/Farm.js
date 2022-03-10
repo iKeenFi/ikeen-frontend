@@ -44,9 +44,9 @@ const Farm = () => {
           </Helmet>
           {!!account ? (
             <Container maxWidth="lg">
-              {/* <Typography color="textYellow" align="center" variant="h3" gutterBottom>
-                Farm
-              </Typography> */}
+              <Typography color="textYellow" align="center" variant="h3" gutterBottom>
+                BSHARE Reward Farms
+              </Typography>
 
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
@@ -72,12 +72,15 @@ const Farm = () => {
                 </div>
 
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
-                  <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
+                  {/* <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
                     Inactive ApeSwap Farms
+                  </Typography> */}
+                  <Typography color="textYellow" align="center" variant="h4" gutterBottom style={{ marginTop: '40px' }}>
+                    Earn BSHARE by staking BOMB
                   </Typography>
-                  <Alert variant="filled" severity="warning">
+                  {/* <Alert variant="filled" severity="warning">
                     Please remove funds from all farms which are not active.
-                  </Alert>
+                  </Alert> */}
                   <Grid container spacing={3} style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 1)

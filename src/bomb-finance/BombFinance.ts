@@ -153,13 +153,14 @@ export class BombFinance {
    * @returns
    */
   async getLPStat(name: string): Promise<LPStat> {
-    console.log('NAME', name);
+    // console.log('NAME', name);
 
     const lpToken = this.externalTokens[name];
     const lpTokenSupplyBN = await lpToken.totalSupply();
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
     const token0 = name.startsWith('BOMB') ? this.BOMB : this.BSHARE;
-    //console.log('NAME', name);
+    // console.log('NAME', name);
+
     const isBomb = name.startsWith('BOMB');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
@@ -403,12 +404,23 @@ export class BombFinance {
     }
     const rewardPerSecond = await poolContract.tSharePerSecond();
     if (depositTokenName.startsWith('BOMB-BTCB')) {
-      return rewardPerSecond.mul(41650).div(59500);
+      return rewardPerSecond.mul(25000).div(10000);
     } else if (depositTokenName.startsWith('BOMB-BSHARE')) {
-      return rewardPerSecond.mul(0).div(59500);
+      return rewardPerSecond.mul(0).div(119000);
+    } else if (depositTokenName.startsWith('BOMB')) {
+      return rewardPerSecond.mul(50000).div(10000);
     } else {
-      return rewardPerSecond.mul(17850).div(59500);
+      return rewardPerSecond.mul(25000).div(10000);
     }
+    // if (depositTokenName.startsWith('BOMB-BTCB')) {
+    //   return rewardPerSecond.mul(41650).div(10000);
+    // } else if (depositTokenName.startsWith('BOMB-BSHARE')) {
+    //   return rewardPerSecond.mul(0).div(119000);
+    // } else if (depositTokenName.startsWith('BOMB')) {
+    //   return rewardPerSecond.mul(59500).div(10000);
+    // } else {
+    //   return rewardPerSecond.mul(17850).div(10000);
+    // }
   }
 
   /**
