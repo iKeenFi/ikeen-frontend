@@ -60,21 +60,9 @@ const App: React.FC = () => {
             <Route path="/bond">
               <Bond />
             </Route>
-            <Route path="/xbomb">
-              <Xbomb />
-            </Route>
             <Route path="/supply">
               <Supply />
             </Route>
-            {/* <Route path="/sbs">
-              <SBS />
-            </Route> */}
-            {/* <Route path="/regulations">
-              <Regulations />
-            </Route> */}
-            {/* <Route path="/liquidity">
-              <Liquidity />
-            </Route> */}
             <Route path="*">
               <NoMatch />
             </Route>
