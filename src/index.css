@@ -178,13 +178,13 @@ code {
 }
 
 .bomb {
-  background-image: url('/bomb1.png');
+  background-image: url('./assets/img/bomb1.png');
 }
 
 .bshare {
-  background-image: url('/bomb2.png');
+  background-image: url('./assets/img/bomb2.png');
 }
 
 .btc {
-  background-image: url('/bomb3.png');
+  background-image: url('./assets/img/bomb3.png');
 }

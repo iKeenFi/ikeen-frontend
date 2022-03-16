@@ -166,18 +166,6 @@ const Home = () => {
                 {/* Stake your BOMB-BTC LP in the Farm to earn BSHARE rewards. Then stake your earned BSHARE in the
                 Boardroom to earn more BOMB! */}
               </p>
-              <p>
-                <IconTelegram alt="telegram" style={{ fill: '#dddfee', height: '15px' }} /> Join our{' '}
-                <a
-                  href="https://t.me/bombmoneybsc"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{ color: '#dddfee' }}
-                >
-                  Telegram
-                </a>{' '}
-                to find out more!
-              </p>
             </Box>
           </Paper>
         </Grid>
@@ -186,12 +174,15 @@ const Home = () => {
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
             <Alert variant="filled" severity="info">
               <h2>xBOMB Promo + Regain PEG!</h2>
-
               <b>Read about the promotion and game plan!</b>{' '}
-              <Button href="https://bombbshare.medium.com/operation-regain-peg-xbomb-promo-b8d59dc6e105" target={"_blank"} className="shinyButton" style={{ margin: '10px' }}>
+              <Button
+                href="https://bombbshare.medium.com/operation-regain-peg-xbomb-promo-b8d59dc6e105"
+                target={'_blank'}
+                className="shinyButton"
+                style={{ margin: '10px' }}
+              >
                 READ ARTICLE
               </Button>
-
             </Alert>
           </Grid>
         </Grid>
@@ -214,24 +205,26 @@ const Home = () => {
               <Button href="https://bomb.farm/" className="shinyButtonGreen" style={{ margin: '5px' }}>
                 Autovaults
               </Button>
-              <Button
-                href={buyBombAddress}
-                style={{ margin: '5px' }}
-                className={'shinyButton ' + classes.button}
-              >
+              <Button href={buyBombAddress} style={{ margin: '5px' }} className={'shinyButton ' + classes.button}>
                 Buy BOMB
               </Button>
-              <Button
-                href={buyBShareAddress}
-                className={'shinyButton ' + classes.button}
-                style={{ margin: '5px' }}
-              >
+              <Button href={buyBShareAddress} className={'shinyButton ' + classes.button} style={{ margin: '5px' }}>
                 Buy BSHARE
               </Button>
-              <Button target="_blank" href="https://dexscreener.com/bsc/0x84392649eb0bc1c1532f2180e58bae4e1dabd8d6" className="shinyButton" style={{ margin: '5px' }}>
+              <Button
+                target="_blank"
+                href="https://dexscreener.com/bsc/0x84392649eb0bc1c1532f2180e58bae4e1dabd8d6"
+                className="shinyButton"
+                style={{ margin: '5px' }}
+              >
                 BOMB Chart
               </Button>
-              <Button target="_blank" href="https://dexscreener.com/bsc/0x1303246855b5b5ebc71f049fdb607494e97218f8" className="shinyButton" style={{ margin: '5px' }}>
+              <Button
+                target="_blank"
+                href="https://dexscreener.com/bsc/0x1303246855b5b5ebc71f049fdb607494e97218f8"
+                className="shinyButton"
+                style={{ margin: '5px' }}
+              >
                 BSHARE Chart
               </Button>
             </CardContent>
@@ -260,7 +253,9 @@ const Home = () => {
               <h2 style={{ marginBottom: '10px' }}>BOMB</h2>
               10,000 BOMB (1.0 Peg) =
               <Box>
-                <span style={{ fontSize: '30px', color: 'white' }}>{bombPriceInBNB ? bombPriceInBNB : '-.----'} BTC</span>
+                <span style={{ fontSize: '30px', color: 'white' }}>
+                  {bombPriceInBNB ? bombPriceInBNB : '-.----'} BTC
+                </span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
@@ -303,7 +298,9 @@ const Home = () => {
                 </span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${bSharePriceInDollars ? bSharePriceInDollars : '-.--'} / BSHARE</span>
+                <span style={{ fontSize: '16px' }}>
+                  ${bSharePriceInDollars ? bSharePriceInDollars : '-.--'} / BSHARE
+                </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
                 Market Cap: ${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars).toFixed(2), 2)}{' '}
