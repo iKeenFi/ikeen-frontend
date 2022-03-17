@@ -90,8 +90,8 @@ code {
   border-radius: 15px;
   font-size: 1rem !important;
   padding-left: 5px;
-  color: #aa49f9 !important;
-  box-shadow: 0px 0px 5px 0px rgba(251, 221, 76, 1);
+  color: rgb(170, 73, 249) !important;
+  box-shadow: 0px 0px 5px 0px rgb(170, 73, 249) !important;
 }
 
 .shinyButtonGreen {
@@ -114,7 +114,7 @@ code {
 }
 
 .shinyButton:hover {
-  background-color: #f9d749 !important;
+  background-color: rgb(170, 73, 249) !important;
   color: #171923 !important;
 }
 
@@ -130,7 +130,7 @@ code {
   border-radius: 15px;
   font-size: 1rem !important;
   padding-left: 5px;
-  background-color: #f9d749 !important;
+  background-color: rgb(193, 73, 249) !important;
   color: #171923 !important;
   /* box-shadow: 0px 0px 5px 0px rgba(251,221,76,1); */
 }
@@ -153,19 +153,19 @@ code {
 }
 
 .shinyButtonSecondary:hover {
-  background-color: #f9d749 !important;
+  background-color: rgb(234, 73, 249) !important;
   color: #171923 !important;
-  box-shadow: 0px 0px 5px 0px rgba(251, 221, 76, 1);
+  box-shadow: 0px 0px 5px 0px rgb(234, 73, 249) !important;
 }
 
-.bomb {
-  background-image: url('./assets/img/bomb1.png');
+.keen {
+  background-image: url('./assets/img/keen1.png');
 }
 
-.bshare {
-  background-image: url('./assets/img/bomb2.png');
+.iskeen {
+  background-image: url('./assets/img/keen2.png');
 }
 
-.btc {
-  background-image: url('./assets/img/bomb3.png');
+.avax {
+  background-image: url('./assets/img/keen3.png');
 }

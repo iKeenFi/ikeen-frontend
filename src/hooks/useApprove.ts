@@ -1,8 +1,8 @@
-import {BigNumber, ethers} from 'ethers';
-import {useCallback, useMemo} from 'react';
-import {useHasPendingApproval, useTransactionAdder} from '../state/transactions/hooks';
+import { BigNumber, ethers } from 'ethers';
+import { useCallback, useMemo } from 'react';
+import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
-import ERC20 from '../bomb-finance/ERC20';
+import ERC20 from '../keen-finance/ERC20';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
 const APPROVE_BASE_AMOUNT = BigNumber.from('1000000000000000000000000');

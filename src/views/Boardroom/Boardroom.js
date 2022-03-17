@@ -27,7 +27,7 @@ import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
 import useWithdrawCheck from '../../hooks/boardroom/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import { createGlobalStyle } from 'styled-components';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
 
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
@@ -37,7 +37,7 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
-const TITLE = 'bomb.money | Boardroom'
+const TITLE = 'keen.money | Boardroom';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -95,11 +95,11 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>
-                      BOMB PEG <small>(TWAP)</small>
+                      KEEN PEG <small>(TWAP)</small>
                     </Typography>
-                    <Typography>{scalingFactor} BTC</Typography>
+                    <Typography>{scalingFactor} AVAX</Typography>
                     <Typography>
-                      <small>per 10,000 BOMB</small>
+                      <small>per 10,000 KEEN</small>
                     </Typography>
                   </CardContent>
                 </Card>
@@ -115,7 +115,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BSHARES Staked</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>iSKEENS Staked</Typography>
                     <Typography>{getDisplayBalance(totalStaked)}</Typography>
                   </CardContent>
                 </Card>
@@ -126,11 +126,12 @@ const Boardroom = () => {
               <Box mt={3} style={{ width: '600px' }}>
                 <Alert variant="filled" severity="info">
                   <h2> Let's Maintain PEG Together! </h2>
-                  <a href="https://app.bomb.money/xbomb">xBOMB</a> is a great place to put your BOMB rewards
-                  , 20% of all minted BOMB goes directly to xBOMB stakers.<br /><br />
-                  Please consider putting your earned BOMB into xBOMB, especially when we are not over 1.1 peg.
+                  <a href="https://app.keen.money/xkeen">xKEEN</a> is a great place to put your KEEN rewards , 20% of
+                  all minted KEEN goes directly to xKEEN stakers.
+                  <br />
+                  <br />
+                  Please consider putting your earned KEEN into xKEEN, especially when we are not over 1.1 peg.
                 </Alert>
-
               </Box>
             </Grid>
 
@@ -198,7 +199,7 @@ const Boardroom = () => {
       ) : (
         <UnlockWallet />
       )}
-    </Page >
+    </Page>
   );
 };
 

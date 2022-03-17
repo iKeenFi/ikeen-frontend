@@ -1,26 +1,26 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Context from './context';
-import useBombFinance from '../../hooks/useBombFinance';
-import {Bank} from '../../bomb-finance';
-import config, {bankDefinitions} from '../../config';
+import useKeenFinance from '../../hooks/useKeenFinance';
+import { Bank } from '../../keen-finance';
+import config, { bankDefinitions } from '../../config';
 
-const Banks: React.FC = ({children}) => {
+const Banks: React.FC = ({ children }) => {
   const [banks, setBanks] = useState<Bank[]>([]);
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const keenFinance = useKeenFinance();
+  const isUnlocked = keenFinance?.isUnlocked;
 
   const fetchPools = useCallback(async () => {
     const banks: Bank[] = [];
 
     for (const bankInfo of Object.values(bankDefinitions)) {
       if (bankInfo.finished) {
-        if (!bombFinance.isUnlocked) continue;
+        if (!keenFinance.isUnlocked) continue;
 
         // only show pools staked by user
-        const balance = await bombFinance.stakedBalanceOnBank(
+        const balance = await keenFinance.stakedBalanceOnBank(
           bankInfo.contract,
           bankInfo.poolId,
-          bombFinance.myAccount,
+          keenFinance.myAccount,
         );
         if (balance.lte(0)) {
           continue;
@@ -29,21 +29,21 @@ const Banks: React.FC = ({children}) => {
       banks.push({
         ...bankInfo,
         address: config.deployments[bankInfo.contract].address,
-        depositToken: bombFinance.externalTokens[bankInfo.depositTokenName],
-        earnToken: bankInfo.earnTokenName === 'BOMB' ? bombFinance.BOMB : bombFinance.BSHARE,
+        depositToken: keenFinance.externalTokens[bankInfo.depositTokenName],
+        earnToken: bankInfo.earnTokenName === 'KEEN' ? keenFinance.KEEN : keenFinance.iSKEEN,
       });
     }
     banks.sort((a, b) => (a.sort > b.sort ? 1 : -1));
     setBanks(banks);
-  }, [bombFinance, setBanks]);
+  }, [keenFinance, setBanks]);
 
   useEffect(() => {
-    if (bombFinance) {
+    if (keenFinance) {
       fetchPools().catch((err) => console.error(`Failed to fetch pools: ${err.stack}`));
     }
-  }, [isUnlocked, bombFinance, fetchPools]);
+  }, [isUnlocked, keenFinance, fetchPools]);
 
-  return <Context.Provider value={{banks}}>{children}</Context.Provider>;
+  return <Context.Provider value={{ banks }}>{children}</Context.Provider>;
 };
 
 export default Banks;

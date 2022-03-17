@@ -1,5 +1,5 @@
-import {createContext} from 'react';
-import {Bank} from '../../bomb-finance';
+import { createContext } from 'react';
+import { Bank } from '../../keen-finance';
 
 export interface BanksContext {
   banks: Bank[];

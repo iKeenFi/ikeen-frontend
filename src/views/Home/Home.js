@@ -4,16 +4,16 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useBombStats from '../../hooks/useBombStats';
+import useKeenStats from '../../hooks/useKeenStats';
 import useLpStats from '../../hooks/useLpStats';
-import useLpStatsBTC from '../../hooks/useLpStatsBTC';
+import useLpStatsAVAX from '../../hooks/useLpStatsAVAX';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
-import usebShareStats from '../../hooks/usebShareStats';
+import useiSkeenStats from '../../hooks/useiSkeenStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { Bomb as bombTesting } from '../../bomb-finance/deployments/deployments.testing.json';
-import { Bomb as bombProd } from '../../bomb-finance/deployments/deployments.mainnet.json';
+import { Keen as keenTesting } from '../../keen-finance/deployments/deployments.testing.json';
+import { Keen as keenProd } from '../../keen-finance/deployments/deployments.mainnet.json';
 import { roundAndFormatNumber } from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
@@ -21,10 +21,10 @@ import ZapModal from '../Bank/components/ZapModal';
 import { Alert } from '@material-ui/lab';
 
 import { makeStyles } from '@material-ui/core/styles';
-import useBombFinance from '../../hooks/useBombFinance';
+import useKeenFinance from '../../hooks/useKeenFinance';
 import { ReactComponent as IconTelegram } from '../../assets/img/telegram.svg';
 import { Helmet } from 'react-helmet';
-import BombImage from '../../assets/img/bomb.png';
+import KeenImage from '../../assets/img/keen.png';
 
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
@@ -34,7 +34,7 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
-const TITLE = 'bomb.money | BTC pegged algocoin';
+const TITLE = 'iKeen | AVAX pegged algocoin';
 
 // const BackgroundImage = createGlobalStyle`
 //   body {
@@ -54,49 +54,49 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const bombFtmLpStats = useLpStatsBTC('BOMB-BTCB-LP');
-  const bShareFtmLpStats = useLpStats('BSHARE-BNB-LP');
-  const bombStats = useBombStats();
-  const bShareStats = usebShareStats();
+  const keenFtmLpStats = useLpStatsAVAX('KEEN-AVAX-LP');
+  const iSkeenFtmLpStats = useLpStats('iSKEEN-BNB-LP');
+  const keenStats = useKeenStats();
+  const iSkeenStats = useiSkeenStats();
   const tBondStats = useBondStats();
-  const bombFinance = useBombFinance();
+  const keenFinance = useKeenFinance();
 
-  let bomb;
+  let keen;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    bomb = bombTesting;
+    keen = keenTesting;
   } else {
-    bomb = bombProd;
+    keen = keenProd;
   }
 
-  const buyBombAddress =
+  const buyKeenAddress =
     //  'https://pancakeswap.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +
-    'https://app.bogged.finance/bsc/swap?tokenIn=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&tokenOut=' + bomb.address;
+    'https://app.bogged.finance/bsc/swap?tokenIn=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&tokenOut=' + keen.address;
   //https://pancakeswap.finance/swap?outputCurrency=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
-  const buyBShareAddress =
+  const buyiSkeenAddress =
     'https://app.bogged.finance/bsc/swap?tokenIn=BNB&tokenOut=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
-  const bombPriceInDollars = useMemo(
-    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+  const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
+  const iskeenLPStats = useMemo(() => (iSkeenFtmLpStats ? iSkeenFtmLpStats : null), [iSkeenFtmLpStats]);
+  const keenPriceInDollars = useMemo(
+    () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
+    [keenStats],
   );
-  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(4) : null), [bombStats]);
-  const bombCirculatingSupply = useMemo(() => (bombStats ? String(bombStats.circulatingSupply) : null), [bombStats]);
-  const bombTotalSupply = useMemo(() => (bombStats ? String(bombStats.totalSupply) : null), [bombStats]);
+  const keenPriceInBNB = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(4) : null), [keenStats]);
+  const keenCirculatingSupply = useMemo(() => (keenStats ? String(keenStats.circulatingSupply) : null), [keenStats]);
+  const keenTotalSupply = useMemo(() => (keenStats ? String(keenStats.totalSupply) : null), [keenStats]);
 
-  const bSharePriceInDollars = useMemo(
-    () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
-    [bShareStats],
+  const iSkeenPriceInDollars = useMemo(
+    () => (iSkeenStats ? Number(iSkeenStats.priceInDollars).toFixed(2) : null),
+    [iSkeenStats],
   );
-  const bSharePriceInBNB = useMemo(
-    () => (bShareStats ? Number(bShareStats.tokenInFtm).toFixed(4) : null),
-    [bShareStats],
+  const iSkeenPriceInBNB = useMemo(
+    () => (iSkeenStats ? Number(iSkeenStats.tokenInFtm).toFixed(4) : null),
+    [iSkeenStats],
   );
-  const bShareCirculatingSupply = useMemo(
-    () => (bShareStats ? String(bShareStats.circulatingSupply) : null),
-    [bShareStats],
+  const iSkeenCirculatingSupply = useMemo(
+    () => (iSkeenStats ? String(iSkeenStats.circulatingSupply) : null),
+    [iSkeenStats],
   );
-  const bShareTotalSupply = useMemo(() => (bShareStats ? String(bShareStats.totalSupply) : null), [bShareStats]);
+  const iSkeenTotalSupply = useMemo(() => (iSkeenStats ? String(iSkeenStats.totalSupply) : null), [iSkeenStats]);
 
   const tBondPriceInDollars = useMemo(
     () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
@@ -109,18 +109,18 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const bombLpZap = useZap({ depositTokenName: 'BOMB-BTCB-LP' });
-  const bshareLpZap = useZap({ depositTokenName: 'BSHARE-BNB-LP' });
+  const keenLpZap = useZap({ depositTokenName: 'KEEN-AVAX-LP' });
+  const iskeenLpZap = useZap({ depositTokenName: 'iSKEEN-BNB-LP' });
 
-  const [onPresentBombZap, onDissmissBombZap] = useModal(
+  const [onPresentKeenZap, onDissmissKeenZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        bombLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissBombZap();
+        keenLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissKeenZap();
       }}
-      tokenName={'BOMB-BTCB-LP'}
+      tokenName={'KEEN-AVAX-LP'}
     />,
   );
 
@@ -129,10 +129,10 @@ const Home = () => {
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        bshareLpZap.onZap(zappingToken, tokenName, amount);
+        iskeenLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissBshareZap();
       }}
-      tokenName={'BSHARE-BNB-LP'}
+      tokenName={'iSKEEN-BNB-LP'}
     />,
   );
 
@@ -150,41 +150,20 @@ const Home = () => {
           sm={4}
           style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
         >
-          <img src={BombImage} alt="Bomb.money" style={{ maxHeight: '240px' }} />
+          <img src={KeenImage} alt="Keen.money" style={{ maxHeight: '240px' }} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper>
             <Box p={4} style={{ textAlign: 'center' }}>
-              <h2>Welcome to Bomb</h2>
+              <h2>Welcome to iKeen</h2>
+              <p>KEEN is an algocoin which is designed to follow the price of AVAX.</p>
               <p>
-                BOMB is an algocoin which is designed to follow the price of BTC. Enjoy high yields normally only found
-                on high risk assets, but with exposure to BTC instead!
-              </p>
-              <p>
-                <strong>BOMB is pegged via algorithm to a 10,000:1 ratio to BTC. $100k BTC = $10 BOMB PEG</strong>
-                {/* Stake your BOMB-BTC LP in the Farm to earn BSHARE rewards. Then stake your earned BSHARE in the
-                Boardroom to earn more BOMB! */}
+                Stake your KEEN-AVAX LP in the Farm to earn iSKEEN rewards. Then stake your earned iSKEEN in the
+                Boardroom to earn more KEEN!
               </p>
             </Box>
           </Paper>
-        </Grid>
-
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
-            <Alert variant="filled" severity="info">
-              <h2>xBOMB Promo + Regain PEG!</h2>
-              <b>Read about the promotion and game plan!</b>{' '}
-              <Button
-                href="https://bombbshare.medium.com/operation-regain-peg-xbomb-promo-b8d59dc6e105"
-                target={'_blank'}
-                className="shinyButton"
-                style={{ margin: '10px' }}
-              >
-                READ ARTICLE
-              </Button>
-            </Alert>
-          </Grid>
         </Grid>
 
         {/* TVL */}
@@ -201,15 +180,11 @@ const Home = () => {
         <Grid item xs={12} sm={8}>
           <Card style={{ height: '100%' }}>
             <CardContent align="center" style={{ marginTop: '2.5%' }}>
-              {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="https://bomb.farm/" className="shinyButtonGreen" style={{ margin: '5px' }}>
-                Autovaults
+              <Button href={buyKeenAddress} style={{ margin: '5px' }} className={'shinyButton ' + classes.button}>
+                Buy KEEN
               </Button>
-              <Button href={buyBombAddress} style={{ margin: '5px' }} className={'shinyButton ' + classes.button}>
-                Buy BOMB
-              </Button>
-              <Button href={buyBShareAddress} className={'shinyButton ' + classes.button} style={{ margin: '5px' }}>
-                Buy BSHARE
+              <Button href={buyiSkeenAddress} className={'shinyButton ' + classes.button} style={{ margin: '5px' }}>
+                Buy iSKEEN
               </Button>
               <Button
                 target="_blank"
@@ -217,7 +192,7 @@ const Home = () => {
                 className="shinyButton"
                 style={{ margin: '5px' }}
               >
-                BOMB Chart
+                KEEN Chart
               </Button>
               <Button
                 target="_blank"
@@ -225,24 +200,24 @@ const Home = () => {
                 className="shinyButton"
                 style={{ margin: '5px' }}
               >
-                BSHARE Chart
+                iSKEEN Chart
               </Button>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* BOMB */}
+        {/* KEEN */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BOMB" />
+                  <TokenSymbol symbol="KEEN" />
                 </CardIcon>
               </Box>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BOMB');
+                  keenFinance.watchAssetInMetamask('KEEN');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -250,34 +225,34 @@ const Home = () => {
                 <b>+</b>&nbsp;&nbsp;
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
-              <h2 style={{ marginBottom: '10px' }}>BOMB</h2>
-              10,000 BOMB (1.0 Peg) =
+              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>
+              10,000 KEEN (1.0 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {bombPriceInBNB ? bombPriceInBNB : '-.----'} BTC
+                  {keenPriceInBNB ? keenPriceInBNB : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${bombPriceInDollars ? roundAndFormatNumber(bombPriceInDollars, 2) : '-.--'} / BOMB
+                  ${keenPriceInDollars ? roundAndFormatNumber(keenPriceInDollars, 2) : '-.--'} / KEEN
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${roundAndFormatNumber(bombCirculatingSupply * bombPriceInDollars, 2)} <br />
-                Circulating Supply: {roundAndFormatNumber(bombCirculatingSupply, 2)} <br />
-                Total Supply: {roundAndFormatNumber(bombTotalSupply, 2)}
+                Market Cap: ${roundAndFormatNumber(keenCirculatingSupply * keenPriceInDollars, 2)} <br />
+                Circulating Supply: {roundAndFormatNumber(keenCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(keenTotalSupply, 2)}
               </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* BSHARE */}
+        {/* iSKEEN */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BSHARE');
+                  keenFinance.watchAssetInMetamask('iSKEEN');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -287,26 +262,26 @@ const Home = () => {
               </Button>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BSHARE" />
+                  <TokenSymbol symbol="iSKEEN" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>BSHARE</h2>
+              <h2 style={{ marginBottom: '10px' }}>iSKEEN</h2>
               Current Price
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {bSharePriceInBNB ? bSharePriceInBNB : '-.----'} BNB
+                  {iSkeenPriceInBNB ? iSkeenPriceInBNB : '-.----'} BNB
                 </span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>
-                  ${bSharePriceInDollars ? bSharePriceInDollars : '-.--'} / BSHARE
+                  ${iSkeenPriceInDollars ? iSkeenPriceInDollars : '-.--'} / iSKEEN
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars).toFixed(2), 2)}{' '}
+                Market Cap: ${roundAndFormatNumber((iSkeenCirculatingSupply * iSkeenPriceInDollars).toFixed(2), 2)}{' '}
                 <br />
-                Circulating Supply: {roundAndFormatNumber(bShareCirculatingSupply, 2)} <br />
-                Total Supply: {roundAndFormatNumber(bShareTotalSupply, 2)}
+                Circulating Supply: {roundAndFormatNumber(iSkeenCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(iSkeenTotalSupply, 2)}
               </span>
             </CardContent>
           </Card>
@@ -318,7 +293,7 @@ const Home = () => {
             <CardContent align="center" style={{ position: 'relative' }}>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BBOND');
+                  keenFinance.watchAssetInMetamask('BBOND');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -335,7 +310,7 @@ const Home = () => {
               10,000 BBOND
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {tBondPriceInBNB ? tBondPriceInBNB : '-.----'} BTC
+                  {tBondPriceInBNB ? tBondPriceInBNB : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
@@ -354,26 +329,26 @@ const Home = () => {
             <CardContent align="center">
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BOMB-BTCB-LP" />
+                  <TokenSymbol symbol="KEEN-AVAX-LP" />
                 </CardIcon>
               </Box>
-              <h2>BOMB-BTCB PancakeSwap LP</h2>
+              <h2>KEEN-AVAX PancakeSwap LP</h2>
               <Box mt={2}>
-                <Button disabled onClick={onPresentBombZap} className="shinyButtonDisabledSecondary">
+                <Button disabled onClick={onPresentKeenZap} className="shinyButtonDisabledSecondary">
                   Zap In
                 </Button>
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {bombLPStats?.tokenAmount ? bombLPStats?.tokenAmount : '-.--'} BOMB /{' '}
-                  {bombLPStats?.ftmAmount ? bombLPStats?.ftmAmount : '-.--'} BTCB
+                  {keenLPStats?.tokenAmount ? keenLPStats?.tokenAmount : '-.--'} KEEN /{' '}
+                  {keenLPStats?.ftmAmount ? keenLPStats?.ftmAmount : '-.--'} AVAX
                 </span>
               </Box>
-              <Box>${bombLPStats?.priceOfOne ? bombLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${keenLPStats?.priceOfOne ? keenLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${bombLPStats?.totalLiquidity ? roundAndFormatNumber(bombLPStats.totalLiquidity, 2) : '-.--'}{' '}
+                Liquidity: ${keenLPStats?.totalLiquidity ? roundAndFormatNumber(keenLPStats.totalLiquidity, 2) : '-.--'}{' '}
                 <br />
-                Total Supply: {bombLPStats?.totalSupply ? roundAndFormatNumber(bombLPStats.totalSupply, 2) : '-.--'}
+                Total Supply: {keenLPStats?.totalSupply ? roundAndFormatNumber(keenLPStats.totalSupply, 2) : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -383,10 +358,10 @@ const Home = () => {
             <CardContent align="center">
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BSHARE-BNB-LP" />
+                  <TokenSymbol symbol="iSKEEN-BNB-LP" />
                 </CardIcon>
               </Box>
-              <h2>BSHARE-BNB PancakeSwap LP</h2>
+              <h2>iSKEEN-BNB PancakeSwap LP</h2>
               <Box mt={2}>
                 <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
                   Zap In
@@ -394,16 +369,16 @@ const Home = () => {
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {bshareLPStats?.tokenAmount ? bshareLPStats?.tokenAmount : '-.--'} BSHARE /{' '}
-                  {bshareLPStats?.ftmAmount ? bshareLPStats?.ftmAmount : '-.--'} BNB
+                  {iskeenLPStats?.tokenAmount ? iskeenLPStats?.tokenAmount : '-.--'} iSKEEN /{' '}
+                  {iskeenLPStats?.ftmAmount ? iskeenLPStats?.ftmAmount : '-.--'} BNB
                 </span>
               </Box>
-              <Box>${bshareLPStats?.priceOfOne ? bshareLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${iskeenLPStats?.priceOfOne ? iskeenLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
                 Liquidity: $
-                {bshareLPStats?.totalLiquidity ? roundAndFormatNumber(bshareLPStats.totalLiquidity, 2) : '-.--'}
+                {iskeenLPStats?.totalLiquidity ? roundAndFormatNumber(iskeenLPStats.totalLiquidity, 2) : '-.--'}
                 <br />
-                Total Supply: {bshareLPStats?.totalSupply ? roundAndFormatNumber(bshareLPStats.totalSupply, 2) : '-.--'}
+                Total Supply: {iskeenLPStats?.totalSupply ? roundAndFormatNumber(iskeenLPStats.totalSupply, 2) : '-.--'}
               </span>
             </CardContent>
           </Card>

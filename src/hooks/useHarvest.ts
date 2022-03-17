@@ -1,20 +1,20 @@
-import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
+import { useCallback } from 'react';
+import useKeenFinance from './useKeenFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
-import {Bank} from '../bomb-finance';
+import { Bank } from '../keen-finance';
 
 const useHarvest = (bank: Bank) => {
-  const bombFinance = useBombFinance();
+  const keenFinance = useKeenFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleReward = useCallback(() => {
     handleTransactionReceipt(
-      bombFinance.harvest(bank.contract, bank.poolId),
+      keenFinance.harvest(bank.contract, bank.poolId),
       `Claim ${bank.earnTokenName} from ${bank.contract}`,
     );
-  }, [bank, bombFinance, handleTransactionReceipt]);
+  }, [bank, keenFinance, handleTransactionReceipt]);
 
-  return {onReward: handleReward};
+  return { onReward: handleReward };
 };
 
 export default useHarvest;

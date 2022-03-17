@@ -1,19 +1,19 @@
-import {useEffect, useState} from 'react';
-import useBombFinance from '../useBombFinance';
-import {AllocationTime} from '../../bomb-finance/types';
+import { useEffect, useState } from 'react';
+import useKeenFinance from '../useKeenFinance';
+import { AllocationTime } from '../../keen-finance/types';
 
 const useUnstakeTimerBoardroom = () => {
   const [time, setTime] = useState<AllocationTime>({
     from: new Date(),
     to: new Date(),
   });
-  const bombFinance = useBombFinance();
+  const keenFinance = useKeenFinance();
 
   useEffect(() => {
-    if (bombFinance) {
-      bombFinance.getUserUnstakeTime().then(setTime);
+    if (keenFinance) {
+      keenFinance.getUserUnstakeTime().then(setTime);
     }
-  }, [bombFinance]);
+  }, [keenFinance]);
   return time;
 };
 

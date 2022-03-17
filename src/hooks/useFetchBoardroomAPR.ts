@@ -1,22 +1,22 @@
-import {useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
+import { useEffect, useState } from 'react';
+import useKeenFinance from './useKeenFinance';
 import useRefresh from './useRefresh';
 
 const useFetchBoardroomAPR = () => {
   const [apr, setApr] = useState<number>(0);
-  const bombFinance = useBombFinance();
-  const {slowRefresh} = useRefresh();
+  const keenFinance = useKeenFinance();
+  const { slowRefresh } = useRefresh();
 
   useEffect(() => {
     async function fetchBoardroomAPR() {
       try {
-        setApr(await bombFinance.getBoardroomAPR());
+        setApr(await keenFinance.getBoardroomAPR());
       } catch (err) {
         console.error(err);
       }
     }
     fetchBoardroomAPR();
-  }, [setApr, bombFinance, slowRefresh]);
+  }, [setApr, keenFinance, slowRefresh]);
 
   return apr;
 };

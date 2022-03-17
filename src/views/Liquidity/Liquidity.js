@@ -4,15 +4,15 @@ import { createGlobalStyle } from 'styled-components';
 import HomeImage from '../../assets/img/background.jpg';
 import useLpStats from '../../hooks/useLpStats';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
-import useBombStats from '../../hooks/useBombStats';
+import useKeenStats from '../../hooks/useKeenStats';
 import TokenInput from '../../components/TokenInput';
-import useBombFinance from '../../hooks/useBombFinance';
+import useKeenFinance from '../../hooks/useKeenFinance';
 import { useWallet } from 'use-wallet';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useApproveTaxOffice from '../../hooks/useApproveTaxOffice';
 import { ApprovalState } from '../../hooks/useApprove';
-import useProvideBombFtmLP from '../../hooks/useProvideBombFtmLP';
+import useProvideKeenFtmLP from '../../hooks/useProvideKeenFtmLP';
 import { Alert } from '@material-ui/lab';
 import { Helmet } from 'react-helmet';
 
@@ -26,37 +26,37 @@ const BackgroundImage = createGlobalStyle`
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-const TITLE = 'bomb.money |'
+const TITLE = 'keen.money |';
 
 const ProvideLiquidity = () => {
-  const [bombAmount, setBombAmount] = useState(0);
+  const [keenAmount, setKeenAmount] = useState(0);
   const [ftmAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
-  const bombStats = useBombStats();
-  const bombFinance = useBombFinance();
+  const keenStats = useKeenStats();
+  const keenFinance = useKeenFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
-  const bombBalance = useTokenBalance(bombFinance.BOMB);
-  const btcBalance = useTokenBalance(bombFinance.BTC);
+  const keenBalance = useTokenBalance(keenFinance.KEEN);
+  const avaxBalance = useTokenBalance(keenFinance.AVAX);
 
-  const ftmBalance = (btcBalance / 1e18).toFixed(4);
-  const { onProvideBombFtmLP } = useProvideBombFtmLP();
-  const bombFtmLpStats = useLpStats('BOMB-BTCB-LP');
+  const ftmBalance = (avaxBalance / 1e18).toFixed(4);
+  const { onProvideKeenFtmLP } = useProvideKeenFtmLP();
+  const keenFtmLpStats = useLpStats('KEEN-AVAX-LP');
 
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
-  const ftmPriceInBOMB = useMemo(() => (bombStats ? Number(1 / bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
+  const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
+  const keenPriceInBNB = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(2) : null), [keenStats]);
+  const ftmPriceInKEEN = useMemo(() => (keenStats ? Number(1 / keenStats.tokenInFtm).toFixed(2) : null), [keenStats]);
   // const classes = useStyles();
 
-  const handleBombChange = async (e) => {
+  const handleKeenChange = async (e) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
-      setBombAmount(e.currentTarget.value);
+      setKeenAmount(e.currentTarget.value);
     }
     if (!isNumeric(e.currentTarget.value)) return;
-    setBombAmount(e.currentTarget.value);
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(e.currentTarget.value, 'BOMB');
+    setKeenAmount(e.currentTarget.value);
+    const quoteFromSpooky = await keenFinance.quoteFromSpooky(e.currentTarget.value, 'KEEN');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.ftmAmount);
+    setLpTokensAmount(quoteFromSpooky / keenLPStats.ftmAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -65,25 +65,24 @@ const ProvideLiquidity = () => {
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setFtmAmount(e.currentTarget.value);
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(e.currentTarget.value, 'BTCB');
-    setBombAmount(quoteFromSpooky);
+    const quoteFromSpooky = await keenFinance.quoteFromSpooky(e.currentTarget.value, 'AVAX');
+    setKeenAmount(quoteFromSpooky);
 
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.tokenAmount);
+    setLpTokensAmount(quoteFromSpooky / keenLPStats.tokenAmount);
   };
-  const handleBombSelectMax = async () => {
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(getDisplayBalance(bombBalance), 'BOMB');
-    setBombAmount(getDisplayBalance(bombBalance));
+  const handleKeenSelectMax = async () => {
+    const quoteFromSpooky = await keenFinance.quoteFromSpooky(getDisplayBalance(keenBalance), 'KEEN');
+    setKeenAmount(getDisplayBalance(keenBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.ftmAmount);
+    setLpTokensAmount(quoteFromSpooky / keenLPStats.ftmAmount);
   };
   const handleFtmSelectMax = async () => {
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(ftmBalance, 'BNB');
+    const quoteFromSpooky = await keenFinance.quoteFromSpooky(ftmBalance, 'BNB');
     setFtmAmount(ftmBalance);
-    setBombAmount(quoteFromSpooky);
-    setLpTokensAmount(ftmBalance / bombLPStats.ftmAmount);
+    setKeenAmount(quoteFromSpooky);
+    setLpTokensAmount(ftmBalance / keenLPStats.ftmAmount);
   };
   return (
-
     <Page>
       <Helmet>
         <title>{TITLE}</title>
@@ -101,7 +100,7 @@ const ProvideLiquidity = () => {
               <a href="https://pancakeswap.finance/" rel="noopener noreferrer" target="_blank">
                 Pancakeswap
               </a>{' '}
-              are the only ways to provide Liquidity on BOMB-BTCB pair without paying tax.
+              are the only ways to provide Liquidity on KEEN-AVAX pair without paying tax.
             </b>
           </Alert>
           <Grid item xs={12} sm={12}>
@@ -112,11 +111,11 @@ const ProvideLiquidity = () => {
                     <Grid container>
                       <Grid item xs={12}>
                         <TokenInput
-                          onSelectMax={handleBombSelectMax}
-                          onChange={handleBombChange}
-                          value={bombAmount}
-                          max={getDisplayBalance(bombBalance)}
-                          symbol={'BOMB'}
+                          onSelectMax={handleKeenSelectMax}
+                          onChange={handleKeenChange}
+                          value={keenAmount}
+                          max={getDisplayBalance(keenBalance)}
+                          symbol={'KEEN'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
@@ -125,19 +124,19 @@ const ProvideLiquidity = () => {
                           onChange={handleFtmChange}
                           value={ftmAmount}
                           max={ftmBalance}
-                          symbol={'BTCB'}
+                          symbol={'AVAX'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 BOMB = {bombPriceInBNB} BNB</p>
-                        <p>1 BNB = {ftmPriceInBOMB} BOMB</p>
+                        <p>1 KEEN = {keenPriceInBNB} BNB</p>
+                        <p>1 BNB = {ftmPriceInKEEN} KEEN</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideBombFtmLP(ftmAmount.toString(), bombAmount.toString())}
+                            onClick={() => onProvideKeenFtmLP(ftmAmount.toString(), keenAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

@@ -8,18 +8,18 @@ import { Alert } from '@material-ui/lab';
 import Spacer from '../../components/Spacer';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
-// import bombFinance, { BOMB, BTCB } from '../../bomb-finance';
-// import useXbombBalance from '../../hooks/useXbombBalance';
-// import useXbombAPR from '../../hooks/useXbombAPR';
-import useSuppliedBtcbBalance from '../../hooks/useTotalSuppliedBtcbBalance';
-import useSuppliedBombBalance from '../../hooks/useTotalSuppliedBombBalance';
+// import keenFinance, { KEEN, AVAX } from '../../keen-finance';
+// import useXkeenBalance from '../../hooks/useXkeenBalance';
+// import useXkeenAPR from '../../hooks/useXkeenAPR';
+import useSuppliedAvaxBalance from '../../hooks/useTotalSuppliedAvaxBalance';
+import useSuppliedKeenBalance from '../../hooks/useTotalSuppliedKeenBalance';
 
 import { createGlobalStyle } from 'styled-components';
-import { Helmet } from 'react-helmet'
-import SupplyBomb from './components/SupplyBomb';
+import { Helmet } from 'react-helmet';
+import SupplyKeen from './components/SupplyKeen';
 
 import HomeImage from '../../assets/img/background.jpg';
-import SupplyBtcb from './components/SupplyBtcb';
+import SupplyAvax from './components/SupplyAvax';
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) repeat !important;
@@ -27,7 +27,7 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
-const TITLE = 'bomb.money | Supply Assets'
+const TITLE = 'keen.money | Supply Assets';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -42,25 +42,22 @@ const Supply = () => {
   const classes = useStyles();
   const { account } = useWallet();
   // const { onRedeem } = useRedeemOnBoardroom();
-  const stakedBombBalance = Number(useSuppliedBombBalance() / 1000000000000000000).toFixed(2);
-  const stakedBtcbBalance = Number(useSuppliedBtcbBalance() / 1000000000000000000).toFixed(5);
-  // const xbombBalance = useXbombBalance();
-  // const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
-  // const xbombAPR = useXbombAPR();
+  const stakedKeenBalance = Number(useSuppliedKeenBalance() / 1000000000000000000).toFixed(2);
+  const stakedAvaxBalance = Number(useSuppliedAvaxBalance() / 1000000000000000000).toFixed(5);
+  // const xkeenBalance = useXkeenBalance();
+  // const xkeenRate = Number(xkeenBalance / 1000000000000000000).toFixed(4);
+  // const xkeenAPR = useXkeenAPR();
 
-  //const xbombTVL = xbombAPR.TVL;
+  //const xkeenTVL = xkeenAPR.TVL;
 
+  // const stakedTotalKeenBalance = useSuppliedTotalKeenBalance();
+  // console.log("stakedTotalKeenBalance", Number(stakedTotalKeenBalance / 1000000000000000000).toFixed(2));
+  // const keenTotalStaked = Number(stakedTotalKeenBalance / 1000000000000000000).toFixed(0);
+  // const xkeenTVL = useMemo(() => (xkeenAPR ? Number(xkeenAPR.TVL).toFixed(0) : null), [xkeenAPR]);
+  // const xkeenDailyAPR = useMemo(() => (xkeenAPR ? Number(xkeenAPR.dailyAPR).toFixed(2) : null), [xkeenAPR]);
+  // const xkeenYearlyAPR = useMemo(() => (xkeenAPR ? Number(xkeenAPR.yearlyAPR).toFixed(2) : null), [xkeenAPR]);
 
-
-
-  // const stakedTotalBombBalance = useSuppliedTotalBombBalance();
-  // console.log("stakedTotalBombBalance", Number(stakedTotalBombBalance / 1000000000000000000).toFixed(2));
-  // const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(0);
-  // const xbombTVL = useMemo(() => (xbombAPR ? Number(xbombAPR.TVL).toFixed(0) : null), [xbombAPR]);
-  // const xbombDailyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.dailyAPR).toFixed(2) : null), [xbombAPR]);
-  // const xbombYearlyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.yearlyAPR).toFixed(2) : null), [xbombAPR]);
-
-  // console.log('xbombAPR', xbombYearlyAPR);
+  // console.log('xkeenAPR', xkeenYearlyAPR);
 
   // const cashStat = useCashPriceInEstimatedTWAP();
 
@@ -82,30 +79,25 @@ const Supply = () => {
                 <p>
                   <b>Test our single asset staking features while we finish building our new web UI!</b>
                 </p>
-
               </Alert>
-
             </Box>
           </Grid>
 
-
-
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
-
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BTCB AVAILABLE</Typography>
-                    <Typography>{Number(stakedBtcbBalance)} BTCB</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>AVAX AVAILABLE</Typography>
+                    <Typography>{Number(stakedAvaxBalance)} AVAX</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BOMB AVAILABLE</Typography>
-                    <Typography>{Number(stakedBombBalance)} BOMB</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>KEEN AVAILABLE</Typography>
+                    <Typography>{Number(stakedKeenBalance)} KEEN</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -113,11 +105,11 @@ const Supply = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>
-                      BOMB PEG <small>(TWAP)</small>
+                      KEEN PEG <small>(TWAP)</small>
                     </Typography>
-                    <Typography> BTC</Typography>
+                    <Typography> AVAX</Typography>
                     <Typography>
-                      <small>per 10,000 BOMB</small>
+                      <small>per 10,000 KEEN</small>
                     </Typography>
                   </CardContent>
                 </Card>
@@ -126,7 +118,7 @@ const Supply = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR</Typography>
-                    <Typography>{xbombYearlyAPR}%</Typography>
+                    <Typography>{xkeenYearlyAPR}%</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -134,28 +126,27 @@ const Supply = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>Daily APR</Typography>
-                    <Typography>{xbombDailyAPR}%</Typography>
+                    <Typography>{xkeenDailyAPR}%</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BOMB Staked</Typography>
-                    <Typography>{roundAndFormatNumber(bombTotalStaked)}</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>KEEN Staked</Typography>
+                    <Typography>{roundAndFormatNumber(keenTotalStaked)}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BOMB Staked USD</Typography>
-                    <Typography>${roundAndFormatNumber(xbombTVL, 2)}</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>KEEN Staked USD</Typography>
+                    <Typography>${roundAndFormatNumber(xkeenTVL, 2)}</Typography>
                   </CardContent>
                 </Card>
               </Grid> */}
             </Grid>
-
 
             <Box mt={4}>
               <StyledBoardroom>
@@ -165,13 +156,11 @@ const Supply = () => {
                   </StyledCardWrapper> */}
                   {/* <Spacer /> */}
                   <StyledCardWrapper>
-
-                    <SupplyBtcb />
+                    <SupplyAvax />
                   </StyledCardWrapper>
                   <Spacer />
                   <StyledCardWrapper>
-
-                    <SupplyBomb />
+                    <SupplyKeen />
                   </StyledCardWrapper>
                 </StyledCardsWrapper>
               </StyledBoardroom>
@@ -187,11 +176,11 @@ const Supply = () => {
                     {/* <Box>
                       <Card>
                         <CardContent>
-                          <h2>About xBOMB & Rewards</h2>
-                          <p><strong>We are currently depositing 10,000 BOMB per week into the staking pool until our BTC Single Staking service is launched.</strong></p>
-                          <p>xBOMB will be the governance token required to cast votes on protocol decisions.</p>
-                          <p>20% of all BOMB minted will be deposited into the xBOMB smart contract, increasing the amount of BOMB that can be redeemed for each xBOMB. Rewards will be deposited at random times to prevent abuse.</p>
-                          <p>Functionality will be developed around xBOMB including using it as collateral to borrow other assets.</p>
+                          <h2>About xKEEN & Rewards</h2>
+                          <p><strong>We are currently depositing 10,000 KEEN per week into the staking pool until our AVAX Single Staking service is launched.</strong></p>
+                          <p>xKEEN will be the governance token required to cast votes on protocol decisions.</p>
+                          <p>20% of all KEEN minted will be deposited into the xKEEN smart contract, increasing the amount of KEEN that can be redeemed for each xKEEN. Rewards will be deposited at random times to prevent abuse.</p>
+                          <p>Functionality will be developed around xKEEN including using it as collateral to borrow other assets.</p>
                           <p>Reward structure subject to change based on community voting.</p>
                         </CardContent>
                       </Card>
@@ -234,10 +223,10 @@ const Supply = () => {
           <Box mt={5}>
             <Grid container justify="center" spacing={3} mt={10}>
               <Button
-                disabled={stakedBombBalance.eq(0) || (!canWithdraw && !canClaimReward)}
+                disabled={stakedKeenBalance.eq(0) || (!canWithdraw && !canClaimReward)}
                 onClick={onRedeem}
                 className={
-                  stakedBombBalance.eq(0) || (!canWithdraw && !canClaimReward)
+                  stakedKeenBalance.eq(0) || (!canWithdraw && !canClaimReward)
                     ? 'shinyButtonDisabledSecondary'
                     : 'shinyButtonSecondary'
                 }
@@ -251,7 +240,7 @@ const Supply = () => {
         <UnlockWallet />
       )}
     </Page>
-  )
+  );
 };
 
 const StyledBoardroom = styled.div`

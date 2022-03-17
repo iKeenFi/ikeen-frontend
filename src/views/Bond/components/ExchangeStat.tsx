@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Card} from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
 interface ExchangeStatProps {
   tokenName: string;
@@ -9,11 +9,11 @@ interface ExchangeStatProps {
   price: string;
 }
 
-const ExchangeStat: React.FC<ExchangeStatProps> = ({tokenName, description, price}) => {
+const ExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, price }) => {
   return (
     <Card>
       <StyledCardContentInner>
-        <StyledCardTitle>{`💰 ${tokenName} = ${price} BTC`}</StyledCardTitle>
+        <StyledCardTitle>{`💰 ${tokenName} = ${price} AVAX`}</StyledCardTitle>
         <StyledDesc>{description}</StyledDesc>
       </StyledCardContentInner>
     </Card>

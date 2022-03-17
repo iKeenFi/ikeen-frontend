@@ -1,9 +1,7 @@
-export const BOMB_TICKER = 'BOMB';
-export const BSHARE_TICKER = 'BSHARE';
-export const BBOND_TICKER = 'BBOND';
-export const BNB_TICKER = 'BNB';
-export const WBNB_TICKER = 'WBNB';
-export const BTC_TICKER = 'BTCB';
+export const KEEN_TICKER = 'KEEN';
+export const iSKEEN_TICKER = 'iSKEEN';
+export const iBKEEN_TICKER = 'iBKEEN';
+export const AVAX_TICKER = 'AVAX';
 
 export const SPOOKY_ROUTER_ADDR = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
 export const ZAPPER_ROUTER_ADDR = '0xA0C5F779e52A8D9a81aF17Dd910577946B6810F6';

@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Button, Card} from '@material-ui/core';
+import { Button, Card } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
-import useBombFinance from '../../../hooks/useBombFinance';
+import useKeenFinance from '../../../hooks/useKeenFinance';
 import Label from '../../../components/Label';
 import TokenSymbol from '../../../components/TokenSymbol';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import useModal from '../../../hooks/useModal';
 import ExchangeModal from './ExchangeModal';
-import ERC20 from '../../../bomb-finance/ERC20';
+import ERC20 from '../../../keen-finance/ERC20';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useApprove, {ApprovalState} from '../../../hooks/useApprove';
+import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useCatchError from '../../../hooks/useCatchError';
 
 interface ExchangeCardProps {
@@ -43,8 +43,8 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
 }) => {
   const catchError = useCatchError();
   const {
-    contracts: {Treasury},
-  } = useBombFinance();
+    contracts: { Treasury },
+  } = useKeenFinance();
   const [approveStatus, approve] = useApprove(fromToken, Treasury.address);
 
   const balance = useTokenBalance(fromToken);

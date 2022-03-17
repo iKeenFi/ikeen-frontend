@@ -45,27 +45,27 @@ const Footer = () => {
             <Typography variant="body2" color="textPrimary" align="left">
               {'Copyright © '}
               <Link color="inherit" href="/">
-                Bomb Money
+                Keen Money
               </Link>{' '}
               {new Date().getFullYear()}
             </Typography>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right', height: '20px' }}>
             <a
-              href="https://twitter.com/BombMoneyBSC"
+              href="https://twitter.com/KeenMoneyBSC"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
             >
               <img src={IconTwitter} style={{ fill: '#dddfee' }} />
             </a>
-            <a href="https://github.com/bombmoney" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://github.com/keenmoney" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img src={IconGithub} style={{ fill: '#dddfee', height: '20px' }} />
             </a>
-            <a href="https://t.me/bombmoneybsc" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://t.me/keenmoneybsc" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img src={IconTelegram} style={{ fill: '#dddfee', height: '20px' }} />
             </a>
-            <a href="http://discord.bomb.money/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="http://discord.keen.money/" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img src={IconDiscord} style={{ fill: '#dddfee', height: '20px' }} />
             </a>
           </Grid>

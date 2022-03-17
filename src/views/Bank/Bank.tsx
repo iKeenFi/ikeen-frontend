@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import {useParams} from 'react-router-dom';
-import {useWallet} from 'use-wallet';
-import {makeStyles} from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
+import { useWallet } from 'use-wallet';
+import { makeStyles } from '@material-ui/core/styles';
 
-import {Box, Button, Card, CardContent, Typography, Grid} from '@material-ui/core';
+import { Box, Button, Card, CardContent, Typography, Grid } from '@material-ui/core';
 
 import PageHeader from '../../components/PageHeader';
 import Spacer from '../../components/Spacer';
@@ -15,9 +15,9 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
-import {Bank as BankEntity} from '../../bomb-finance';
-import useBombFinance from '../../hooks/useBombFinance';
-import {Alert} from '@material-ui/lab';
+import { Bank as BankEntity } from '../../keen-finance';
+import useKeenFinance from '../../hooks/useKeenFinance';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -31,53 +31,50 @@ const useStyles = makeStyles((theme) => ({
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
   const classes = useStyles();
-  const {bankId} = useParams();
+  const { bankId } = useParams();
   const bank = useBank(bankId);
 
-  const {account} = useWallet();
-  const {onRedeem} = useRedeem(bank);
+  const { account } = useWallet();
+  const { onRedeem } = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
 
   let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB-BTCB')) {
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  }
-  
-   else if (bank.depositTokenName.includes('BOMB-BSHARE')) {
-    vaultUrl = 'https://www.bomb.farm/#/bsc/';
-  }
-     else if (bank.depositTokenName.includes('BSHARE-BNB')) {
-
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-wbnb';
-
+  if (bank.depositTokenName.includes('KEEN-AVAX')) {
+    vaultUrl = 'https://www.keen.farm/#/bsc/vault/keen-keen-avaxb';
+  } else if (bank.depositTokenName.includes('KEEN-iSKEEN')) {
+    vaultUrl = 'https://www.keen.farm/#/bsc/';
+  } else if (bank.depositTokenName.includes('iSKEEN-BNB')) {
+    vaultUrl = 'https://www.keen.farm/#/bsc/vault/keen-iskeen-wbnb';
   }
 
   return account && bank ? (
     <>
       <PageHeader
         icon="💣"
-   //     subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
+        //     subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
         title={bank?.name}
       />
-         <Box mt={5}>
-
-          {(vaultUrl) ? (
-                          <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
-
-        <Alert variant="filled" severity="info">
-            <h3>Our autocompounding vaults are live!</h3><br />
-            We support zapping tokens, and auto-compound every 2 hours!<br />
-            Check it out here: <a href={vaultUrl}>{vaultUrl}</a>
-
-
-            </Alert> </Grid> 
-          ) : ""};
+      <Box mt={5}>
+        {vaultUrl ? (
+          <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
+            <Alert variant="filled" severity="info">
+              <h3>Our autocompounding vaults are live!</h3>
+              <br />
+              We support zapping tokens, and auto-compound every 2 hours!
+              <br />
+              Check it out here: <a href={vaultUrl}>{vaultUrl}</a>
+            </Alert>{' '}
+          </Grid>
+        ) : (
+          ''
+        )}
+        ;
       </Box>
       <Box>
-        <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
+        <Grid container justify="center" spacing={3} style={{ marginBottom: '50px' }}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
-              <CardContent style={{textAlign: 'center'}}>
+              <CardContent style={{ textAlign: 'center' }}>
                 <Typography>APR</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
               </CardContent>
@@ -85,7 +82,7 @@ const Bank: React.FC = () => {
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
-              <CardContent style={{textAlign: 'center'}}>
+              <CardContent style={{ textAlign: 'center' }}>
                 <Typography>Daily APR</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
               </CardContent>
@@ -93,7 +90,7 @@ const Bank: React.FC = () => {
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
-              <CardContent style={{textAlign: 'center'}}>
+              <CardContent style={{ textAlign: 'center' }}>
                 <Typography>TVL</Typography>
                 <Typography>${statsOnPool?.TVL}</Typography>
               </CardContent>
@@ -101,7 +98,7 @@ const Bank: React.FC = () => {
           </Grid>
         </Grid>
       </Box>
-   
+
       <Box mt={5}>
         <StyledBank>
           <StyledCardsWrapper>
@@ -130,29 +127,26 @@ const Bank: React.FC = () => {
   );
 };
 
-const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
-  const bombFinance = useBombFinance();
-  const bombAddr = bombFinance.BOMB.address;
-  const bshareAddr = bombFinance.BSHARE.address;
+const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
+  const keenFinance = useKeenFinance();
+  const keenAddr = keenFinance.KEEN.address;
+  const iskeenAddr = keenFinance.iSKEEN.address;
 
   let pairName: string;
   let uniswapUrl: string;
- // let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB-BTCB')) {
-    pairName = 'BOMB-BTCB pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/' + bombAddr;
- //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  }
-  else if (bank.depositTokenName.includes('BOMB-BSHARE')) {
-    pairName = 'BOMB-BSHARE pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/' + bombAddr + '/' + bshareAddr;
- //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  }
-  else {
-    pairName = 'BSHARE-BNB pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/BNB/' + bshareAddr;
- //   vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-bnb';
-
+  // let vaultUrl: string;
+  if (bank.depositTokenName.includes('KEEN-AVAX')) {
+    pairName = 'KEEN-AVAX pair';
+    uniswapUrl = 'https://pancakeswap.finance/add/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/' + keenAddr;
+    //   vaultUrl = 'https://www.keen.farm/#/bsc/vault/keen-keen-avaxb';
+  } else if (bank.depositTokenName.includes('KEEN-iSKEEN')) {
+    pairName = 'KEEN-iSKEEN pair';
+    uniswapUrl = 'https://pancakeswap.finance/add/' + keenAddr + '/' + iskeenAddr;
+    //   vaultUrl = 'https://www.keen.farm/#/bsc/vault/keen-keen-avaxb';
+  } else {
+    pairName = 'iSKEEN-BNB pair';
+    uniswapUrl = 'https://pancakeswap.finance/add/BNB/' + iskeenAddr;
+    //   vaultUrl = 'https://www.keen.farm/#/bsc/vault/keen-iskeen-bnb';
   }
   return (
     <Card>

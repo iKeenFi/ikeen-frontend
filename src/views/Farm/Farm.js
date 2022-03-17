@@ -14,7 +14,7 @@ import FarmCard from './FarmCard';
 import { createGlobalStyle } from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
 
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
@@ -25,8 +25,7 @@ const BackgroundImage = createGlobalStyle`
   }
 `;
 
-const TITLE = 'bomb.money | Farms'
-
+const TITLE = 'keen.money | Farms';
 
 const Farm = () => {
   const [banks] = useBanks();
@@ -36,7 +35,6 @@ const Farm = () => {
   return (
     <Switch>
       <Page>
-
         <Route exact path={path}>
           <BackgroundImage />
           <Helmet>
@@ -45,13 +43,13 @@ const Farm = () => {
           {!!account ? (
             <Container maxWidth="lg">
               <Typography color="textYellow" align="center" variant="h3" gutterBottom>
-                BSHARE Reward Farms
+                iSKEEN Reward Farms
               </Typography>
 
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
                   <Typography color="textYellow" align="center" variant="h4" gutterBottom>
-                    Earn BSHARE by staking PancakeSwap LP
+                    Earn iSKEEN by staking PancakeSwap LP
                   </Typography>
                   {/* <Alert variant="filled" severity="info">
                     <h4>
@@ -76,7 +74,7 @@ const Farm = () => {
                     Inactive ApeSwap Farms
                   </Typography> */}
                   <Typography color="textYellow" align="center" variant="h4" gutterBottom style={{ marginTop: '40px' }}>
-                    Earn BSHARE by staking BOMB
+                    Earn iSKEEN by staking KEEN
                   </Typography>
                   {/* <Alert variant="filled" severity="warning">
                     Please remove funds from all farms which are not active.

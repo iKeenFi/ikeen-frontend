@@ -1,23 +1,23 @@
-import {useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
-import {TokenStat} from '../bomb-finance/types';
+import { useEffect, useState } from 'react';
+import useKeenFinance from './useKeenFinance';
+import { TokenStat } from '../keen-finance/types';
 import useRefresh from './useRefresh';
 
 const useBondStats = () => {
   const [stat, setStat] = useState<TokenStat>();
-  const {slowRefresh} = useRefresh();
-  const bombFinance = useBombFinance();
+  const { slowRefresh } = useRefresh();
+  const keenFinance = useKeenFinance();
 
   useEffect(() => {
     async function fetchBondPrice() {
       try {
-        setStat(await bombFinance.getBondStat());
+        setStat(await keenFinance.getBondStat());
       } catch (err) {
         console.error(err);
       }
     }
     fetchBondPrice();
-  }, [setStat, bombFinance, slowRefresh]);
+  }, [setStat, keenFinance, slowRefresh]);
 
   return stat;
 };

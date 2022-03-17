@@ -1,4 +1,4 @@
-# 🪦Welcome to the Bomb.money ecosystem🪦
+# 🪦Welcome to the Keen.money ecosystem🪦
 
 Thanks for taking the time to contribute!
 You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
@@ -32,7 +32,7 @@ npx prettier --write .
 
 ## Useful Resources
 
-- [Our project documentation](https://docs.bomb.money/) will help you understand before start contributing
-- Join our [Discord](https://discord.bomb.money) community
-- Or if you are more of a [Telegram Zombie](https://t.me/bombmoneybsc) we have that too
-- Bugs? Use the [Issues](https://github.com/bombmoney/bomb-frontend/issues) section of our github to report them
+- [Our project documentation](https://docs.keen.money/) will help you understand before start contributing
+- Join our [Discord](https://discord.keen.money) community
+- Or if you are more of a [Telegram Zombie](https://t.me/keenmoneybsc) we have that too
+- Bugs? Use the [Issues](https://github.com/keenmoney/keen-frontend/issues) section of our github to report them

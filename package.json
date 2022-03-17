@@ -1,7 +1,7 @@
 {
-  "name": "bomb-frontend",
+  "name": "keen-frontend",
   "version": "2.0.0",
-  "repository": "https://github.com/bombmoney/bomb-frontend.git",
+  "repository": "https://github.com/keenmoney/keen-frontend.git",
   "author": "Aaron <aaron@1coin.io>",
   "license": "MIT",
   "dependencies": {

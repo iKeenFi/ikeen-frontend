@@ -1,29 +1,29 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import useTokenBalance from '../../hooks/useTokenBalance';
-import {getDisplayBalance} from '../../utils/formatBalance';
+import { getDisplayBalance } from '../../utils/formatBalance';
 
 import Label from '../Label';
-import Modal, {ModalProps} from '../Modal';
+import Modal, { ModalProps } from '../Modal';
 import ModalTitle from '../ModalTitle';
-import useBombFinance from '../../hooks/useBombFinance';
+import useKeenFinance from '../../hooks/useKeenFinance';
 import TokenSymbol from '../TokenSymbol';
-import {useMediaQuery} from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
 
-const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
-  const bombFinance = useBombFinance();
+const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
+  const keenFinance = useKeenFinance();
 
-  const bombBalance = useTokenBalance(bombFinance.BOMB);
-  const displayBombBalance = useMemo(() => getDisplayBalance(bombBalance, 18, 2), [bombBalance]);
+  const keenBalance = useTokenBalance(keenFinance.KEEN);
+  const displayKeenBalance = useMemo(() => getDisplayBalance(keenBalance, 18, 2), [keenBalance]);
 
-  const bshareBalance = useTokenBalance(bombFinance.BSHARE);
-  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance, 18, 2), [bshareBalance]);
+  const iskeenBalance = useTokenBalance(keenFinance.iSKEEN);
+  const displayBshareBalance = useMemo(() => getDisplayBalance(iskeenBalance, 18, 2), [iskeenBalance]);
 
-  const bbondBalance = useTokenBalance(bombFinance.BBOND);
+  const bbondBalance = useTokenBalance(keenFinance.BBOND);
   const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance, 18, 2), [bbondBalance]);
 
-    const xbombBalance = useTokenBalance(bombFinance.XBOMB);
-  const displayXbombBalance = useMemo(() => getDisplayBalance(xbombBalance, 18, 2), [xbombBalance]);
+  const xkeenBalance = useTokenBalance(keenFinance.XKEEN);
+  const displayXkeenBalance = useMemo(() => getDisplayBalance(xkeenBalance, 18, 2), [xkeenBalance]);
 
   const matches = useMediaQuery('(min-width:900px)');
 
@@ -31,30 +31,30 @@ const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
     <Modal>
       <ModalTitle text="My Wallet" />
 
-      <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BOMB" />
+      <Balances style={{ display: 'flex', flexDirection: matches ? 'row' : 'column' }}>
+        <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
+          <TokenSymbol symbol="KEEN" />
           <StyledBalance>
-            <StyledValue>{displayBombBalance}</StyledValue>
-            <Label text="BOMB Available" />
+            <StyledValue>{displayKeenBalance}</StyledValue>
+            <Label text="KEEN Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BSHARE" />
+        <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
+          <TokenSymbol symbol="iSKEEN" />
           <StyledBalance>
             <StyledValue>{displayBshareBalance}</StyledValue>
-            <Label text="BSHARE Available" />
+            <Label text="iSKEEN Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="XBOMB" />
+        <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
+          <TokenSymbol symbol="XKEEN" />
           <StyledBalance>
-            <StyledValue>{displayXbombBalance}</StyledValue>
-            <Label text="XBOMB Available" />
+            <StyledValue>{displayXkeenBalance}</StyledValue>
+            <Label text="XKEEN Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+        <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
           <TokenSymbol symbol="BBOND" />
           <StyledBalance>
             <StyledValue>{displayBbondBalance}</StyledValue>

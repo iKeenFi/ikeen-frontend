@@ -1,27 +1,27 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
+import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
-import {AddIcon, RemoveIcon} from '../../../components/icons';
+import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 
-import useApprove, {ApprovalState} from '../../../hooks/useApprove';
+import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useWithdrawCheck from '../../../hooks/boardroom/useWithdrawCheck';
 
-import {getDisplayBalance} from '../../../utils/formatBalance';
+import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
-import useBombFinance from '../../../hooks/useBombFinance';
+import useKeenFinance from '../../../hooks/useKeenFinance';
 import ProgressCountdown from './ProgressCountdown';
 import useStakedBalanceOnBoardroom from '../../../hooks/useStakedBalanceOnBoardroom';
 import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
@@ -31,14 +31,14 @@ import useStakeToBoardroom from '../../../hooks/useStakeToBoardroom';
 import useWithdrawFromBoardroom from '../../../hooks/useWithdrawFromBoardroom';
 
 const Stake: React.FC = () => {
-  const bombFinance = useBombFinance();
-  const [approveStatus, approve] = useApprove(bombFinance.BSHARE, bombFinance.contracts.Boardroom.address);
+  const keenFinance = useKeenFinance();
+  const [approveStatus, approve] = useApprove(keenFinance.iSKEEN, keenFinance.contracts.Boardroom.address);
 
-  const tokenBalance = useTokenBalance(bombFinance.BSHARE);
+  const tokenBalance = useTokenBalance(keenFinance.iSKEEN);
   const stakedBalance = useStakedBalanceOnBoardroom();
-  const {from, to} = useUnstakeTimerBoardroom();
+  const { from, to } = useUnstakeTimerBoardroom();
 
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('BSHARE', bombFinance.BSHARE);
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('iSKEEN', keenFinance.iSKEEN);
   const tokenPriceInDollars = useMemo(
     () =>
       stakedTokenPriceInDollars
@@ -48,8 +48,8 @@ const Stake: React.FC = () => {
   );
   // const isOldBoardroomMember = boardroomVersion !== 'latest';
 
-  const {onStake} = useStakeToBoardroom();
-  const {onWithdraw} = useWithdrawFromBoardroom();
+  const { onStake } = useStakeToBoardroom();
+  const { onWithdraw } = useWithdrawFromBoardroom();
   const canWithdrawFromBoardroom = useWithdrawCheck();
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
@@ -59,7 +59,7 @@ const Stake: React.FC = () => {
         onStake(value);
         onDismissDeposit();
       }}
-      tokenName={'BShare'}
+      tokenName={'iSkeen'}
     />,
   );
 
@@ -70,7 +70,7 @@ const Stake: React.FC = () => {
         onWithdraw(value);
         onDismissWithdraw();
       }}
-      tokenName={'BShare'}
+      tokenName={'iSkeen'}
     />,
   );
 
@@ -81,21 +81,21 @@ const Stake: React.FC = () => {
           <StyledCardContentInner>
             <StyledCardHeader>
               <CardIcon>
-                <TokenSymbol symbol="BSHARE" />
+                <TokenSymbol symbol="iSKEEN" />
               </CardIcon>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} variant="yellow" />
-              <Label text={'BSHARE Staked'} variant="yellow" />
+              <Label text={'iSKEEN Staked'} variant="yellow" />
             </StyledCardHeader>
             <StyledCardActions>
               {approveStatus !== ApprovalState.APPROVED ? (
                 <Button
                   disabled={approveStatus !== ApprovalState.NOT_APPROVED}
                   className={approveStatus === ApprovalState.NOT_APPROVED ? 'shinyButton' : 'shinyButtonDisabled'}
-                  style={{marginTop: '20px'}}
+                  style={{ marginTop: '20px' }}
                   onClick={approve}
                 >
-                  Approve BSHARE
+                  Approve iSKEEN
                 </Button>
               ) : (
                 <>
@@ -112,13 +112,13 @@ const Stake: React.FC = () => {
           </StyledCardContentInner>
         </CardContent>
       </Card>
-      <Box mt={2} style={{color: '#FFF'}}>
+      <Box mt={2} style={{ color: '#FFF' }}>
         {canWithdrawFromBoardroom ? (
           ''
         ) : (
           <Card>
             <CardContent>
-              <Typography style={{textAlign: 'center'}}>Withdraw possible in</Typography>
+              <Typography style={{ textAlign: 'center' }}>Withdraw possible in</Typography>
               <ProgressCountdown hideBar={true} base={from} deadline={to} description="Withdraw available in" />
             </CardContent>
           </Card>

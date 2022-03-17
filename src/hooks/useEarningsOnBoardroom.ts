@@ -1,18 +1,18 @@
-import {useEffect, useState} from 'react';
-import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
+import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
+import useKeenFinance from './useKeenFinance';
 import useRefresh from './useRefresh';
 
 const useEarningsOnBoardroom = () => {
-  const {slowRefresh} = useRefresh();
+  const { slowRefresh } = useRefresh();
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const keenFinance = useKeenFinance();
+  const isUnlocked = keenFinance?.isUnlocked;
 
   useEffect(() => {
     async function fetchBalance() {
       try {
-        setBalance(await bombFinance.getEarningsOnBoardroom());
+        setBalance(await keenFinance.getEarningsOnBoardroom());
       } catch (e) {
         console.error(e);
       }
@@ -20,7 +20,7 @@ const useEarningsOnBoardroom = () => {
     if (isUnlocked) {
       fetchBalance();
     }
-  }, [isUnlocked, bombFinance, slowRefresh]);
+  }, [isUnlocked, keenFinance, slowRefresh]);
 
   return balance;
 };

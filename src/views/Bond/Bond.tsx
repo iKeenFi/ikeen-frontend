@@ -1,25 +1,24 @@
-import React, {useCallback, useMemo} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Page from '../../components/Page';
-import {createGlobalStyle} from 'styled-components';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
-import {useWallet} from 'use-wallet';
+import { createGlobalStyle } from 'styled-components';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { useWallet } from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
 import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-//import useBombStats from '../../hooks/useBombStats';
-import useBombFinance from '../../hooks/useBombFinance';
+//import useKeenStats from '../../hooks/useKeenStats';
+import useKeenFinance from '../../hooks/useKeenFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
-import {useTransactionAdder} from '../../state/transactions/hooks';
+import { useTransactionAdder } from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
-import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../bomb-finance/constants';
+import { getDisplayBalance } from '../../utils/formatBalance';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../keen-finance/constants';
 import { Alert } from '@material-ui/lab';
-
 
 import HomeImage from '../../assets/img/background.jpg';
 import { Grid, Box } from '@material-ui/core';
@@ -32,82 +31,80 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
-const TITLE = 'bomb.money | Bonds'
+const TITLE = 'keen.money | Bonds';
 
 const Bond: React.FC = () => {
-  const {path} = useRouteMatch();
-  const {account} = useWallet();
-  const bombFinance = useBombFinance();
+  const { path } = useRouteMatch();
+  const { account } = useWallet();
+  const keenFinance = useKeenFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
-  //const bombStat = useBombStats();
+  //const keenStat = useKeenStats();
   const cashPrice = useCashPriceInLastTWAP();
 
   const bondsPurchasable = useBondsPurchasable();
 
-  const bondBalance = useTokenBalance(bombFinance?.BBOND);
+  const bondBalance = useTokenBalance(keenFinance?.BBOND);
   //const scalingFactor = useMemo(() => (cashPrice ? Number(cashPrice) : null), [cashPrice]);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
-      const tx = await bombFinance.buyBonds(amount);
+      const tx = await keenFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} BBOND with ${amount} BOMB`,
+        summary: `Buy ${Number(amount).toFixed(2)} BBOND with ${amount} KEEN`,
       });
     },
-    [bombFinance, addTransaction],
+    [keenFinance, addTransaction],
   );
 
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
-      const tx = await bombFinance.redeemBonds(amount);
-      addTransaction(tx, {summary: `Redeem ${amount} BBOND`});
+      const tx = await keenFinance.redeemBonds(amount);
+      addTransaction(tx, { summary: `Redeem ${amount} BBOND` });
     },
-    [bombFinance, addTransaction],
+    [keenFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
   const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
-// console.log("bondstat", Number(bondStat?.tokenInFtm))
-  const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4); 
+  // console.log("bondstat", Number(bondStat?.tokenInFtm))
+  const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4);
 
   return (
     <Switch>
       <Page>
         <BackgroundImage />
-              <Helmet>
-        <title>{TITLE}</title>
-      </Helmet>
+        <Helmet>
+          <title>{TITLE}</title>
+        </Helmet>
         {!!account ? (
           <>
             <Route exact path={path}>
               <PageHeader icon={'💣'} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
             </Route>
             {isBondPayingPremium === false ? (
-
-
               <Box mt={5}>
                 <Grid item xs={12} sm={12} justify="center" style={{ margin: '18px', display: 'flex' }}>
-                <Alert variant="filled" severity="error">
-                    <b>
-                      Claiming below 1.1 peg will not receive a redemption bonus, claim wisely!</b>
-              </Alert>
-            
-              </Grid>
+                  <Alert variant="filled" severity="error">
+                    <b>Claiming below 1.1 peg will not receive a redemption bonus, claim wisely!</b>
+                  </Alert>
+                </Grid>
               </Box>
-            ) : <></>}
-          
+            ) : (
+              <></>
+            )}
+
             <StyledBond>
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={bombFinance.BOMB}
-                  fromTokenName="BOMB"
-                  toToken={bombFinance.BBOND}
+                  fromToken={keenFinance.KEEN}
+                  fromTokenName="KEEN"
+                  toToken={keenFinance.BBOND}
                   toTokenName="BBOND"
                   priceDesc={
                     !isBondPurchasable
-                      ? 'BOMB is over peg'
+                      ? 'KEEN is over peg'
                       : getDisplayBalance(bondsPurchasable, 18, 4) + ' BBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
@@ -116,30 +113,29 @@ const Bond: React.FC = () => {
               </StyledCardWrapper>
               <StyledStatsWrapper>
                 <ExchangeStat
-                  tokenName="10,000 BOMB"
+                  tokenName="10,000 KEEN"
                   description="Last-Hour TWAP Price"
-                  //price={Number(bombStat?.tokenInFtm).toFixed(4) || '-'}
-                 price={bondScale || '-'}
-
+                  //price={Number(keenStat?.tokenInFtm).toFixed(4) || '-'}
+                  price={bondScale || '-'}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
                   tokenName="10,000 BBOND"
-                  description="Current Price: (BOMB)^2"
+                  description="Current Price: (KEEN)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(4) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
-                  fromToken={bombFinance.BBOND}
+                  fromToken={keenFinance.BBOND}
                   fromTokenName="BBOND"
-                  toToken={bombFinance.BOMB}
-                  toTokenName="BOMB"
+                  toToken={keenFinance.KEEN}
+                  toTokenName="KEEN"
                   priceDesc={`${getDisplayBalance(bondBalance)} BBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when 10,000 BOMB > ${BOND_REDEEM_PRICE}BTC` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when 10,000 KEEN > ${BOND_REDEEM_PRICE}AVAX` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

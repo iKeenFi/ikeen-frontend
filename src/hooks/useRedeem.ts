@@ -1,17 +1,17 @@
-import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
-import {Bank} from '../bomb-finance';
+import { useCallback } from 'react';
+import useKeenFinance from './useKeenFinance';
+import { Bank } from '../keen-finance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useRedeem = (bank: Bank) => {
-  const bombFinance = useBombFinance();
+  const keenFinance = useKeenFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
-    handleTransactionReceipt(bombFinance.exit(bank.contract, bank.poolId), `Redeem ${bank.contract}`);
-  }, [bank, bombFinance, handleTransactionReceipt]);
+    handleTransactionReceipt(keenFinance.exit(bank.contract, bank.poolId), `Redeem ${bank.contract}`);
+  }, [bank, keenFinance, handleTransactionReceipt]);
 
-  return {onRedeem: handleRedeem};
+  return { onRedeem: handleRedeem };
 };
 
 export default useRedeem;

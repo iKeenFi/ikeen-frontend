@@ -16,9 +16,9 @@ import {
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
-import useBombStats from '../../hooks/useBombStats';
-import useBtcStats from '../../hooks/useBtcStats';
-import useShareStats from '../../hooks/usebShareStats';
+import useKeenStats from '../../hooks/useKeenStats';
+import useAvaxStats from '../../hooks/useAvaxStats';
+import useShareStats from '../../hooks/useiSkeenStats';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -26,7 +26,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
 
-import bombLogo from '../../assets/img/ikeen-logo.png';
+import keenLogo from '../../assets/img/keen.png';
 import { roundAndFormatNumber } from '../../0x';
 //import TokenSymbol from '../TokenSymbol';
 
@@ -88,8 +88,8 @@ const Nav = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const bombStats = useBombStats();
-  const btcStats = useBtcStats();
+  const keenStats = useKeenStats();
+  const avaxStats = useAvaxStats();
   const shareStats = useShareStats();
 
   // const [connected, setConnected] = React.useState(false);
@@ -102,10 +102,10 @@ const Nav = () => {
     setOpen(false);
   };
 
-  const btcPriceInDollars = useMemo(() => (btcStats ? Number(btcStats).toFixed(2) : null), [btcStats]);
-  const bombPriceInDollars = useMemo(
-    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+  const avaxPriceInDollars = useMemo(() => (avaxStats ? Number(avaxStats).toFixed(2) : null), [avaxStats]);
+  const keenPriceInDollars = useMemo(
+    () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
+    [keenStats],
   );
   const sharePriceInDollars = useMemo(
     () => (shareStats ? Number(shareStats.priceInDollars).toFixed(2) : null),
@@ -118,9 +118,9 @@ const Nav = () => {
         {matches ? (
           <>
             <Typography variant="h6" color="inherit" noWrap style={{ flexGrow: '0' }} className={classes.toolbarTitle}>
-              {/* <a className={ classes.brandLink } href="/">Bomb Money</a> */}
+              {/* <a className={ classes.brandLink } href="/">Keen Money</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
-                <img alt="bomb.money" src={bombLogo} height="60px" />
+                <img alt="keen.money" src={keenLogo} height="60px" />
               </Link>
             </Typography>
             <Box style={{ paddingLeft: '15px', fontSize: '1rem', flexGrow: '1' }}>
@@ -172,8 +172,8 @@ const Nav = () => {
             </IconButton>
 
             <img
-              alt="bomb.money"
-              src={bombLogo}
+              alt="keen.money"
+              src={keenLogo}
               style={{ height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px' }}
             />
             <AccountButton text="Connect" />
