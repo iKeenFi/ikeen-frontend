@@ -1,15 +1,15 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import keenLogo from '../../assets/img/keen1.png';
-import tShareLogo from '../../assets/img/keen2.png';
+import keenLogo from '~src/assets/img/keen1.png';
+import tShareLogo from '~src/assets/img/keen2.png';
 
-import tBondLogo from '../../assets/img/keen3.png';
+import tBondLogo from '~src/assets/img/keen3.png';
 
-import keenAvaxLpLogo from '../../assets/img/keen-avax.png';
-import iskeenAvaxLpLogo from '../../assets/img/iskeen-avax.png';
-import iskeenKeenLpLogo from '../../assets/img/iskeen-keen.png';
-import avaxLogo from '../../assets/img/avax.png';
+import keenAvaxLpLogo from '~src/assets/img/keen-avax.png';
+import iskeenAvaxLpLogo from '~src/assets/img/iskeen-avax.png';
+import iskeenKeenLpLogo from '~src/assets/img/iskeen-keen.png';
+import avaxLogo from '~src/assets/img/avax.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
