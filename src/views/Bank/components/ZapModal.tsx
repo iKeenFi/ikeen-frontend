@@ -37,7 +37,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be BNB in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
   const keenFtmLpStats = useLpStats('KEEN-AVAX-LP');
-  const tShareFtmLpStats = useLpStats('iSKEEN-BNB-LP');
+  const tShareFtmLpStats = useLpStats('iSKEEN-AVAX-LP');
   const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
   const iskeenLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
   const ftmAmountPerLP = tokenName.startsWith(KEEN_TICKER) ? keenLPStats?.ftmAmount : iskeenLPStats?.ftmAmount;

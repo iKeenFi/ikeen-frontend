@@ -19,7 +19,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const iskeenBalance = useTokenBalance(keenFinance.iSKEEN);
   const displayBshareBalance = useMemo(() => getDisplayBalance(iskeenBalance, 18, 2), [iskeenBalance]);
 
-  const bbondBalance = useTokenBalance(keenFinance.BBOND);
+  const bbondBalance = useTokenBalance(keenFinance.iBKEEN);
   const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance, 18, 2), [bbondBalance]);
 
   const xkeenBalance = useTokenBalance(keenFinance.XKEEN);
@@ -55,10 +55,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           </StyledBalance>
         </StyledBalanceWrapper>
         <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
-          <TokenSymbol symbol="BBOND" />
+          <TokenSymbol symbol="iBKEEN" />
           <StyledBalance>
             <StyledValue>{displayBbondBalance}</StyledValue>
-            <Label text="BBOND Available" />
+            <Label text="iBKEEN Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

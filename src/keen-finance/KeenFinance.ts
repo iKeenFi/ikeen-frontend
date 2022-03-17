@@ -195,7 +195,7 @@ export class KeenFinance {
   }
   /**
    * Use this method to get price for Keen
-   * @returns TokenStat for BBOND
+   * @returns TokenStat for iBKEEN
    * priceInBNB
    * priceInDollars
    * TotalSupply

@@ -55,7 +55,7 @@ const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
   const keenFtmLpStats = useLpStatsAVAX('KEEN-AVAX-LP');
-  const iSkeenFtmLpStats = useLpStats('iSKEEN-BNB-LP');
+  const iSkeenFtmLpStats = useLpStats('iSKEEN-AVAX-LP');
   const keenStats = useKeenStats();
   const iSkeenStats = useiSkeenStats();
   const tBondStats = useBondStats();
@@ -110,7 +110,7 @@ const Home = () => {
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
   const keenLpZap = useZap({ depositTokenName: 'KEEN-AVAX-LP' });
-  const iskeenLpZap = useZap({ depositTokenName: 'iSKEEN-BNB-LP' });
+  const iskeenLpZap = useZap({ depositTokenName: 'iSKEEN-AVAX-LP' });
 
   const [onPresentKeenZap, onDissmissKeenZap] = useModal(
     <ZapModal
@@ -132,7 +132,7 @@ const Home = () => {
         iskeenLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissBshareZap();
       }}
-      tokenName={'iSKEEN-BNB-LP'}
+      tokenName={'iSKEEN-AVAX-LP'}
     />,
   );
 
@@ -287,13 +287,13 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* BBOND */}
+        {/* iBKEEN */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
               <Button
                 onClick={() => {
-                  keenFinance.watchAssetInMetamask('BBOND');
+                  keenFinance.watchAssetInMetamask('iBKEEN');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -303,18 +303,18 @@ const Home = () => {
               </Button>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BBOND" />
+                  <TokenSymbol symbol="iBKEEN" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>BBOND</h2>
-              10,000 BBOND
+              <h2 style={{ marginBottom: '10px' }}>iBKEEN</h2>
+              10,000 iBKEEN
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {tBondPriceInBNB ? tBondPriceInBNB : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'} / BBOND</span>
+                <span style={{ fontSize: '16px' }}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'} / iBKEEN</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
                 Market Cap: ${roundAndFormatNumber((tBondCirculatingSupply * tBondPriceInDollars).toFixed(2), 2)} <br />
@@ -358,7 +358,7 @@ const Home = () => {
             <CardContent align="center">
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="iSKEEN-BNB-LP" />
+                  <TokenSymbol symbol="iSKEEN-AVAX-LP" />
                 </CardIcon>
               </Box>
               <h2>iSKEEN-BNB PancakeSwap LP</h2>

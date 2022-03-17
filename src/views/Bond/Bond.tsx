@@ -20,7 +20,7 @@ import { getDisplayBalance } from '../../utils/formatBalance';
 import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../keen-finance/constants';
 import { Alert } from '@material-ui/lab';
 
-import HomeImage from '../../assets/img/background.jpg';
+import HomeImage from '~src/assets/img/background.jpg';
 import { Grid, Box } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
 
@@ -44,14 +44,14 @@ const Bond: React.FC = () => {
 
   const bondsPurchasable = useBondsPurchasable();
 
-  const bondBalance = useTokenBalance(keenFinance?.BBOND);
+  const bondBalance = useTokenBalance(keenFinance?.iBKEEN);
   //const scalingFactor = useMemo(() => (cashPrice ? Number(cashPrice) : null), [cashPrice]);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
       const tx = await keenFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} BBOND with ${amount} KEEN`,
+        summary: `Buy ${Number(amount).toFixed(2)} iBKEEN with ${amount} KEEN`,
       });
     },
     [keenFinance, addTransaction],
@@ -60,7 +60,7 @@ const Bond: React.FC = () => {
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
       const tx = await keenFinance.redeemBonds(amount);
-      addTransaction(tx, { summary: `Redeem ${amount} BBOND` });
+      addTransaction(tx, { summary: `Redeem ${amount} iBKEEN` });
     },
     [keenFinance, addTransaction],
   );
@@ -100,12 +100,12 @@ const Bond: React.FC = () => {
                   action="Purchase"
                   fromToken={keenFinance.KEEN}
                   fromTokenName="KEEN"
-                  toToken={keenFinance.BBOND}
-                  toTokenName="BBOND"
+                  toToken={keenFinance.iBKEEN}
+                  toTokenName="iBKEEN"
                   priceDesc={
                     !isBondPurchasable
                       ? 'KEEN is over peg'
-                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' BBOND available for purchase'
+                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' iBKEEN available for purchase'
                   }
                   onExchange={handleBuyBonds}
                   disabled={!bondStat || isBondRedeemable}
@@ -120,7 +120,7 @@ const Bond: React.FC = () => {
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="10,000 BBOND"
+                  tokenName="10,000 iBKEEN"
                   description="Current Price: (KEEN)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(4) || '-'}
                 />
@@ -128,11 +128,11 @@ const Bond: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
-                  fromToken={keenFinance.BBOND}
-                  fromTokenName="BBOND"
+                  fromToken={keenFinance.iBKEEN}
+                  fromTokenName="iBKEEN"
                   toToken={keenFinance.KEEN}
                   toTokenName="KEEN"
-                  priceDesc={`${getDisplayBalance(bondBalance)} BBOND Available in wallet`}
+                  priceDesc={`${getDisplayBalance(bondBalance)} iBKEEN Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
                   disabledDescription={!isBondRedeemable ? `Enabled when 10,000 KEEN > ${BOND_REDEEM_PRICE}AVAX` : null}
