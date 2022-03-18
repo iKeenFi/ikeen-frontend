@@ -33,5 +33,5 @@ npx prettier --write .
 ## Useful Resources
 
 - [Our project documentation](https://docs.ikeenfi.app/#/) will help you understand before start contributing
-- Join our [Discord](discord.gg/fj6B245xdRy) community
-- Bugs? Use the [Issues](https://github.com/keenmoney/keen-frontend/issues) section of our github to report them
+- Join our [Discord](https://discord.gg/fj6B245xdRy) community
+- Bugs? Use the [Issues](https://github.com/iKeenFi/issues) section of our github to report them
