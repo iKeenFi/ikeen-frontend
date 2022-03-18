@@ -1,4 +1,4 @@
-# Contributing to [Keen.money](https://keen.money)
+# Contributing to [iKeen Finance](https://ikeenfi.app)
 
 🎉 First off all, thanks for taking the time to contribute! 🎉
 
