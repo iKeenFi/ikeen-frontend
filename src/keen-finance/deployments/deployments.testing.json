@@ -1,6 +1,6 @@
 {
-  "BBond": {
-    "address": "0xDA1d9C79240003195d0a67f202efcCCC3F78b994",
+  "ibkeen": {
+    "address": "0xDA1d9C79240003195d0a67f202efcCCC3F78b994",//pending of change when we deploy contracts
     "abi": [
       {
         "inputs": [],
@@ -445,7 +445,7 @@
     ]
   },
   "iSkeen": {
-    "address": "0xbFBCf4d4e80b978409f9DbF31D662a73d3c2146b",
+    "address": "0xbFBCf4d4e80b978409f9DbF31D662a73d3c2146b",//addy pending of change too
     "abi": [
       {
         "inputs": [
