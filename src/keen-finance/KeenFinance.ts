@@ -109,17 +109,17 @@ export class KeenFinance {
     const keenRewardPoolSupply = await this.KEEN.balanceOf(KeenGenesisRewardPool.address);
     const keenRewardPoolSupply2 = await this.KEEN.balanceOf(KeenRewardPool.address);
     const keenCirculatingSupply = supply.sub(keenRewardPoolSupply).sub(keenRewardPoolSupply2);
-    //  const priceInBNB = await this.getTokenPriceFromPancakeswap(this.KEEN);
-    //const priceInBNBstring = priceInBNB.toString();
+    //  const priceInAVAX = await this.getTokenPriceFromPancakeswap(this.KEEN);
+    //const priceInAVAXstring = priceInAVAX.toString();
     const priceInAVAX = await this.getTokenPriceFromPancakeswapAVAX(this.KEEN);
-    // const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
+    // const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     //const priceInDollars = await this.getTokenPriceFromPancakeswapKEENUSD();
     const priceOfKeenInDollars = ((Number(priceInAVAX) * Number(priceOfOneAVAX)) / 10000).toFixed(2);
     //console.log('priceOfKeenInDollars', priceOfKeenInDollars);
 
     return {
-      //  tokenInFtm: (Number(priceInBNB) * 100).toString(),
+      //  tokenInFtm: (Number(priceInAVAX) * 100).toString(),
       tokenInFtm: priceInAVAX.toString(),
       priceInDollars: priceOfKeenInDollars,
       totalSupply: getDisplayBalance(supply, this.KEEN.decimal, 0),
@@ -196,7 +196,7 @@ export class KeenFinance {
   /**
    * Use this method to get price for Keen
    * @returns TokenStat for iBKEEN
-   * priceInBNB
+   * priceInAVAX
    * priceInDollars
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
@@ -206,11 +206,11 @@ export class KeenFinance {
     const keenStat = await this.getKeenStat();
     const bondKeenRatioBN = await Treasury.getBondPremiumRate();
     const modifier = bondKeenRatioBN / 1e14 > 1 ? bondKeenRatioBN / 1e14 : 1;
-    const bondPriceInBNB = (Number(keenStat.tokenInFtm) * modifier).toFixed(4);
+    const bondPriceInAVAX = (Number(keenStat.tokenInFtm) * modifier).toFixed(4);
     const priceOfBBondInDollars = (Number(keenStat.priceInDollars) * modifier).toFixed(4);
     const supply = await this.iBKEEN.displayedTotalSupply();
     return {
-      tokenInFtm: bondPriceInBNB,
+      tokenInFtm: bondPriceInAVAX,
       priceInDollars: priceOfBBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,
@@ -219,7 +219,7 @@ export class KeenFinance {
 
   /**
    * @returns TokenStat for iSKEEN
-   * priceInBNB
+   * priceInAVAX
    * priceInDollars
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
@@ -229,14 +229,14 @@ export class KeenFinance {
 
     const supply = await this.iSKEEN.totalSupply();
 
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.iSKEEN);
+    const priceInAVAX = await this.getTokenPriceFromPancakeswap(this.iSKEEN);
     const keenRewardPoolSupply = await this.iSKEEN.balanceOf(iSkeenRewardPool.address);
     const tShareCirculatingSupply = supply.sub(keenRewardPoolSupply);
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-    const priceOfSharesInDollars = (Number(priceInBNB) * Number(priceOfOneBNB)).toFixed(2);
+    const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
+    const priceOfSharesInDollars = (Number(priceInAVAX) * Number(priceOfOneAVAX)).toFixed(2);
 
     return {
-      tokenInFtm: priceInBNB,
+      tokenInFtm: priceInAVAX,
       priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.iSKEEN.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.iSKEEN.decimal, 0),
@@ -327,7 +327,7 @@ export class KeenFinance {
     if (earnTokenName === 'KEEN') {
       if (!contractName.endsWith('KeenRewardPool')) {
         const rewardPerSecond = await poolContract.tSharePerSecond();
-        if (depositTokenName === 'WBNB') {
+        if (depositTokenName === 'AVAX') {
           return rewardPerSecond.mul(6000).div(11000).div(24);
         } else if (depositTokenName === 'CAKE') {
           return rewardPerSecond.mul(2500).div(11000).div(24);
@@ -377,8 +377,8 @@ export class KeenFinance {
    */
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
-    const priceOfOneFtmInDollars = await this.getWBNBPriceFromPancakeswap();
-    if (tokenName === 'WBNB') {
+    const priceOfOneFtmInDollars = await this.getAVAXPriceFromPancakeswap();
+    if (tokenName === 'AVAX') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
       if (tokenName === 'KEEN-AVAX-LP') {
@@ -457,7 +457,7 @@ export class KeenFinance {
    * Calculates the price of an LP token
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
    * @param lpToken the token under calculation
-   * @param token the token pair used as reference (the other one would be BNB in most cases)
+   * @param token the token pair used as reference (the other one would be AVAX in most cases)
    * @param isKeen sanity check for usage of keen token or tShare
    * @returns price of the LP token
    */
@@ -477,7 +477,7 @@ export class KeenFinance {
    * Calculates the price of an LP token
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
    * @param lpToken the token under calculation
-   * @param token the token pair used as reference (the other one would be BNB in most cases)
+   * @param token the token pair used as reference (the other one would be AVAX in most cases)
    * @param isKeen sanity check for usage of keen token or tShare
    * @returns price of the LP token
    */
@@ -584,14 +584,17 @@ export class KeenFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
-    const { WAVAX } = this.config.externalTokens;
+    const { AVAX } = this.config.externalTokens;
 
-    const wftm = new Token(56, WAVAX[0], WAVAX[1], 'WAVAX');
+    const wavax = new Token(56, AVAX[0], AVAX[1], 'AVAX');
     const token = new Token(56, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+
     try {
-      const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
-      const priceInBUSD = new Route([wftmToToken], token);
-      return priceInBUSD.midPrice.toFixed(4);
+      const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
+
+      const priceInMIM = new Route([wavaxToToken], token);
+
+      return priceInMIM.midPrice.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
@@ -600,31 +603,16 @@ export class KeenFinance {
   async getTokenPriceFromPancakeswapAVAX(tokenContract: ERC20): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    //const { chainId } = this.config;
-    // const {WBNB} = this.config.externalTokens;
-
-    // const wbnb = new Token(56, WBNB[0], WBNB[1]);
-    const avaxb = new Token(56, this.AVAX.address, this.AVAX.decimal, 'AVAX', 'AVAX');
-    const token = new Token(56, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    try {
-      const wftmToToken = await Fetcher.fetchPairData(avaxb, token, this.provider);
-      const priceInBUSD = new Route([wftmToToken], token);
-      //   console.log('priceInBUSDAVAX', priceInBUSD.midPrice.toFixed(12));
-
-      const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12)) * 10000;
-      return priceForPeg.toFixed(4);
-    } catch (err) {
-      console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
-    }
+    return this.getTokenPriceFromPancakeswap(tokenContract);
   }
 
   async getTokenPriceFromPancakeswapKEENUSD(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
-    //const {WBNB} = this.config.externalTokens;
+    //const {AVAX} = this.config.externalTokens;
 
-    //  const wbnb = new Token(56, WBNB[0], WBNB[1]);
+    //  const wbnb = new Token(56, AVAX[0], AVAX[1]);
     const avaxb = new Token(56, this.AVAX.address, this.AVAX.decimal, 'AVAX', 'AVAX');
     const token = new Token(56, this.KEEN.address, this.KEEN.decimal, this.KEEN.symbol);
     try {
@@ -644,18 +632,18 @@ export class KeenFinance {
   //   if (!ready) return;
   //   const { chainId } = this.config;
 
-  //   const { WBNB } = this.externalTokens;
+  //   const { AVAX } = this.externalTokens;
 
-  //   const wftm = new TokenSpirit(chainId, WBNB.address, WBNB.decimal);
+  //   const wftm = new TokenSpirit(chainId, AVAX.address, AVAX.decimal);
   //   const token = new TokenSpirit(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
   //   try {
   //     const wftmToToken = await FetcherSpirit.fetchPairData(wftm, token, this.provider);
   //     const liquidityToken = wftmToToken.liquidityToken;
-  //     let ftmBalanceInLP = await WBNB.balanceOf(liquidityToken.address);
-  //     let ftmAmount = Number(getFullDisplayBalance(ftmBalanceInLP, WBNB.decimal));
+  //     let ftmBalanceInLP = await AVAX.balanceOf(liquidityToken.address);
+  //     let ftmAmount = Number(getFullDisplayBalance(ftmBalanceInLP, AVAX.decimal));
   //     let shibaBalanceInLP = await tokenContract.balanceOf(liquidityToken.address);
   //     let shibaAmount = Number(getFullDisplayBalance(shibaBalanceInLP, tokenContract.decimal));
-  //     const priceOfOneFtmInDollars = await this.getWBNBPriceFromPancakeswap();
+  //     const priceOfOneFtmInDollars = await this.getAVAXPriceFromPancakeswap();
   //     let priceOfShiba = (ftmAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
   //     return priceOfShiba.toString();
   //   } catch (err) {
@@ -663,56 +651,24 @@ export class KeenFinance {
   //   }
   // }
 
-  async getWBNBPriceFromPancakeswap(): Promise<string> {
-    const ready = await this.provider.ready;
-    if (!ready) return;
-    const { WBNB, FUSDT } = this.externalTokens;
-    try {
-      const fusdt_wftm_lp_pair = this.externalTokens['USDT-BNB-LP'];
-      let ftm_amount_BN = await WBNB.balanceOf(fusdt_wftm_lp_pair.address);
-      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WBNB.decimal));
-      let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_wftm_lp_pair.address);
-      let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-      return (fusdt_amount / ftm_amount).toString();
-    } catch (err) {
-      console.error(`Failed to fetch token price of WBNB: ${err}`);
-    }
-  }
-
   async getAVAXPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const { AVAX } = this.externalTokens;
+
+    const { AVAX, MIM } = this.externalTokens;
+
+    const token = new Token(56, MIM.address, MIM.decimal, 'MIM');
+    const wavax = new Token(56, AVAX.address, AVAX.decimal, AVAX.symbol);
+
     try {
-      const avaxPriceInBNB = await this.getTokenPriceFromPancakeswap(AVAX);
+      const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
 
-      const wbnbPrice = await this.getWBNBPriceFromPancakeswap();
-
-      const avaxprice = (Number(avaxPriceInBNB) * Number(wbnbPrice)).toFixed(2).toString();
-      //console.log('avaxprice', avaxprice);
-      return avaxprice;
+      const priceInMIM = new Route([wavaxToToken], token);
+      return priceInMIM.midPrice.toFixed(4);
     } catch (err) {
-      console.error(`Failed to fetch token price of AVAX: ${err}`);
+      console.error(`Failed to fetch AVAX price: ${err}`);
     }
   }
-
-  // async getAVAXPriceFromPancakeswap(): Promise<string> {
-  //   const ready = await this.provider.ready;
-  //   if (!ready) return;
-  //   const { AVAX, FUSDT } = this.externalTokens;
-  //   try {
-  //     const fusdt_avaxb_lp_pair = this.externalTokens['USDT-AVAX-LP'];
-  //     let ftm_amount_BN = await AVAX.balanceOf(fusdt_avaxb_lp_pair.address);
-  //     let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, AVAX.decimal));
-  //     let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_avaxb_lp_pair.address);
-  //     let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-  //     console.log('AVAX price', (fusdt_amount / ftm_amount).toString());
-  //     return (fusdt_amount / ftm_amount).toString();
-  //     console.log('AVAX price');
-  //   } catch (err) {
-  //     console.error(`Failed to fetch token price of AVAX: ${err}`);
-  //   }
-  // }
 
   //===================================================================
   //===================================================================

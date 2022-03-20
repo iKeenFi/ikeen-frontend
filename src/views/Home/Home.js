@@ -225,8 +225,7 @@ const Home = () => {
                 <b>+</b>&nbsp;&nbsp;
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
-              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>
-              10,000 KEEN (1.0 Peg) =
+              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>1 KEEN (1.0 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {keenPriceInBNB ? keenPriceInBNB : '-.----'} AVAX
