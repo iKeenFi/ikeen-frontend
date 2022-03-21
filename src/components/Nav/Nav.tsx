@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
-    color: '#f9d749',
-    'background-color': '#171923',
+    color: '#00000',
+    'background-color': '#0000',
     // borderBottom: `1px solid ${theme.palette.divider}`,
     padding: '10px',
     marginBottom: '3rem',
@@ -129,6 +129,9 @@ const Nav = () => {
               </Link>
               <Link to="/farm" className={'navLink ' + classes.link}>
                 Spiral
+              </Link>
+              <Link to="/test" className={'navLink ' + classes.link}>
+                test 
               </Link>
               <Link to="/boardroom" className={'navLink ' + classes.link}>
                 Galaxy
