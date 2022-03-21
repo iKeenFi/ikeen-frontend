@@ -20,18 +20,18 @@ import { getDisplayBalance } from '../../utils/formatBalance';
 import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../keen-finance/constants';
 import { Alert } from '@material-ui/lab';
 
-import HomeImage from '~src/assets/img/background.jpg';
+import northimage from '~src/assets/img/north.jpg';
 import { Grid, Box } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    background: url(${northimage}) repeat !important;
     background-size: cover !important;
     background-color: #171923;
   }
 `;
-const TITLE = 'keen.money | Bonds';
+const TITLE = 'iKeen.Finance | Bonds';
 
 const Bond: React.FC = () => {
   const { path } = useRouteMatch();
