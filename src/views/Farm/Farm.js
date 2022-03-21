@@ -10,22 +10,22 @@ import { Alert } from '@material-ui/lab';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import FarmCard from './FarmCard';
-//import FarmImage from '../../assets/img/farm.png';
+
 import { createGlobalStyle } from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
 import { Helmet } from 'react-helmet';
 
-import HomeImage from '../../assets/img/background.jpg';
+import spiralimage from '../../assets/img/theSPIRAL.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background-color: #171923;
-  }
+   background: url(${spiralimage}) repeat !important;
+   background-size: cover !important;
+   background-color: #171923;
+   }
 `;
 
-const TITLE = 'keen.money | Farms';
+const TITLE = 'iKeen.Finance | Farms';
 
 const Farm = () => {
   const [banks] = useBanks();
@@ -49,7 +49,7 @@ const Farm = () => {
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
                   <Typography color="textYellow" align="center" variant="h4" gutterBottom>
-                    Earn iSKEEN by staking PancakeSwap LP
+                    Earn iSKEEN by staking LP
                   </Typography>
                   {/* <Alert variant="filled" severity="info">
                     <h4>
