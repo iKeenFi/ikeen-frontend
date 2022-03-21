@@ -29,15 +29,17 @@ import ProgressCountdown from './components/ProgressCountdown';
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet';
 
-import HomeImage from '../../assets/img/background.jpg';
+
+
+import polarlightimage from '../../assets/img/polarlights.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background-color: #171923;
-  }
+   background: url(${polarlightimage}) repeat !important;
+   background-size: cover !important;
+   background-color: #171923;
+   }
 `;
-const TITLE = 'keen.money | Boardroom';
+const TITLE = 'iKeen.Finance | Boardroom';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -123,19 +125,19 @@ const Boardroom = () => {
             </Grid>
 
             <Grid container justify="center">
-              <Box mt={3} style={{ width: '600px' }}>
+              <Box mt={4} style={{ width: '600px' }}>
                 <Alert variant="filled" severity="info">
                   <h2> Let's Maintain PEG Together! </h2>
-                  <a href="https://app.keen.money/xkeen">xKEEN</a> is a great place to put your KEEN rewards , 20% of
-                  all minted KEEN goes directly to xKEEN stakers.
+                  <a >Stake</a> your iSKEEN on GALAXY for farm KEEN ! 
+                  
                   <br />
                   <br />
-                  Please consider putting your earned KEEN into xKEEN, especially when we are not over 1.1 peg.
+                  Note:GALAXY (boardroom) only will print if twap is above 1.01.
                 </Alert>
               </Box>
             </Grid>
 
-            <Box mt={4}>
+            <Box mt={3}>
               <StyledBoardroom>
                 <StyledCardsWrapper>
                   <StyledCardWrapper>
