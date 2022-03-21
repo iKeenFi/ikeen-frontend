@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '15px',
     width: '100%',
     color: 'white',
-    backgroundColor: '#191b26',
+    backgroundColor: '#00000',
     textAlign: 'center',
     height: '1.3rem',
     [theme.breakpoints.down('xs')]: {
@@ -44,28 +44,26 @@ const Footer = () => {
           <Grid item xs={6}>
             <Typography variant="body2" color="textPrimary" align="left">
               {'Copyright © '}
-              <Link color="inherit" href="/">
-                Keen Money
+              <Link color="red" href="/">
+                iKeen Finance
               </Link>{' '}
               {new Date().getFullYear()}
             </Typography>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right', height: '20px' }}>
             <a
-              href="https://twitter.com/KeenMoneyBSC"
+              href="https://twitter.com/iKeenFinance"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
             >
               <img src={IconTwitter} style={{ fill: '#dddfee' }} />
             </a>
-            <a href="https://github.com/keenmoney" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://github.com/ikeenfi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img src={IconGithub} style={{ fill: '#dddfee', height: '20px' }} />
             </a>
-            <a href="https://t.me/keenmoneybsc" rel="noopener noreferrer" target="_blank" className={classes.link}>
-              <img src={IconTelegram} style={{ fill: '#dddfee', height: '20px' }} />
-            </a>
-            <a href="http://discord.keen.money/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            
+            <a href="https://discord.gg/fj6B245xdR" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img src={IconDiscord} style={{ fill: '#dddfee', height: '20px' }} />
             </a>
           </Grid>
