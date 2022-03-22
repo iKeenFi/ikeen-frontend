@@ -1,6 +1,6 @@
 // import { Fetcher, Route, Token } from '@uniswap/sdk';
 //import { Fetcher as FetcherSpirit, Token as TokenSpirit } from '@spiritswap/sdk';
-import { Fetcher, Route, Token } from '@pancakeswap/sdk';
+import { Fetcher, Route, Token } from '@traderjoe-xyz/sdk';
 import { Configuration } from './config';
 import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, iSkeenSwapperStat } from './types';
 import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
@@ -33,8 +33,6 @@ export class KeenFinance {
   KEEN: ERC20;
   iSKEEN: ERC20;
   AVAX: ERC20;
-  KEEN_BORROWABLE: Contract;
-  AVAX_BORROWABLE: Contract;
   iBKEEN: ERC20;
   ISKEENKEEN_LP: Contract;
   ISKEENAVAX_LP: Contract;
@@ -54,7 +52,7 @@ export class KeenFinance {
     }
     this.KEEN = new ERC20(deployments.Keen.address, provider, 'KEEN');
     this.iSKEEN = new ERC20(deployments.iSkeen.address, provider, 'iSKEEN');
-    this.iBKEEN = new ERC20(deployments.BBond.address, provider, 'iBKEEN');
+    this.iBKEEN = new ERC20(deployments.iBKEEN.address, provider, 'iBKEEN');
 
     this.AVAX = this.externalTokens['AVAX'];
 
@@ -62,7 +60,7 @@ export class KeenFinance {
 
     this.KEENAVAX_LP = new Contract(externalTokens['KEEN-AVAX-LP'][0], IUniswapV2PairABI, provider);
     this.ISKEENAVAX_LP = new Contract(externalTokens['iSKEEN-AVAX-LP'][0], IUniswapV2PairABI, provider);
-    this.ISKEENKEEN_LP = new Contract(externalTokens['iSKEEN-KEEN-LP'][0], IUniswapV2PairABI, provider);
+    //this.ISKEENKEEN_LP = new Contract(externalTokens['iSKEEN-KEEN-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
     this.provider = provider;
@@ -107,8 +105,8 @@ export class KeenFinance {
     const { KeenRewardPool, KeenGenesisRewardPool } = this.contracts;
     const supply = await this.KEEN.totalSupply();
     const keenRewardPoolSupply = await this.KEEN.balanceOf(KeenGenesisRewardPool.address);
-    const keenRewardPoolSupply2 = await this.KEEN.balanceOf(KeenRewardPool.address);
-    const keenCirculatingSupply = supply.sub(keenRewardPoolSupply).sub(keenRewardPoolSupply2);
+    //const keenRewardPoolSupply2 = await this.KEEN.balanceOf(KeenRewardPool.address);
+    const keenCirculatingSupply = supply.sub(keenRewardPoolSupply); //.sub(keenRewardPoolSupply2);
     //  const priceInAVAX = await this.getTokenPriceFromPancakeswap(this.KEEN);
     //const priceInAVAXstring = priceInAVAX.toString();
     const priceInAVAX = await this.getTokenPriceFromPancakeswapAVAX(this.KEEN);
@@ -230,7 +228,7 @@ export class KeenFinance {
     const supply = await this.iSKEEN.totalSupply();
 
     const priceInAVAX = await this.getTokenPriceFromPancakeswap(this.iSKEEN);
-    const keenRewardPoolSupply = await this.iSKEEN.balanceOf(iSkeenRewardPool.address);
+    const keenRewardPoolSupply = 0; //await this.iSKEEN.balanceOf(iSkeenRewardPool.address);
     const tShareCirculatingSupply = supply.sub(keenRewardPoolSupply);
     const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInAVAX) * Number(priceOfOneAVAX)).toFixed(2);
@@ -326,15 +324,15 @@ export class KeenFinance {
   ) {
     if (earnTokenName === 'KEEN') {
       if (!contractName.endsWith('KeenRewardPool')) {
-        const rewardPerSecond = await poolContract.tSharePerSecond();
-        if (depositTokenName === 'AVAX') {
-          return rewardPerSecond.mul(6000).div(11000).div(24);
-        } else if (depositTokenName === 'CAKE') {
-          return rewardPerSecond.mul(2500).div(11000).div(24);
-        } else if (depositTokenName === 'SUSD') {
-          return rewardPerSecond.mul(1000).div(11000).div(24);
-        } else if (depositTokenName === 'SVL') {
-          return rewardPerSecond.mul(1500).div(11000).div(24);
+        const rewardPerSecond = await poolContract.keenPerSecond();
+        if (depositTokenName.startsWith('iSKEEN-AVAX')) {
+          return rewardPerSecond.mul(45000).div(100000);
+        } else if (depositTokenName.startsWith('WAVAX')) {
+          return rewardPerSecond.mul(30000).div(100000);
+        } else if (depositTokenName.startsWith('MIM')) {
+          return rewardPerSecond.mul(10000).div(100000);
+        } else if (depositTokenName.startsWith('GRAPE')) {
+          return rewardPerSecond.mul(15000).div(100000);
         }
         return rewardPerSecond.div(24);
       }
@@ -346,14 +344,15 @@ export class KeenFinance {
       }
       return await poolContract.epochKeenPerSecond(0);
     }
-    const rewardPerSecond = await poolContract.tSharePerSecond();
-    if (depositTokenName.startsWith('KEEN-AVAX')) {
-      return rewardPerSecond.mul(35000).div(100000);
-    } else if (depositTokenName.startsWith('KEEN-iSKEEN')) {
-      return rewardPerSecond.mul(0).div(119000);
-    } else if (depositTokenName.startsWith('KEEN')) {
-      return rewardPerSecond.mul(50000).div(100000);
-    } else {
+    const rewardPerSecond = await poolContract.keenPerSecond();
+    // 0.017361111 per second in total
+    if (depositTokenName.startsWith('iSKEEN-AVAX')) {
+      return rewardPerSecond.mul(45000).div(100000);
+    } else if (depositTokenName.startsWith('WAVAX')) {
+      return rewardPerSecond.mul(30000).div(100000);
+    } else if (depositTokenName.startsWith('MIM')) {
+      return rewardPerSecond.mul(10000).div(100000);
+    } else if (depositTokenName.startsWith('GRAPE')) {
       return rewardPerSecond.mul(15000).div(100000);
     }
     // if (depositTokenName.startsWith('KEEN-AVAX')) {
@@ -436,6 +435,8 @@ export class KeenFinance {
     for (const bankInfo of Object.values(bankDefinitions)) {
       const pool = this.contracts[bankInfo.contract];
       const token = this.externalTokens[bankInfo.depositTokenName];
+      console.log('gTVL token: ' + token);
+      console.log('gTVL pool: ' + pool);
       const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
       const tokenAmountInPool = await token.balanceOf(pool.address);
       const value = Number(getDisplayBalance(tokenAmountInPool, token.decimal)) * Number(tokenPrice);
@@ -583,13 +584,20 @@ export class KeenFinance {
   async getTokenPriceFromPancakeswap(tokenContract: ERC20): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
+    // this shouldn't happen, but tokenContract is somehow undefined
+    if (tokenContract == undefined) {
+      return;
+    }
     //const { chainId } = this.config;
     const { AVAX } = this.config.externalTokens;
 
-    const wavax = new Token(56, AVAX[0], AVAX[1], 'AVAX');
-    const token = new Token(56, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+    const wavax = new Token(43114, AVAX[0], AVAX[1], 'AVAX');
+    const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
 
     try {
+      if (token.address == wavax.address) {
+        return await this.getAVAXPriceFromPancakeswap();
+      }
       const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
 
       const priceInMIM = new Route([wavaxToToken], token);
@@ -612,9 +620,9 @@ export class KeenFinance {
     //const { chainId } = this.config;
     //const {AVAX} = this.config.externalTokens;
 
-    //  const wbnb = new Token(56, AVAX[0], AVAX[1]);
-    const avaxb = new Token(56, this.AVAX.address, this.AVAX.decimal, 'AVAX', 'AVAX');
-    const token = new Token(56, this.KEEN.address, this.KEEN.decimal, this.KEEN.symbol);
+    //  const wbnb = new Token(43114, AVAX[0], AVAX[1]);
+    const avaxb = new Token(43114, this.AVAX.address, this.AVAX.decimal, 'AVAX', 'AVAX');
+    const token = new Token(43114, this.KEEN.address, this.KEEN.decimal, this.KEEN.symbol);
     try {
       const wftmToToken = await Fetcher.fetchPairData(avaxb, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
@@ -657,8 +665,8 @@ export class KeenFinance {
 
     const { AVAX, MIM } = this.externalTokens;
 
-    const token = new Token(56, MIM.address, MIM.decimal, 'MIM');
-    const wavax = new Token(56, AVAX.address, AVAX.decimal, AVAX.symbol);
+    const token = new Token(43114, MIM.address, MIM.decimal, 'MIM');
+    const wavax = new Token(43114, AVAX.address, AVAX.decimal, 'WAVAX');
 
     try {
       const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
@@ -758,38 +766,6 @@ export class KeenFinance {
     const Xkeen = this.contracts.xKEEN;
     const keen = this.KEEN;
     return await keen.balanceOf(Xkeen.address);
-  }
-
-  async getTotalSuppliedKeen(): Promise<BigNumber> {
-    const bkeenKeen = this.KEEN_BORROWABLE;
-    // const keen = this.KEEN;
-    const totalKeen = await bkeenKeen.totalBalance();
-    //  const borrowKeen = await bkeenKeen.totalBorrows();
-    // const totalSupplied = totalKeen + borrowKeen;
-    return totalKeen;
-  }
-
-  async getTotalSuppliedAvax(): Promise<BigNumber> {
-    const bkeenKeen = this.AVAX_BORROWABLE;
-    // const keen = this.KEEN;
-    const totalAvax = await bkeenKeen.totalBalance();
-    //const borrowAvax = await bkeenKeen.totalBorrows();
-    //  const totalSupplied = totalAvax + borrowAvax;
-    return totalAvax;
-  }
-
-  async getXkeenExchange(): Promise<BigNumber> {
-    const Xkeen = this.contracts.xKEEN;
-    const XkeenExchange = await Xkeen.getExchangeRate();
-
-    const xKeenPerKeen = parseFloat(XkeenExchange) / 1000000000000000000;
-    const xKeenRate = xKeenPerKeen.toString();
-    return parseUnits(xKeenRate, 18);
-  }
-
-  async withdrawFromKeen(amount: string): Promise<TransactionResponse> {
-    const Xkeen = this.contracts.xKEEN;
-    return await Xkeen.leave(decimalToBalance(amount));
   }
 
   async getEarningsOnBoardroom(): Promise<BigNumber> {

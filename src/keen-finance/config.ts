@@ -1,5 +1,5 @@
-import {Deployments} from './deployments';
-import {ChainId} from '@pancakeswap/sdk';
+import { Deployments } from './deployments';
+import { ChainId } from '@pancakeswap/sdk';
 
 export type Configuration = {
   chainId: ChainId;
@@ -7,7 +7,7 @@ export type Configuration = {
   ftmscanUrl: string;
   defaultProvider: string;
   deployments: Deployments;
-  externalTokens: {[contractName: string]: [string, number]};
+  externalTokens: { [contractName: string]: [string, number] };
   config?: EthereumConfig;
 
   baseLaunchDate: Date;

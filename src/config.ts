@@ -27,12 +27,14 @@ const configurations: { [env: string]: Configuration } = {
     chainId: 43114,
     networkName: 'Avalanche C-Chain',
     ftmscanUrl: 'https://snowtrace.io',
-    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc/',
+    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
     deployments: require('./keen-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       AVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       KEEN: ['0x522348779DCb2911539e76A1042aA922F9C47Ee3', 18],
+      GRAPE: ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'KEEN-AVAX-LP': ['0xa96C4f4960C43D2649Ac4eDc281e2172d632866f', 18],
       //'iSKEEN-KEEN-LP': ['0x54f9fE531224Fa43Feb218B20ABa84d22a8fDc0C', 18],
       'iSKEEN-AVAX-LP': ['0x01870c499db548c4de0da05180365d32603262a2', 18],
@@ -46,12 +48,14 @@ const configurations: { [env: string]: Configuration } = {
     chainId: 43114,
     networkName: 'Avalanche C-Chain',
     ftmscanUrl: 'https://snowtrace.io',
-    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc/',
+    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
     deployments: require('./keen-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       AVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       KEEN: ['0x522348779DCb2911539e76A1042aA922F9C47Ee3', 18],
+      GRAPE: ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'KEEN-AVAX-LP': ['0xa96C4f4960C43D2649Ac4eDc281e2172d632866f', 18],
       //'iSKEEN-KEEN-LP': ['0x54f9fE531224Fa43Feb218B20ABa84d22a8fDc0C', 18],
       'iSKEEN-AVAX-LP': ['0x01870c499db548c4de0da05180365d32603262a2', 18],
@@ -79,20 +83,42 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   sort: the order of the pool
   */
 
-  KeenAVAXRewardPool: {
-    name: 'Earn KEEN by AVAX',
-    poolId: 2,
+  AVAXKeenRewardPool: {
+    name: 'Earn KEEN by WAVAX',
+    poolId: 1,
     sectionInUI: 0,
     contract: 'KeenGenesisRewardPool',
     depositTokenName: 'WAVAX',
     earnTokenName: 'KEEN',
-    finished: true,
+    finished: false,
     sort: 0,
     closedForStaking: true,
   },
-  KeeniSkeenLPiSkeenRewardPool: {
-    name: 'Earn KEEN by iSKEEN-AVAX LP',
+  GRAPEKeenRewardPool: {
+    name: 'Earn KEEN by GRAPE',
+    poolId: 3,
+    sectionInUI: 0,
+    contract: 'KeenGenesisRewardPool',
+    depositTokenName: 'GRAPE',
+    earnTokenName: 'KEEN',
+    finished: false,
+    sort: 0,
+    closedForStaking: true,
+  },
+  MIMKeenRewardPool: {
+    name: 'Earn KEEN by MIM',
     poolId: 2,
+    sectionInUI: 0,
+    contract: 'KeenGenesisRewardPool',
+    depositTokenName: 'MIM',
+    earnTokenName: 'KEEN',
+    finished: false,
+    sort: 0,
+    closedForStaking: true,
+  },
+  iSkeenAVAXLPKeenRewardPool: {
+    name: 'Earn KEEN by iSKEEN-AVAX LP',
+    poolId: 0,
     sectionInUI: 0,
     contract: 'KeenGenesisRewardPool',
     depositTokenName: 'iSKEEN-AVAX-LP',
@@ -101,18 +127,6 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 1,
     closedForStaking: false,
   },
-  /*
-  KeeniSkeenLPiSkeenRewardPool: {
-    name: 'Earn iSKEEN by KEEN-AVAX LP',
-    poolId: 4,
-    sectionInUI: 2,
-    contract: 'KeenLPiSkeenRewardPool',
-    depositTokenName: 'KEEN-AVAX-LP',
-    earnTokenName: 'iSKEEN',
-    finished: false,
-    sort: 4,
-    closedForStaking: false,
-  },*/
 };
 
 export default configurations[process.env.NODE_ENV || 'development'];

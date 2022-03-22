@@ -10,6 +10,8 @@ import keenAvaxLpLogo from '~src/assets/img/keen-avax.png';
 import iskeenAvaxLpLogo from '~src/assets/img/iskeen-avax.png';
 import iskeenKeenLpLogo from '~src/assets/img/iskeen-keen.png';
 import avaxLogo from '~src/assets/img/avax.png';
+import grapeLogo from '~src/assets/img/grape.png';
+import mimLogo from '~src/assets/img/mim.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -18,6 +20,9 @@ const logosBySymbol: { [title: string]: string } = {
   iSKEEN: tShareLogo,
   iBKEEN: tBondLogo,
   AVAX: avaxLogo,
+  WAVAX: avaxLogo,
+  MIM: mimLogo,
+  GRAPE: grapeLogo,
   'KEEN-AVAX-LP': keenAvaxLpLogo,
   'iSKEEN-KEEN-LP': iskeenKeenLpLogo,
   'iSKEEN-AVAX-LP': iskeenAvaxLpLogo,
@@ -30,7 +35,7 @@ type LogoProps = {
 
 const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
   if (!logosBySymbol[symbol]) {
-    throw new Error(`Invalid Token Logo symbol: ${symbol}`);
+    return <p>No logo found</p>;
   }
   return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;
 };

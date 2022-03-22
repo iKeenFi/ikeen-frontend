@@ -70,17 +70,17 @@ const Home = () => {
 
   const buyKeenAddress =
     //  'https://pancakeswap.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +
-    'https://app.bogged.finance/bsc/swap?tokenIn=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&tokenOut=' + keen.address;
+    'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x7254000925E19d9bEF3B156E9b0ADC24C9761E0E#/';
   //https://pancakeswap.finance/swap?outputCurrency=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
   const buyiSkeenAddress =
-    'https://app.bogged.finance/bsc/swap?tokenIn=BNB&tokenOut=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
+    'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xAC53b3dFB93CCcEaE015E7B5C1Cef4681a2D3d9e#/';
   const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
   const iskeenLPStats = useMemo(() => (iSkeenFtmLpStats ? iSkeenFtmLpStats : null), [iSkeenFtmLpStats]);
   const keenPriceInDollars = useMemo(
     () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
     [keenStats],
   );
-  const keenPriceInBNB = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(4) : null), [keenStats]);
+  const keenPriceInAVAX = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(4) : null), [keenStats]);
   const keenCirculatingSupply = useMemo(() => (keenStats ? String(keenStats.circulatingSupply) : null), [keenStats]);
   const keenTotalSupply = useMemo(() => (keenStats ? String(keenStats.totalSupply) : null), [keenStats]);
 
@@ -88,7 +88,7 @@ const Home = () => {
     () => (iSkeenStats ? Number(iSkeenStats.priceInDollars).toFixed(2) : null),
     [iSkeenStats],
   );
-  const iSkeenPriceInBNB = useMemo(
+  const iSkeenPriceInAVAX = useMemo(
     () => (iSkeenStats ? Number(iSkeenStats.tokenInFtm).toFixed(4) : null),
     [iSkeenStats],
   );
@@ -102,7 +102,7 @@ const Home = () => {
     () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
     [tBondStats],
   );
-  const tBondPriceInBNB = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
+  const tBondPriceInAVAX = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
   const tBondCirculatingSupply = useMemo(
     () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
     [tBondStats],
@@ -228,7 +228,7 @@ const Home = () => {
               <h2 style={{ marginBottom: '10px' }}>KEEN</h2>1 KEEN (1.0 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {keenPriceInBNB ? keenPriceInBNB : '-.----'} AVAX
+                  {keenPriceInAVAX ? keenPriceInAVAX : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
@@ -268,7 +268,7 @@ const Home = () => {
               Current Price
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {iSkeenPriceInBNB ? iSkeenPriceInBNB : '-.----'} BNB
+                  {iSkeenPriceInAVAX ? iSkeenPriceInAVAX : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
@@ -309,7 +309,7 @@ const Home = () => {
               10,000 iBKEEN
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
-                  {tBondPriceInBNB ? tBondPriceInBNB : '-.----'} AVAX
+                  {tBondPriceInAVAX ? tBondPriceInAVAX : '-.----'} AVAX
                 </span>
               </Box>
               <Box>
@@ -360,7 +360,7 @@ const Home = () => {
                   <TokenSymbol symbol="iSKEEN-AVAX-LP" />
                 </CardIcon>
               </Box>
-              <h2>iSKEEN-BNB PancakeSwap LP</h2>
+              <h2>iSKEEN-AVAX PancakeSwap LP</h2>
               <Box mt={2}>
                 <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
                   Zap In
@@ -369,7 +369,7 @@ const Home = () => {
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {iskeenLPStats?.tokenAmount ? iskeenLPStats?.tokenAmount : '-.--'} iSKEEN /{' '}
-                  {iskeenLPStats?.ftmAmount ? iskeenLPStats?.ftmAmount : '-.--'} BNB
+                  {iskeenLPStats?.ftmAmount ? iskeenLPStats?.ftmAmount : '-.--'} AVAX
                 </span>
               </Box>
               <Box>${iskeenLPStats?.priceOfOne ? iskeenLPStats.priceOfOne : '-.--'}</Box>
