@@ -3,6 +3,8 @@ import { useWallet } from 'use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Bank from '../Bank';
 
+import useCountDown from 'react-countdown-hook';
+
 import { Box, Container, Typography, Grid } from '@material-ui/core';
 
 import { Alert } from '@material-ui/lab';
@@ -17,6 +19,7 @@ import useBanks from '../../hooks/useBanks';
 import { Helmet } from 'react-helmet';
 
 import spiralimage from '../../assets/img/theSPIRAL.jpg';
+import useWhitelistStatus from '~src/hooks/useWhitelist';
 const BackgroundImage = createGlobalStyle`
   body {
    background: url(${spiralimage}) repeat !important;
@@ -31,11 +34,9 @@ const Farm = () => {
   const [banks] = useBanks();
   const { path } = useRouteMatch();
   const { account } = useWallet();
+  const whitelisted = useWhitelistStatus(account);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
-  useEffect(() => {
-    console.log(activeBanks);
-  });
   return (
     <Switch>
       <Page>
@@ -97,15 +98,25 @@ const Farm = () => {
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
                     Genesis Pools
                   </Typography>
-                  <Grid container spacing={3} style={{ marginTop: '20px' }}>
-                    {activeBanks
-                      .filter((bank) => bank.sectionInUI === 0)
-                      .map((bank) => (
-                        <React.Fragment key={bank.name}>
-                          <FarmCard bank={bank} />
-                        </React.Fragment>
-                      ))}
-                  </Grid>
+                  <Typography color="textSecondary" variant="p">
+                    Genesis pools start on March 23rd, 10:00 PM (22:00 UTC)!
+                  </Typography>
+                  {whitelisted == true && (
+                    <Grid container spacing={3} style={{ marginTop: '20px' }}>
+                      {activeBanks
+                        .filter((bank) => bank.sectionInUI === 0)
+                        .map((bank) => (
+                          <React.Fragment key={bank.name}>
+                            <FarmCard bank={bank} />
+                          </React.Fragment>
+                        ))}
+                    </Grid>
+                  )}
+                  {whitelisted == false && (
+                    <Typography color="textSecondary" variant="p">
+                      You need to have a whitelist spot to enter the genesis pools.
+                    </Typography>
+                  )}
                 </div>
               </Box>
             </Container>

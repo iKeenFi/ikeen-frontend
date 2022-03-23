@@ -309,6 +309,15 @@ export class KeenFinance {
   }
 
   /**
+   * Method to return the whitelist status of the address
+   * @param address the address to check
+   * @returns boolean, true or false
+   */
+  async getWhitelistedStatus(address: string): Promise<boolean> {
+    const { Whitelist } = this.contracts;
+    return (await Whitelist.balanceOf(address)).gte(1);
+  }
+  /**
    * Method to return the amount of tokens the pool yields per second
    * @param earnTokenName the name of the token that the pool is earning
    * @param contractName the contract of the pool/bank
