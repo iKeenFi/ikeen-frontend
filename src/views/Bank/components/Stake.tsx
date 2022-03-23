@@ -49,7 +49,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
     Number(tokenPriceInDollars) * Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal))
   ).toFixed(2);
   const { onStake } = useStake(bank);
-  const { onZap } = useZap(bank);
+  //const { onZap } = useZap(bank);
   const { onWithdraw } = useWithdraw(bank);
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
