@@ -130,9 +130,7 @@ const Nav = () => {
               <Link to="/farm" className={'navLink ' + classes.link}>
                 Spiral
               </Link>
-              <Link to="/test" className={'navLink ' + classes.link}>
-                test 
-              </Link>
+         
               <Link to="/boardroom" className={'navLink ' + classes.link}>
                 Galaxy
               </Link>
