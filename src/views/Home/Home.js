@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const keenFtmLpStats = useLpStatsAVAX('KEEN-AVAX-LP');
+  const keenFtmLpStats = useLpStats('KEEN-AVAX-LP');
   const iSkeenFtmLpStats = useLpStats('iSKEEN-AVAX-LP');
   const keenStats = useKeenStats();
   const iSkeenStats = useiSkeenStats();
@@ -69,9 +69,9 @@ const Home = () => {
   }
 
   const buyKeenAddress =
-    //  'https://pancakeswap.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +
+    //  'https://traderjoe.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +
     'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x7254000925E19d9bEF3B156E9b0ADC24C9761E0E#/';
-  //https://pancakeswap.finance/swap?outputCurrency=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
+  //https://traderjoe.finance/swap?outputCurrency=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
   const buyiSkeenAddress =
     'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xAC53b3dFB93CCcEaE015E7B5C1Cef4681a2D3d9e#/';
   const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
@@ -150,7 +150,7 @@ const Home = () => {
           sm={4}
           style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
         >
-          <img src={KeenImage} alt="Keen.money" style={{ maxHeight: '240px' }} />
+          <img src={KeenImage} alt="Keen Finance" style={{ maxHeight: '240px' }} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
@@ -188,7 +188,7 @@ const Home = () => {
               </Button>
               <Button
                 target="_blank"
-                href="https://dexscreener.com/bsc/0x84392649eb0bc1c1532f2180e58bae4e1dabd8d6"
+                href="https://dexscreener.com/avalanche/0x7254000925E19d9bEF3B156E9b0ADC24C9761E0E"
                 className="shinyButton"
                 style={{ margin: '5px' }}
               >
@@ -196,7 +196,7 @@ const Home = () => {
               </Button>
               <Button
                 target="_blank"
-                href="https://dexscreener.com/bsc/0x1303246855b5b5ebc71f049fdb607494e97218f8"
+                href="https://dexscreener.com/avalanche/0xAC53b3dFB93CCcEaE015E7B5C1Cef4681a2D3d9e"
                 className="shinyButton"
                 style={{ margin: '5px' }}
               >
@@ -331,11 +331,11 @@ const Home = () => {
                   <TokenSymbol symbol="KEEN-AVAX-LP" />
                 </CardIcon>
               </Box>
-              <h2>KEEN-AVAX PancakeSwap LP</h2>
+              <h2>KEEN-AVAX TraderJoe LP</h2>
               <Box mt={2}>
-                <Button disabled onClick={onPresentKeenZap} className="shinyButtonDisabledSecondary">
+                {/* <Button disabled onClick={onPresentKeenZap} className="shinyButtonDisabledSecondary">
                   Zap In
-                </Button>
+                </Button> */}
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
@@ -360,11 +360,11 @@ const Home = () => {
                   <TokenSymbol symbol="iSKEEN-AVAX-LP" />
                 </CardIcon>
               </Box>
-              <h2>iSKEEN-AVAX PancakeSwap LP</h2>
+              <h2>iSKEEN-AVAX TraderJoe LP</h2>
               <Box mt={2}>
-                <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+                {/* <Button disabled onClick={onPresentBshareZap} className="shinyButtonDisabledSecondary">
                   Zap In
-                </Button>
+                </Button> */}
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>

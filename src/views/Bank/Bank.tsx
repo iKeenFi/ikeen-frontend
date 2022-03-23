@@ -106,24 +106,24 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const keenFinance = useKeenFinance();
-  const keenAddr = keenFinance.KEEN.address;
-  const iskeenAddr = keenFinance.iSKEEN.address;
 
   let pairName: string;
   let uniswapUrl: string;
   // let vaultUrl: string;
   if (bank.depositTokenName.includes('KEEN-AVAX')) {
     pairName = 'KEEN-AVAX pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/' + keenAddr;
+    uniswapUrl =
+      'https://traderjoexyz.com/pool/0x7254000925e19d9bef3b156e9b0adc24c9761e0e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
   } else if (bank.depositTokenName.includes('iSKEEN-AVAX')) {
     pairName = 'iSKEEN-AVAX pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/BNB/' + iskeenAddr;
+    uniswapUrl =
+      'https://traderjoexyz.com/pool/0xac53b3dfb93ccceae015e7b5c1cef4681a2d3d9e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
   }
   return (
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          {`Provide liquidity for ${pairName} now on PancakeSwap`}
+          {`Provide liquidity for ${pairName} now on TraderJoe`}
         </StyledLink>
       </CardContent>
     </Card>

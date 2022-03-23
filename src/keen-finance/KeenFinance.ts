@@ -113,9 +113,8 @@ export class KeenFinance {
     // const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     //const priceInDollars = await this.getTokenPriceFromPancakeswapKEENUSD();
-    const priceOfKeenInDollars = ((Number(priceInAVAX) * Number(priceOfOneAVAX)) / 10000).toFixed(2);
+    const priceOfKeenInDollars = (Number(priceInAVAX) * Number(priceOfOneAVAX)).toFixed(2);
     //console.log('priceOfKeenInDollars', priceOfKeenInDollars);
-
     return {
       //  tokenInFtm: (Number(priceInAVAX) * 100).toString(),
       tokenInFtm: priceInAVAX.toString(),
@@ -144,7 +143,7 @@ export class KeenFinance {
     const token0 = name.startsWith('KEEN') ? this.KEEN : this.iSKEEN;
     // console.log('NAME', name);
 
-    const isKeen = name.startsWith('KEEN');
+    const isKeen = name.startsWith('KEEN') || name.startsWith('iSKEEN');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -327,9 +326,9 @@ export class KeenFinance {
         const rewardPerSecond = await poolContract.keenPerSecond();
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
           return rewardPerSecond.mul(45000).div(100000);
-        } else if (depositTokenName.startsWith('WAVAX')) {
+        } else if (depositTokenName.startsWith('KEEN-AVAX')) {
           return rewardPerSecond.mul(30000).div(100000);
-        } else if (depositTokenName.startsWith('MIM')) {
+        } else if (depositTokenName.startsWith('WAVAX')) {
           return rewardPerSecond.mul(10000).div(100000);
         } else if (depositTokenName.startsWith('GRAPE')) {
           return rewardPerSecond.mul(15000).div(100000);
@@ -338,10 +337,7 @@ export class KeenFinance {
       }
       const poolStartTime = await poolContract.poolStartTime();
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);
-      const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
-      if (Date.now() - startDateTime.getTime() > FOUR_DAYS) {
-        return await poolContract.epochKeenPerSecond(1);
-      }
+
       return await poolContract.epochKeenPerSecond(0);
     }
     const rewardPerSecond = await poolContract.keenPerSecond();
@@ -671,7 +667,7 @@ export class KeenFinance {
     try {
       const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
 
-      const priceInMIM = new Route([wavaxToToken], token);
+      const priceInMIM = new Route([wavaxToToken], wavax);
       return priceInMIM.midPrice.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch AVAX price: ${err}`);

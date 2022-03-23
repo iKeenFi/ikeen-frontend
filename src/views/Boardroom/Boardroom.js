@@ -29,8 +29,6 @@ import ProgressCountdown from './components/ProgressCountdown';
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet';
 
-
-
 import polarlightimage from '../../assets/img/polarlights.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
@@ -73,7 +71,7 @@ const Boardroom = () => {
       {!!account ? (
         <>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Boardroom
+            GALAXY
           </Typography>
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
@@ -100,9 +98,6 @@ const Boardroom = () => {
                       KEEN PEG <small>(TWAP)</small>
                     </Typography>
                     <Typography>{scalingFactor} AVAX</Typography>
-                    <Typography>
-                      <small>per 10,000 KEEN</small>
-                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -127,12 +122,8 @@ const Boardroom = () => {
             <Grid container justify="center">
               <Box mt={4} style={{ width: '600px' }}>
                 <Alert variant="filled" severity="info">
-                  <h2> Let's Maintain PEG Together! </h2>
-                  <a >Stake</a> your iSKEEN on GALAXY for farm KEEN ! 
-                  
-                  <br />
-                  <br />
-                  Note:GALAXY (boardroom) only will print if twap is above 1.01.
+                  The Galaxy (also known as Boardroom in other Tomb-based protocols) only prints KEEN above TWAP 1.01.
+                  Please follow our strategies to succeed, it's normal that times we won't print and other times we do.
                 </Alert>
               </Box>
             </Grid>

@@ -46,9 +46,9 @@ const Farm = () => {
           </Helmet>
           {!!account ? (
             <Container maxWidth="lg">
-              <Typography color="textYellow" align="center" variant="h3" gutterBottom>
+              {/*<Typography color="textYellow" align="center" variant="h3" gutterBottom>
                 iSKEEN Reward Farms
-              </Typography>
+          </Typography>*/}
 
               <Box mt={5}>
                 {/* 

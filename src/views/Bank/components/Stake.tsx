@@ -26,7 +26,7 @@ import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
-import ZapModal from './ZapModal';
+//import ZapModal from './ZapModal';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Bank } from '../../../keen-finance';
 
@@ -65,7 +65,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
     />,
   );
 
-  const [onPresentZap, onDissmissZap] = useModal(
+  /*const [onPresentZap, onDissmissZap] = useModal(
     <ZapModal
       decimals={bank.depositToken.decimal}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -75,7 +75,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
       }}
       tokenName={bank.depositTokenName}
     />,
-  );
+  );*/
 
   const [onPresentWithdraw, onDismissWithdraw] = useModal(
     <WithdrawModal
@@ -134,7 +134,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                <IconButton
+                {/*<IconButton
                   disabled={
                     bank.closedForStaking ||
                     bank.depositTokenName === 'KEEN-iSKEEN-LP' ||
@@ -144,7 +144,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                   onClick={() => (bank.closedForStaking ? null : onPresentZap())}
                 >
                   <FlashOnIcon style={{ color: themeColor.grey[400] }} />
-                </IconButton>
+                </IconButton>*/}
                 <StyledActionSpacer />
                 <IconButton
                   disabled={bank.closedForStaking}
