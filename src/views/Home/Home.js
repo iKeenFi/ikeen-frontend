@@ -8,7 +8,7 @@ import useKeenStats from '../../hooks/useKeenStats';
 import useLpStats from '../../hooks/useLpStats';
 import useLpStatsAVAX from '../../hooks/useLpStatsAVAX';
 import useModal from '../../hooks/useModal';
-import useZap from '../../hooks/useZap';
+//import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import useiSkeenStats from '../../hooks/useiSkeenStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
@@ -17,7 +17,7 @@ import { Keen as keenProd } from '../../keen-finance/deployments/deployments.mai
 import { roundAndFormatNumber } from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
-import ZapModal from '../Bank/components/ZapModal';
+//import ZapModal from '../Bank/components/ZapModal.tsx.DISABLED';
 import { Alert } from '@material-ui/lab';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -109,7 +109,7 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const keenLpZap = useZap({ depositTokenName: 'KEEN-AVAX-LP' });
+  /*const keenLpZap = useZap({ depositTokenName: 'KEEN-AVAX-LP' });
   const iskeenLpZap = useZap({ depositTokenName: 'iSKEEN-AVAX-LP' });
 
   const [onPresentKeenZap, onDissmissKeenZap] = useModal(
@@ -134,7 +134,7 @@ const Home = () => {
       }}
       tokenName={'iSKEEN-AVAX-LP'}
     />,
-  );
+  );*/
 
   return (
     <Page>
