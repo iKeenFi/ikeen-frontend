@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
   const classes = useStyles();
+  // @ts-ignore
   const { bankId } = useParams();
   const bank = useBank(bankId);
 
@@ -110,14 +111,14 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let pairName: string;
   let uniswapUrl: string;
   // let vaultUrl: string;
-  if (bank.depositTokenName.includes('KEEN-AVAX')) {
-    pairName = 'KEEN-AVAX pair';
-    uniswapUrl =
-      'https://traderjoexyz.com/pool/0x7254000925e19d9bef3b156e9b0adc24c9761e0e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
-  } else if (bank.depositTokenName.includes('iSKEEN-AVAX')) {
+  if (bank.depositTokenName.startsWith('iSKEEN-AVAX')) {
     pairName = 'iSKEEN-AVAX pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0xac53b3dfb93ccceae015e7b5c1cef4681a2d3d9e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
+  } else if (bank.depositTokenName.startsWith('KEEN-AVAX')) {
+    pairName = 'KEEN-AVAX pair';
+    uniswapUrl =
+      'https://traderjoexyz.com/pool/0x7254000925e19d9bef3b156e9b0adc24c9761e0e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
   }
   return (
     <Card>
