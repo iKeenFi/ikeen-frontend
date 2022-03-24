@@ -285,6 +285,9 @@ export class KeenFinance {
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+    console.log('token price: ' + depositTokenPrice);
+    console.log('token balance: ' + getDisplayBalance(stakeInPool, depositToken.decimal));
+
     const stat = bank.earnTokenName === 'KEEN' ? await this.getKeenStat() : await this.getShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
@@ -334,13 +337,11 @@ export class KeenFinance {
       if (!contractName.endsWith('KeenRewardPool')) {
         const rewardPerSecond = await poolContract.keenPerSecond();
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
-          return rewardPerSecond.mul(45000).div(100000);
-        } else if (depositTokenName.startsWith('KEEN-AVAX')) {
           return rewardPerSecond.mul(30000).div(100000);
-        } else if (depositTokenName.startsWith('WAVAX')) {
-          return rewardPerSecond.mul(10000).div(100000);
-        } else if (depositTokenName.startsWith('GRAPE')) {
-          return rewardPerSecond.mul(15000).div(100000);
+        } else if (depositTokenName.startsWith('KEEN-AVAX')) {
+          return rewardPerSecond.mul(40000).div(100000);
+        } else if (depositTokenName.startsWith('KEEN')) {
+          return rewardPerSecond.mul(30000).div(100000);
         }
         return rewardPerSecond.div(24);
       }
@@ -349,17 +350,24 @@ export class KeenFinance {
 
       return await poolContract.epochKeenPerSecond(0);
     }
-    const rewardPerSecond = await poolContract.keenPerSecond();
-    // 0.017361111 per second in total
-    if (depositTokenName.startsWith('iSKEEN-AVAX')) {
-      return rewardPerSecond.mul(45000).div(100000);
-    } else if (depositTokenName.startsWith('WAVAX')) {
-      return rewardPerSecond.mul(30000).div(100000);
-    } else if (depositTokenName.startsWith('MIM')) {
-      return rewardPerSecond.mul(10000).div(100000);
-    } else if (depositTokenName.startsWith('GRAPE')) {
-      return rewardPerSecond.mul(15000).div(100000);
+    if (earnTokenName === 'iSKEEN') {
+      if (contractName.endsWith('iSkeenRewardPool')) {
+        const rewardPerSecond = await poolContract.iSKEENPerSecond();
+
+        if (depositTokenName.startsWith('iSKEEN-AVAX')) {
+          return rewardPerSecond.mul(45000).div(100000);
+        } else if (depositTokenName.startsWith('KEEN-AVAX')) {
+          return rewardPerSecond.mul(30000).div(100000);
+        } else if (depositTokenName.startsWith('WAVAX')) {
+          return rewardPerSecond.mul(10000).div(100000);
+        } else if (depositTokenName.startsWith('GRAPE')) {
+          return rewardPerSecond.mul(15000).div(100000);
+        }
+      }
     }
+
+    // 0.017361111 per second in total
+
     // if (depositTokenName.startsWith('KEEN-AVAX')) {
     //   return rewardPerSecond.mul(41650).div(10000);
     // } else if (depositTokenName.startsWith('KEEN-iSKEEN')) {
@@ -859,16 +867,12 @@ export class KeenFinance {
       let assetUrl;
       if (assetName === 'KEEN') {
         asset = this.KEEN;
-        assetUrl = 'https://raw.githubusercontent.com/keenmoney/keen-assets/master/keen-512.png';
       } else if (assetName === 'iSKEEN') {
         asset = this.iSKEEN;
-        assetUrl = 'https://raw.githubusercontent.com/keenmoney/keen-assets/master/iskeen-512.png';
       } else if (assetName === 'iBKEEN') {
         asset = this.iBKEEN;
-        assetUrl = 'https://raw.githubusercontent.com/keenmoney/keen-assets/master/bbond-512.png';
       } else if (assetName === 'AVAX') {
         asset = this.AVAX;
-        assetUrl = 'https://bscscan.com/token/images/avaxb_32.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',
@@ -884,31 +888,6 @@ export class KeenFinance {
       });
     }
     return true;
-  }
-
-  async provideKeenFtmLP(ftmAmount: string, keenAmount: BigNumber): Promise<TransactionResponse> {
-    const { TaxOffice } = this.contracts;
-    let overrides = {
-      value: parseUnits(ftmAmount, 18),
-    };
-    return await TaxOffice.addLiquidityETHTaxFree(
-      keenAmount,
-      keenAmount.mul(992).div(1000),
-      parseUnits(ftmAmount, 18).mul(992).div(1000),
-      overrides,
-    );
-  }
-
-  async quoteFromSpooky(tokenAmount: string, tokenName: string): Promise<string> {
-    const { SpookyRouter } = this.contracts;
-    const { _reserve0, _reserve1 } = await this.KEENAVAX_LP.getReserves();
-    let quote;
-    if (tokenName === 'KEEN') {
-      quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve0, _reserve1);
-    } else {
-      quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve1, _reserve0);
-    }
-    return (quote / 1e18).toString();
   }
 
   /**

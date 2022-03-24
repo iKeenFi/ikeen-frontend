@@ -127,6 +127,41 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 0,
     closedForStaking: false,
   },
+
+  // iskeen pools
+  KEENSingleStakeiSkeenRewardPool: {
+    name: 'Earn iSKEEN by KEEN',
+    poolId: 2,
+    sectionInUI: 1,
+    contract: 'KEENSingleStakeiSkeenRewardPool',
+    depositTokenName: 'KEEN',
+    earnTokenName: 'iSKEEN',
+    finished: false,
+    sort: 2,
+    closedForStaking: false,
+  },
+  KEENAVAXiSkeenRewardPool: {
+    name: 'Earn iSKEEN by KEEN-AVAX LP',
+    poolId: 1,
+    sectionInUI: 1,
+    contract: 'KEENAVAXiSkeenRewardPool',
+    depositTokenName: 'KEEN-AVAX-LP',
+    earnTokenName: 'iSKEEN',
+    finished: false,
+    sort: 1,
+    closedForStaking: false,
+  },
+  iSKEENAVAXiSkeenRewardPool: {
+    name: 'Earn iSKEEN by iSKEEN-AVAX LP',
+    poolId: 0,
+    sectionInUI: 1,
+    contract: 'iSKEENAVAXiSkeenRewardPool',
+    depositTokenName: 'iSKEEN-AVAX-LP',
+    earnTokenName: 'iSKEEN',
+    finished: false,
+    sort: 0,
+    closedForStaking: false,
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'development'];
