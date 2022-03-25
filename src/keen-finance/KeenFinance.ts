@@ -1,6 +1,6 @@
 // import { Fetcher, Route, Token } from '@uniswap/sdk';
 //import { Fetcher as FetcherSpirit, Token as TokenSpirit } from '@spiritswap/sdk';
-import { Fetcher, Route, Token } from '@traderjoe-xyz/sdk';
+import { Fetcher, Price, Route, Token } from '@traderjoe-xyz/sdk';
 import { Configuration } from './config';
 import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, iSkeenSwapperStat } from './types';
 import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
@@ -16,7 +16,7 @@ import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
 import { AVAX_TICKER, SPOOKY_ROUTER_ADDR, KEEN_TICKER } from '../utils/constants';
 /**
- * An API module of Keen Money contracts.
+ * An API module of Keen Finance contracts.
  * All contract-interacting domain logic should be defined in here.
  */
 export class KeenFinance {
@@ -101,7 +101,7 @@ export class KeenFinance {
   //===================================================================
 
   async getKeenStat(): Promise<TokenStat> {
-    const { KeenRewardPool, KeenGenesisRewardPool } = this.contracts;
+    const { KeenGenesisRewardPool } = this.contracts;
     const supply = await this.KEEN.totalSupply();
     const keenRewardPoolSupply = await this.KEEN.balanceOf(KeenGenesisRewardPool.address);
     //const keenRewardPoolSupply2 = await this.KEEN.balanceOf(KeenRewardPool.address);
@@ -346,6 +346,7 @@ export class KeenFinance {
         }
         return rewardPerSecond.div(24);
       }
+
       const poolStartTime = await poolContract.poolStartTime();
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);
 
@@ -359,10 +360,8 @@ export class KeenFinance {
           return rewardPerSecond.mul(45000).div(100000);
         } else if (depositTokenName.startsWith('KEEN-AVAX')) {
           return rewardPerSecond.mul(30000).div(100000);
-        } else if (depositTokenName.startsWith('WAVAX')) {
-          return rewardPerSecond.mul(10000).div(100000);
-        } else if (depositTokenName.startsWith('GRAPE')) {
-          return rewardPerSecond.mul(15000).div(100000);
+        } else if (depositTokenName.startsWith('KEEN')) {
+          return rewardPerSecond.mul(30000).div(100000);
         }
       }
     }
@@ -600,9 +599,9 @@ export class KeenFinance {
       }
       const wavaxToToken = await Fetcher.fetchPairData(wavax, token, this.provider);
 
-      const priceInMIM = new Route([wavaxToToken], token);
+      const priceInWAVAX = new Route([wavaxToToken], token);
 
-      return priceInMIM.midPrice.toFixed(4);
+      return priceInWAVAX.midPrice.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
