@@ -1,5 +1,7 @@
 import { Configuration } from './keen-finance/config';
 import { BankInfo } from './keen-finance';
+import deploymentsMainnet from './keen-finance/deployments/deployments.mainnet';
+import deploymentsTesting from './keen-finance/deployments/deployments.testing';
 
 const configurations: { [env: string]: Configuration } = {
   // development: {
@@ -28,7 +30,7 @@ const configurations: { [env: string]: Configuration } = {
     networkName: 'Avalanche C-Chain',
     ftmscanUrl: 'https://snowtrace.io',
     defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
-    deployments: require('./keen-finance/deployments/deployments.mainnet.json'),
+    deployments: deploymentsMainnet,
     externalTokens: {
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       AVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
@@ -49,7 +51,7 @@ const configurations: { [env: string]: Configuration } = {
     networkName: 'Avalanche C-Chain',
     ftmscanUrl: 'https://snowtrace.io',
     defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
-    deployments: require('./keen-finance/deployments/deployments.mainnet.json'),
+    deployments: deploymentsMainnet,
     externalTokens: {
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],

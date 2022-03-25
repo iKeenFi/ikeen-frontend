@@ -10,7 +10,6 @@ import ERC20 from './ERC20';
 import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
-import IKeenBorrowableABI from './IKeenBorrowable.abi.json';
 
 import config, { bankDefinitions } from '../config';
 import moment from 'moment';
