@@ -1,10 +1,19 @@
-import Boardroom from './Boardroom.json';
-import Keen from './Keen.json';
-import iBkeen from './iBKEEN.json';
-import iSkeen from './iSkeen.json';
-import iSkeenRewardPool from './iSkeenRewardPool.json';
-import Whitelist from './Whitelist.json';
-import Treasury from './Treasury.json';
-import KeenGenesisRewardPool from './KeenGenesisRewardPool.json';
+import BoardroomABI from './Boardroom.json';
+import KeenABI from './Keen.json';
+import iBkeenABI from './iBKEEN.json';
+import iSkeenABI from './iSkeen.json';
+import iSkeenRewardPoolABI from './iSkeenRewardPool.json';
+import WhitelistABI from './Whitelist.json';
+import TreasuryABI from './Treasury.json';
+import KeenGenesisRewardPoolABI from './KeenGenesisRewardPool.json';
 
-export { Boardroom, Keen, KeenGenesisRewardPool, iBkeen, iSkeen, iSkeenRewardPool, Treasury, Whitelist };
+export {
+  BoardroomABI,
+  KeenABI,
+  KeenGenesisRewardPoolABI,
+  iBkeenABI,
+  iSkeenABI,
+  iSkeenRewardPoolABI,
+  TreasuryABI,
+  WhitelistABI,
+};

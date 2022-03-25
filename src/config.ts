@@ -1,7 +1,6 @@
 import { Configuration } from './keen-finance/config';
 import { BankInfo } from './keen-finance';
 import deploymentsMainnet from './keen-finance/deployments/deployments.mainnet';
-import deploymentsTesting from './keen-finance/deployments/deployments.testing';
 
 const configurations: { [env: string]: Configuration } = {
   // development: {
