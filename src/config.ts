@@ -78,7 +78,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
         - 0 = Single asset stake pools
         - 1 = LP asset staking rewarding KEEN
         - 2 = LP asset staking rewarding iSKEEN
-  contract: the contract name which will be loaded from the deployment.environmnet.json
+  contract: the contract name which will be loaded from the deployment file
   depositTokenName : the name of the token to be deposited
   earnTokenName: the rewarded token
   finished: will disable the pool on the UI if set to true

@@ -142,7 +142,8 @@ export class KeenFinance {
     const token0 = name.startsWith('KEEN') ? this.KEEN : this.iSKEEN;
     // console.log('NAME', name);
 
-    const isKeen = name.startsWith('KEEN') || name.startsWith('iSKEEN');
+    const isKeen = name.startsWith('KEEN');
+    console.log(isKeen);
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -168,6 +169,7 @@ export class KeenFinance {
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
     const token0 = name.startsWith('KEEN') ? this.KEEN : this.iSKEEN;
     const isKeen = name.startsWith('KEEN');
+    console.log(isKeen);
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -282,12 +284,12 @@ export class KeenFinance {
     const depositToken = bank.depositToken;
     const poolContract = this.contracts[bank.contract];
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
+    console.log(depositTokenPrice);
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    console.log('token price: ' + depositTokenPrice);
-    console.log('token balance: ' + getDisplayBalance(stakeInPool, depositToken.decimal));
 
     const stat = bank.earnTokenName === 'KEEN' ? await this.getKeenStat() : await this.getShareStat();
+
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -333,7 +335,7 @@ export class KeenFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'KEEN') {
-      if (!contractName.endsWith('KeenRewardPool')) {
+      if (!contractName.endsWith('GenesisRewardPool')) {
         const rewardPerSecond = await poolContract.keenPerSecond();
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
           return rewardPerSecond.mul(30000).div(100000);
@@ -397,7 +399,7 @@ export class KeenFinance {
       } else if (tokenName === 'KEEN-iSKEEN-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.KEEN, true);
       } else if (tokenName === 'iSKEEN-AVAX-LP') {
-        tokenPrice = await this.getLPTokenPrice(token, this.iSKEEN, true);
+        tokenPrice = await this.getLPTokenPrice(token, this.iSKEEN, false);
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
@@ -446,6 +448,10 @@ export class KeenFinance {
     let totalValue = 0;
     for (const bankInfo of Object.values(bankDefinitions)) {
       const pool = this.contracts[bankInfo.contract];
+      if (pool == undefined) {
+        console.log('YOOOO ERROR');
+        console.dir(bankInfo);
+      }
       const token = this.externalTokens[bankInfo.depositTokenName];
 
       const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
@@ -475,10 +481,13 @@ export class KeenFinance {
    */
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isKeen: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
+
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
     const stat = isKeen === true ? await this.getKeenStat() : await this.getShareStat();
+
     const priceOfToken = stat.priceInDollars;
+
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
       .toString();

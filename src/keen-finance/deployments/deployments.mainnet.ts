@@ -43,6 +43,10 @@ export default {
     address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
     abi: KeenGenesisRewardPool,
   },
+  KEENAVAXKeenGenesisRewardPool: {
+    address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
+    abi: KeenGenesisRewardPool,
+  },
   WAVAXKeenGenesisRewardPool: {
     address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
     abi: KeenGenesisRewardPool,
