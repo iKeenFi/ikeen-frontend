@@ -72,4 +72,3 @@ let deployments = {
 };
 
 export default deployments;
-module.exports = deployments;

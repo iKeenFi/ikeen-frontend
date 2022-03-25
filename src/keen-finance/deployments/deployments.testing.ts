@@ -1,5 +1,5 @@
 import { Boardroom, iBkeen, iSkeen, iSkeenRewardPool, Keen, KeenGenesisRewardPool, Treasury, Whitelist } from './abi';
-export default {
+let deployments = {
   // Tokens
   iSkeen: {
     address: '0xac53b3dfb93ccceae015e7b5c1cef4681a2d3d9e',
@@ -43,6 +43,10 @@ export default {
     address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
     abi: KeenGenesisRewardPool,
   },
+  KEENAVAXKeenGenesisRewardPool: {
+    address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
+    abi: KeenGenesisRewardPool,
+  },
   WAVAXKeenGenesisRewardPool: {
     address: '0x2d3cd5090d1a2af7d5e1f49c5171cf170c65b98d',
     abi: KeenGenesisRewardPool,
@@ -66,3 +70,5 @@ export default {
     abi: iSkeenRewardPool,
   },
 };
+
+module.exports = deployments;
