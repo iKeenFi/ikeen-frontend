@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
@@ -23,6 +23,7 @@ import { Alert } from '@material-ui/lab';
 import northimage from '~src/assets/img/north.jpg';
 import { Grid, Box } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
+import useAvaxStats from '~src/hooks/useAvaxStats';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -41,6 +42,7 @@ const Bond: React.FC = () => {
   const bondStat = useBondStats();
   //const keenStat = useKeenStats();
   const cashPrice = useCashPriceInLastTWAP();
+  const avaxPrice = useAvaxStats();
 
   const bondsPurchasable = useBondsPurchasable();
 
@@ -68,7 +70,7 @@ const Bond: React.FC = () => {
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
   const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
   // console.log("bondstat", Number(bondStat?.tokenInFtm))
-  const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4);
+  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(4);
 
   return (
     <Switch>
@@ -80,13 +82,13 @@ const Bond: React.FC = () => {
         {!!account ? (
           <>
             <Route exact path={path}>
-              <PageHeader icon={'💣'} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
+              <PageHeader icon={''} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
             </Route>
             {isBondPayingPremium === false ? (
               <Box mt={5}>
                 <Grid item xs={12} sm={12} justify="center" style={{ margin: '18px', display: 'flex' }}>
                   <Alert variant="filled" severity="error">
-                    <b>Claiming below 1.1 peg will not receive a redemption bonus, claim wisely!</b>
+                    <b>Claiming below 1.01 peg will not receive a redemption bonus, claim wisely!</b>
                   </Alert>
                 </Grid>
               </Box>
@@ -113,14 +115,14 @@ const Bond: React.FC = () => {
               </StyledCardWrapper>
               <StyledStatsWrapper>
                 <ExchangeStat
-                  tokenName="10,000 KEEN"
+                  tokenName="1 KEEN"
                   description="Last-Hour TWAP Price"
                   //price={Number(keenStat?.tokenInFtm).toFixed(4) || '-'}
                   price={bondScale || '-'}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="10,000 iBKEEN"
+                  tokenName="1 iBKEEN"
                   description="Current Price: (KEEN)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(4) || '-'}
                 />
@@ -135,7 +137,7 @@ const Bond: React.FC = () => {
                   priceDesc={`${getDisplayBalance(bondBalance)} iBKEEN Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when 10,000 KEEN > ${BOND_REDEEM_PRICE}AVAX` : null}
+                  disabledDescription={!isBondRedeemable ? `Cannot redeem under 1 AVAX TWAP` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

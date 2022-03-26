@@ -37,7 +37,7 @@ const BackgroundImage = createGlobalStyle`
    background-color: #171923;
    }
 `;
-const TITLE = 'iKeen.Finance | Boardroom';
+const TITLE = 'iKeen.Finance | GALAXY';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {

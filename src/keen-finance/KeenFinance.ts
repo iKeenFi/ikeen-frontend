@@ -242,11 +242,11 @@ export class KeenFinance {
   }
 
   async getKeenStatInEstimatedTWAP(): Promise<TokenStat> {
-    const { Oracle, KeenRewardPool } = this.contracts;
-    const expectedPrice = await Oracle.twap(this.KEEN.address, ethers.utils.parseEther('10000'));
+    const { Oracle, KeenGenesisRewardPool } = this.contracts;
+    const expectedPrice = await Oracle.twap(this.KEEN.address, ethers.utils.parseEther('1'));
 
     const supply = await this.KEEN.totalSupply();
-    const keenRewardPoolSupply = await this.KEEN.balanceOf(KeenRewardPool.address);
+    const keenRewardPoolSupply = await this.KEEN.balanceOf(KeenGenesisRewardPool.address);
     const keenCirculatingSupply = supply.sub(keenRewardPoolSupply);
     return {
       tokenInFtm: getDisplayBalance(expectedPrice),

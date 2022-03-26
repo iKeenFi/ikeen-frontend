@@ -6,7 +6,7 @@ import iSkeenRewardPoolABI from './iSkeenRewardPool.json';
 import WhitelistABI from './Whitelist.json';
 import TreasuryABI from './Treasury.json';
 import KeenGenesisRewardPoolABI from './KeenGenesisRewardPool.json';
-
+import OracleABI from './Oracle.json';
 export {
   BoardroomABI,
   KeenABI,
@@ -16,4 +16,5 @@ export {
   iSkeenRewardPoolABI,
   TreasuryABI,
   WhitelistABI,
+  OracleABI,
 };
