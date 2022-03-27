@@ -336,6 +336,7 @@ export class KeenFinance {
   ) {
     if (earnTokenName === 'KEEN') {
       if (!contractName.endsWith('GenesisRewardPool')) {
+        return 0;
         const rewardPerSecond = await poolContract.keenPerSecond();
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
           return rewardPerSecond.mul(30000).div(100000);
@@ -357,11 +358,11 @@ export class KeenFinance {
         const rewardPerSecond = await poolContract.iSKEENPerSecond();
 
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
-          return rewardPerSecond.mul(45000).div(100000);
+          return rewardPerSecond.mul(10000).div(100000);
         } else if (depositTokenName.startsWith('KEEN-AVAX')) {
-          return rewardPerSecond.mul(30000).div(100000);
+          return rewardPerSecond.mul(50000).div(100000);
         } else if (depositTokenName.startsWith('KEEN')) {
-          return rewardPerSecond.mul(30000).div(100000);
+          return rewardPerSecond.mul(40000).div(100000);
         }
       }
     }
