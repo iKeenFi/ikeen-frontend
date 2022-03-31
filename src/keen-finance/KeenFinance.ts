@@ -118,8 +118,12 @@ export class KeenFinance {
       //  tokenInFtm: (Number(priceInAVAX) * 100).toString(),
       tokenInFtm: priceInAVAX.toString(),
       priceInDollars: priceOfKeenInDollars,
-      totalSupply: getDisplayBalance(supply, this.KEEN.decimal, 0),
-      circulatingSupply: getDisplayBalance(keenCirculatingSupply, this.KEEN.decimal, 0),
+      totalSupply: getDisplayBalance(supply.sub(ethers.utils.parseEther('10000')), this.KEEN.decimal, 0),
+      circulatingSupply: getDisplayBalance(
+        keenCirculatingSupply.sub(ethers.utils.parseEther('10000')),
+        this.KEEN.decimal,
+        0,
+      ),
     };
   }
 
@@ -232,7 +236,7 @@ export class KeenFinance {
     const supply = await this.iSKEEN.totalSupply();
 
     const priceInAVAX = await this.getTokenPriceFromPancakeswap(this.iSKEEN);
-    const keenRewardPoolSupply = 0; //await this.iSKEEN.balanceOf(iSkeenRewardPool.address);
+    const keenRewardPoolSupply = await this.iSKEEN.balanceOf(iSkeenRewardPool.address);
     const tShareCirculatingSupply = supply.sub(keenRewardPoolSupply);
     const priceOfOneAVAX = await this.getAVAXPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInAVAX) * Number(priceOfOneAVAX)).toFixed(2);
@@ -339,23 +343,7 @@ export class KeenFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'KEEN') {
-      if (!contractName.endsWith('KeenRewardPool')) {
-        return 0;
-        const rewardPerSecond = await poolContract.keenPerSecond();
-        if (depositTokenName.startsWith('iSKEEN-AVAX')) {
-          return rewardPerSecond.mul(30000).div(100000);
-        } else if (depositTokenName.startsWith('KEEN-AVAX')) {
-          return rewardPerSecond.mul(40000).div(100000);
-        } else if (depositTokenName.startsWith('KEEN')) {
-          return rewardPerSecond.mul(30000).div(100000);
-        }
-        return rewardPerSecond.div(24);
-      }
-
-      const poolStartTime = await poolContract.poolStartTime();
-      const startDateTime = new Date(poolStartTime.toNumber() * 1000);
-
-      return await poolContract.epochKeenPerSecond(0);
+      return 0;
     }
     if (earnTokenName === 'iSKEEN') {
       if (contractName.endsWith('iSkeenRewardPool')) {
@@ -404,7 +392,7 @@ export class KeenFinance {
     } else {
       if (tokenName === 'KEEN-AVAX-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.KEEN, true);
-      } else if (tokenName === 'KEEN-iSKEEN-LP') {
+      } else if (tokenName === 'iSKEEN-KEEN-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.KEEN, true);
       } else if (tokenName === 'iSKEEN-AVAX-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.iSKEEN, false);
