@@ -56,6 +56,8 @@ const Home = () => {
   const TVL = useTotalValueLocked();
   const keenFtmLpStats = useLpStats('KEEN-AVAX-LP');
   const iSkeenFtmLpStats = useLpStats('iSKEEN-AVAX-LP');
+  const iSkeenKeenLpStats = useLpStats('iSKEEN-KEEN-LP');
+
   const keenStats = useKeenStats();
   const iSkeenStats = useiSkeenStats();
   const tBondStats = useBondStats();
@@ -76,6 +78,8 @@ const Home = () => {
     'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xAC53b3dFB93CCcEaE015E7B5C1Cef4681a2D3d9e#/';
   const keenLPStats = useMemo(() => (keenFtmLpStats ? keenFtmLpStats : null), [keenFtmLpStats]);
   const iskeenLPStats = useMemo(() => (iSkeenFtmLpStats ? iSkeenFtmLpStats : null), [iSkeenFtmLpStats]);
+  const iskeenKeenLPStats = useMemo(() => (iSkeenKeenLpStats ? iSkeenKeenLpStats : null), [iSkeenKeenLpStats]);
+
   const keenPriceInDollars = useMemo(
     () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
     [keenStats],
@@ -378,6 +382,37 @@ const Home = () => {
                 {iskeenLPStats?.totalLiquidity ? roundAndFormatNumber(iskeenLPStats.totalLiquidity, 2) : '-.--'}
                 <br />
                 Total Supply: {iskeenLPStats?.totalSupply ? roundAndFormatNumber(iskeenLPStats.totalSupply, 2) : '-.--'}
+              </span>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <Card>
+            <CardContent align="center">
+              <Box mt={2}>
+                <CardIcon>
+                  <TokenSymbol symbol="iSKEEN-KEEN-LP" />
+                </CardIcon>
+              </Box>
+              <h2>iSKEEN-KEEN TraderJoe LP</h2>
+              <Box mt={2}>
+                {/* <Button disabled onClick={onPresentBshareZap} className="shinyButtonDisabledSecondary">
+                  Zap In
+                </Button> */}
+              </Box>
+              <Box mt={2}>
+                <span style={{ fontSize: '26px' }}>
+                  {iskeenKeenLPStats?.tokenAmount ? iskeenKeenLPStats?.tokenAmount : '-.--'} iSKEEN /{' '}
+                  {iskeenKeenLPStats?.ftmAmount ? iskeenKeenLPStats?.ftmAmount : '-.--'} KEEN
+                </span>
+              </Box>
+              <Box>${iskeenKeenLPStats?.priceOfOne ? iskeenKeenLPStats.priceOfOne : '-.--'}</Box>
+              <span style={{ fontSize: '12px' }}>
+                Liquidity: $
+                {iskeenKeenLPStats?.totalLiquidity ? roundAndFormatNumber(iskeenKeenLPStats.totalLiquidity, 2) : '-.--'}
+                <br />
+                Total Supply:{' '}
+                {iskeenKeenLPStats?.totalSupply ? roundAndFormatNumber(iskeenKeenLPStats.totalSupply, 2) : '-.--'}
               </span>
             </CardContent>
           </Card>

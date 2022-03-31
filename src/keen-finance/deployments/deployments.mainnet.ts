@@ -83,6 +83,10 @@ let deployments = {
     address: '0x2734d6557c2dd7c65448334b1ff98525609917b0',
     abi: OracleABI,
   },
+  iSKEENKEENiSkeenRewardPool: {
+    address: '0x8863bEe7aeb94A17fb4a4d603b301733Aa06d3A5',
+    abi: iSkeenRewardPoolABI,
+  },
 };
 
 export default deployments;
@@ -102,6 +106,7 @@ let {
   ISKEENAVAXKeenGenesisRewardPool,
   KEENAVAXiSkeenRewardPool,
   Oracle,
+  iSKEENKEENiSkeenRewardPool,
 } = deployments;
 export {
   Keen,
@@ -118,4 +123,5 @@ export {
   ISKEENAVAXKeenGenesisRewardPool,
   KEENAVAXiSkeenRewardPool,
   Oracle,
+  iSKEENKEENiSkeenRewardPool,
 };

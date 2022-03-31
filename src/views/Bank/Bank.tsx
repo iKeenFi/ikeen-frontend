@@ -119,6 +119,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
     pairName = 'KEEN-AVAX pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x7254000925e19d9bef3b156e9b0adc24c9761e0e/0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7#/';
+  } else if (bank.depositTokenName.startsWith('iSKEEN-KEEN')) {
+    pairName = 'iSKEEN-KEEN pair';
+    uniswapUrl =
+      'https://traderjoexyz.com/pool/0x7254000925e19d9bef3b156e9b0adc24c9761e0e/0xac53b3dfb93ccceae015e7b5c1cef4681a2d3d9e#/';
   }
   return (
     <Card>

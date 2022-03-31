@@ -143,12 +143,16 @@ export class KeenFinance {
     // console.log('NAME', name);
 
     const isKeen = name.startsWith('KEEN');
-    console.log(isKeen);
+
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
-    const ftmAmountBN = await this.AVAX.balanceOf(lpToken.address);
+    const ftmAmountBN =
+      lpToken.symbol === 'iSKEEN-KEEN-LP'
+        ? await this.KEEN.balanceOf(lpToken.address)
+        : await this.AVAX.balanceOf(lpToken.address);
     const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
+
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
     const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isKeen);
@@ -335,7 +339,7 @@ export class KeenFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'KEEN') {
-      if (!contractName.endsWith('GenesisRewardPool')) {
+      if (!contractName.endsWith('KeenRewardPool')) {
         return 0;
         const rewardPerSecond = await poolContract.keenPerSecond();
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
@@ -358,11 +362,15 @@ export class KeenFinance {
         const rewardPerSecond = await poolContract.iSKEENPerSecond();
 
         if (depositTokenName.startsWith('iSKEEN-AVAX')) {
+          return rewardPerSecond.mul(40000).div(100000);
+        } else if (depositTokenName.startsWith('iSKEEN-KEEN')) {
+          return rewardPerSecond.mul(5000).div(100000);
+        } else if (depositTokenName.startsWith('iSKEEN-AVAX')) {
           return rewardPerSecond.mul(10000).div(100000);
         } else if (depositTokenName.startsWith('KEEN-AVAX')) {
           return rewardPerSecond.mul(50000).div(100000);
         } else if (depositTokenName.startsWith('KEEN')) {
-          return rewardPerSecond.mul(40000).div(100000);
+          return rewardPerSecond.mul(5000).div(100000);
         }
       }
     }
