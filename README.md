@@ -5,6 +5,9 @@ You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
 
 ## Setup
 
+Make sure to use Node 16.14.0 or above!
+(16.0.0 has a weird issue with Parcel)
+
 Install the dependencies
 
 ```shell
