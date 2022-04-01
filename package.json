@@ -1,7 +1,7 @@
 {
   "name": "keen-frontend",
   "version": "2.0.0",
-  "repository": "https://github.com/keenmoney/keen-frontend.git",
+  "repository": "https://github.com/keenfi/keen-frontend.git",
   "author": "cybertelx",
   "license": "MIT",
   "dependencies": {
