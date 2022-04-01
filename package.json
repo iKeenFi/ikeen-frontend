@@ -1,7 +1,7 @@
 {
   "name": "keen-frontend",
   "version": "2.0.0",
-  "repository": "https://github.com/keenfi/keen-frontend.git",
+  "repository": "https://github.com/keenmoney/keen-frontend.git",
   "author": "cybertelx",
   "license": "MIT",
   "dependencies": {
@@ -32,7 +32,7 @@
     "material-ui-image": "^3.3.2",
     "moment": "^2.29.1",
     "numeral": "^2.0.6",
-    "parcel": "^2.4.0",
+    "parcel": "2.3.2",
     "react": "^16.13.1",
     "react-circular-progressbar": "^2.0.3",
     "react-countdown": "^2.2.1",
@@ -60,8 +60,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.4.0",
-    "@parcel/transformer-webmanifest": "^2.4.0",
+    "@parcel/packager-raw-url": "2.3.2",
+    "@parcel/transformer-webmanifest": "2.3.2",
     "@types/numeral": "0.0.28",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
