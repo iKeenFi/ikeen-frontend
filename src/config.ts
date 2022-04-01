@@ -165,7 +165,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   iSKEENKEENiSkeenRewardPool: {
     name: 'Earn iSKEEN by iSKEEN-KEEN LP',
-    poolId: 0,
+    poolId: 3,
     sectionInUI: 1,
     contract: 'iSKEENKEENiSkeenRewardPool',
     depositTokenName: 'iSKEEN-KEEN-LP',
