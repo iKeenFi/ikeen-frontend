@@ -122,8 +122,8 @@ const Boardroom = () => {
             <Grid container justify="center">
               <Box mt={4} style={{ width: '600px' }}>
                 <Alert variant="filled" severity="info">
-                  The Galaxy (also known as Boardroom in other Tomb-based protocols) only prints KEEN above TWAP 1.01.
-                  Please follow our strategies to succeed, it's normal that times we won't print and other times we do.
+                  The Galaxy (also known as Boardroom in other Tomb-based protocols) only gives KEEN rewards above TWAP
+                  0.101 (for 10 KEEN, TWAP 1.01).
                 </Alert>
               </Box>
             </Grid>
