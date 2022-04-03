@@ -164,7 +164,9 @@ const Home = () => {
           <Paper>
             <Box p={4} style={{ textAlign: 'center' }}>
               <h2>Welcome to iKeen</h2>
-              <p>KEEN is an algocoin which is designed to follow the price of AVAX.</p>
+              <p>
+                KEEN is an algocoin which is designed to follow the price of AVAX at a 10:1 ratio (10 KEEN = 1 AVAX).
+              </p>
               <p>
                 Stake your KEEN-AVAX LP in the Farm to earn iSKEEN rewards. Then stake your earned iSKEEN in the
                 Boardroom to earn more KEEN!
