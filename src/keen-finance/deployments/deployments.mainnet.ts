@@ -81,6 +81,10 @@ let deployments = {
   },
   Oracle: {
     address: '0x2734d6557c2dd7c65448334b1ff98525609917b0',
+    // 0xCaaddD0154a53fC5C59839960B32E33D448637Fb is used
+    // by the treasury as the oracle, but it proxies
+    // data to the real contract.
+
     abi: OracleABI,
   },
   iSKEENKEENiSkeenRewardPool: {

@@ -84,7 +84,10 @@ const Home = () => {
     () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
     [keenStats],
   );
-  const keenPriceInAVAX = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(4) : null), [keenStats]);
+  const keenPriceInAVAX = useMemo(
+    () => (keenStats ? (Number(keenStats.tokenInFtm) * 10).toFixed(4) : null),
+    [keenStats],
+  );
   const keenCirculatingSupply = useMemo(() => (keenStats ? String(keenStats.circulatingSupply) : null), [keenStats]);
   const keenTotalSupply = useMemo(() => (keenStats ? String(keenStats.totalSupply) : null), [keenStats]);
 
@@ -161,7 +164,9 @@ const Home = () => {
           <Paper>
             <Box p={4} style={{ textAlign: 'center' }}>
               <h2>Welcome to iKeen</h2>
-              <p>KEEN is an algocoin which is designed to follow the price of AVAX.</p>
+              <p>
+                KEEN is an algocoin which is designed to follow the price of AVAX at a 10:1 ratio (10 KEEN = 1 AVAX).
+              </p>
               <p>
                 Stake your KEEN-AVAX LP in the Farm to earn iSKEEN rewards. Then stake your earned iSKEEN in the
                 Boardroom to earn more KEEN!
@@ -229,7 +234,7 @@ const Home = () => {
                 <b>+</b>&nbsp;&nbsp;
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
-              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>1 KEEN (1.0 Peg) =
+              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>10 KEEN (1.0 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {keenPriceInAVAX ? keenPriceInAVAX : '-.----'} AVAX
@@ -309,8 +314,7 @@ const Home = () => {
                   <TokenSymbol symbol="iBKEEN" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>iBKEEN</h2>
-              10,000 iBKEEN
+              <h2 style={{ marginBottom: '10px' }}>iBKEEN</h2>1 iBKEEN (0.1 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {tBondPriceInAVAX ? tBondPriceInAVAX : '-.----'} AVAX

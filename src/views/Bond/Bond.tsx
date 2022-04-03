@@ -67,10 +67,11 @@ const Bond: React.FC = () => {
     [keenFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
-  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
-  const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
+  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 0.101, [bondStat]);
+  const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 0.11, [bondStat]);
   // console.log("bondstat", Number(bondStat?.tokenInFtm))
-  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(4);
+
+  const bondScale = (Number(cashPrice) / 1_000_000_000_000_000_000).toFixed(4);
 
   return (
     <Switch>
@@ -88,7 +89,9 @@ const Bond: React.FC = () => {
               <Box mt={5}>
                 <Grid item xs={12} sm={12} justify="center" style={{ margin: '18px', display: 'flex' }}>
                   <Alert variant="filled" severity="error">
-                    <b>Claiming below 1.01 peg will not receive a redemption bonus, claim wisely!</b>
+                    <b>
+                      Claiming below 0.11 peg (10 KEEN &gt; 1.1 AVAX) will not receive a redemption bonus, claim wisely!
+                    </b>
                   </Alert>
                 </Grid>
               </Box>
@@ -137,7 +140,7 @@ const Bond: React.FC = () => {
                   priceDesc={`${getDisplayBalance(bondBalance)} iBKEEN Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Cannot redeem under 1 AVAX TWAP` : null}
+                  disabledDescription={!isBondRedeemable ? `Cannot redeem under 0.1 AVAX TWAP` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

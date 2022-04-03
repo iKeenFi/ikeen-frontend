@@ -48,14 +48,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           </StyledBalance>
         </StyledBalanceWrapper>
         <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
-          <TokenSymbol symbol="XKEEN" />
-          <StyledBalance>
-            <StyledValue>{displayXkeenBalance}</StyledValue>
-            <Label text="XKEEN Available" />
-          </StyledBalance>
-        </StyledBalanceWrapper>
-        <StyledBalanceWrapper style={{ paddingBottom: '15px' }}>
-          <TokenSymbol symbol="iBKEEN" />
+          <TokenSymbol symbol="iBKEEN" size={100} />
           <StyledBalance>
             <StyledValue>{displayBbondBalance}</StyledValue>
             <Label text="iBKEEN Available" />
