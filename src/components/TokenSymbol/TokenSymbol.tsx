@@ -31,13 +31,14 @@ const logosBySymbol: { [title: string]: string } = {
 type LogoProps = {
   symbol: string;
   size?: number;
+  height?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
+const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64, height = size == 64 && 64 }) => {
   if (!logosBySymbol[symbol]) {
     return <p>No logo found</p>;
   }
-  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;
+  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={height} />;
 };
 
 export default TokenSymbol;
