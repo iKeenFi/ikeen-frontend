@@ -84,7 +84,10 @@ const Home = () => {
     () => (keenStats ? Number(keenStats.priceInDollars).toFixed(2) : null),
     [keenStats],
   );
-  const keenPriceInAVAX = useMemo(() => (keenStats ? Number(keenStats.tokenInFtm).toFixed(4) : null), [keenStats]);
+  const keenPriceInAVAX = useMemo(
+    () => (keenStats ? (Number(keenStats.tokenInFtm) * 10).toFixed(4) : null),
+    [keenStats],
+  );
   const keenCirculatingSupply = useMemo(() => (keenStats ? String(keenStats.circulatingSupply) : null), [keenStats]);
   const keenTotalSupply = useMemo(() => (keenStats ? String(keenStats.totalSupply) : null), [keenStats]);
 
@@ -229,7 +232,7 @@ const Home = () => {
                 <b>+</b>&nbsp;&nbsp;
                 <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
               </Button>
-              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>1 KEEN (1.0 Peg) =
+              <h2 style={{ marginBottom: '10px' }}>KEEN</h2>10 KEEN (1.0 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {keenPriceInAVAX ? keenPriceInAVAX : '-.----'} AVAX
@@ -309,8 +312,7 @@ const Home = () => {
                   <TokenSymbol symbol="iBKEEN" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>iBKEEN</h2>
-              10,000 iBKEEN
+              <h2 style={{ marginBottom: '10px' }}>iBKEEN</h2>1 iBKEEN (0.1 Peg) =
               <Box>
                 <span style={{ fontSize: '30px', color: 'white' }}>
                   {tBondPriceInAVAX ? tBondPriceInAVAX : '-.----'} AVAX
