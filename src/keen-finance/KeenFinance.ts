@@ -266,7 +266,7 @@ export class KeenFinance {
 
   async getKeenPriceInLastTWAP(): Promise<BigNumber> {
     const { Treasury } = this.contracts;
-    return Treasury.getKeenUpdatedPrice();
+    return (await Treasury.getKeenUpdatedPrice()).div(10);
   }
 
   // async getKeenPegTWAP(): Promise<any> {
@@ -298,11 +298,8 @@ export class KeenFinance {
 
     const stat = bank.earnTokenName === 'KEEN' ? await this.getKeenStat() : await this.getShareStat();
 
-    const tokenPerSecond = await this.getTokenPerSecond(
-      bank.earnTokenName,
-      bank.contract,
-      poolContract,
-      bank.depositTokenName,
+    const tokenPerSecond = ethers.BigNumber.from(
+      await this.getTokenPerSecond(bank.earnTokenName, bank.contract, poolContract, bank.depositTokenName),
     );
 
     const tokenPerHour = tokenPerSecond.mul(60).mul(60);

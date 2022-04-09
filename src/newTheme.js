@@ -7,7 +7,6 @@ const newTheme = createTheme({
     text: {
       primary: '#dddfee',
       secondary: 'white',
-      yellow: '#f9d749',
     },
     background: {
       default: '#121212',
@@ -16,14 +15,14 @@ const newTheme = createTheme({
     primary: {
       light: '#ffe066',
       main: '#2c2560',
-      dark: '#b38f00',
+      dark: '#5e00b3',
       contrastText: '#000',
     },
     secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
+      light: '#00bbf2',
+      main: '#00bbf2',
+      dark: '#054db2',
+      contrastText: '#fff',
     },
     action: {
       disabledBackground: '#CDCDCD',

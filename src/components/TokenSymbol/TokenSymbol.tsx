@@ -34,7 +34,7 @@ type LogoProps = {
   height?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64, height = size == 64 && 64 }) => {
+const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64, height = size }) => {
   if (!logosBySymbol[symbol]) {
     return <p>No logo found</p>;
   }
