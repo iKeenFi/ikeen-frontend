@@ -398,6 +398,7 @@ export class KeenFinance {
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
       }
     }
+    console.log(tokenPrice);
     return tokenPrice;
   }
 
@@ -737,28 +738,12 @@ export class KeenFinance {
     return await Boardroom.stake(decimalToBalance(amount));
   }
 
-  async stakeToKeen(amount: string): Promise<TransactionResponse> {
-    const Xkeen = this.contracts.xKEEN;
-    return await Xkeen.enter(decimalToBalance(amount));
-  }
-
   async getStakedSharesOnBoardroom(): Promise<BigNumber> {
     const Boardroom = this.currentBoardroom();
     if (this.boardroomVersionOfUser === 'v1') {
       return await Boardroom.getShareOf(this.myAccount);
     }
     return await Boardroom.balanceOf(this.myAccount);
-  }
-
-  async getStakedKeen(): Promise<BigNumber> {
-    const Xkeen = this.contracts.xKEEN;
-    return await Xkeen.balanceOf(this.myAccount);
-  }
-
-  async getTotalStakedKeen(): Promise<BigNumber> {
-    const Xkeen = this.contracts.xKEEN;
-    const keen = this.KEEN;
-    return await keen.balanceOf(Xkeen.address);
   }
 
   async getEarningsOnBoardroom(): Promise<BigNumber> {

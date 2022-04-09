@@ -28,8 +28,13 @@ import useWithdrawCheck from '../../hooks/boardroom/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import useStakedTokenPriceInDollars from '~src/hooks/useStakedTokenPriceInDollars';
 
 import polarlightimage from '../../assets/img/polarlights.jpg';
+import useShareStats from '~src/hooks/useiSkeenStats';
+import useKeenStats from '~src/hooks/useKeenStats';
+import keenFinance from '~src/keen-finance';
+import { iSkeen } from '~src/keen-finance/deployments/deployments.mainnet';
 const BackgroundImage = createGlobalStyle`
   body {
    background: url(${polarlightimage}) repeat !important;
@@ -55,12 +60,35 @@ const Boardroom = () => {
   const stakedBalance = useStakedBalanceOnBoardroom();
   const currentEpoch = useCurrentEpoch();
   const cashStat = useCashPriceInEstimatedTWAP();
+  const iSkeenStat = useShareStats();
+  const keenStat = useKeenStats();
   const totalStaked = useTotalStakedOnBoardroom();
   const boardroomAPR = useFetchBoardroomAPR();
   const canClaimReward = useClaimRewardCheck();
   const canWithdraw = useWithdrawCheck();
+  const iSkeenPrice = useMemo(() => (iSkeenStat ? Number(iSkeenStat.priceInDollars).toFixed(4) : null), [iSkeenStat]);
+  const keenPrice = useMemo(() => (keenStat ? Number(keenStat.priceInDollars).toFixed(4) : null), [iSkeenStat]);
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const { to } = useTreasuryAllocationTimes();
+
+  /*const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('iSKEEN', keenFinance.iSKEEN);
+  const tokenPriceInDollars = useMemo(
+    () =>
+      stakedTokenPriceInDollars
+        ? (Number(stakedTokenPriceInDollars) * Number(getDisplayBalance(stakedBalance))).toFixed(2).toString()
+        : null,
+    [stakedTokenPriceInDollars, stakedBalance],
+  );
+
+  const rewards = (boardroomAPR.toFixed(2) / 100 / 365) * Number(tokenPriceInDollars)
+  */
+  // FOR SOME GODFORSAKEN REASON,
+  // stakedTokenPriceInDollars just keeps
+  // returning NaN.
+  // Using this hacky workaround.
+
+  const rewards =
+    (boardroomAPR.toFixed(2) / 100 / 365) * Number(getDisplayBalance(stakedBalance)) * Number(iSkeenPrice);
 
   return (
     <Page>
@@ -104,16 +132,32 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR</Typography>
-                    <Typography>{boardroomAPR.toFixed(2)}%</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR % / Daily %</Typography>
+                    <Typography>
+                      {boardroomAPR.toFixed(2)}% / {(boardroomAPR / 365).toFixed(2)}%
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} md={2} lg={2}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>TVL</Typography>
+                    <Typography>
+                      {getDisplayBalance(totalStaked)} iSKEEN /{' '}
+                      {Number(getDisplayBalance(totalStaked) * Number(iSkeenPrice)).toFixed(2)}$
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>iSKEENS Staked</Typography>
-                    <Typography>{getDisplayBalance(totalStaked)}</Typography>
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>
+                      Estimated Rewards/Day
+                    </Typography>
+                    <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
