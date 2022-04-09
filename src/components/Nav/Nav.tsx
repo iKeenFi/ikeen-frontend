@@ -130,12 +130,15 @@ const Nav = () => {
               <Link to="/farm" className={'navLink ' + classes.link}>
                 Spiral
               </Link>
-         
+
               <Link to="/boardroom" className={'navLink ' + classes.link}>
                 Galaxy
               </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bond
+              </Link>
+              <Link to="/calculator" className={'navLink ' + classes.link}>
+                Calculator
               </Link>
               <a
                 href="https://docs.ikeenfi.app"
@@ -208,6 +211,7 @@ const Nav = () => {
                 <ListItemLink primary="Spiral" to="/farm" />
                 <ListItemLink primary="Galaxy" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
+                <ListItemLink primary="Calculator" to="/calculator" />
                 <ListItem button component="a" href="https://docs.ikeenfi.app">
                   <ListItemText>Documentation</ListItemText>
                 </ListItem>

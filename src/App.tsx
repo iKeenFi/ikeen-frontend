@@ -22,7 +22,7 @@ const Home = lazy(() => import('./views/Home'));
 const Farm = lazy(() => import('./views/Farm'));
 const Boardroom = lazy(() => import('./views/Boardroom'));
 const Bond = lazy(() => import('./views/Bond'));
-const Supply = lazy(() => import('./views/Supply'));
+const Calculator = lazy(() => import('./views/Calculator'));
 
 const NoMatch = () => (
   <h3 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -57,8 +57,8 @@ const App: React.FC = () => {
             <Route path="/bond">
               <Bond />
             </Route>
-            <Route path="/supply">
-              <Supply />
+            <Route path="/calculator">
+              <Calculator />
             </Route>
             <Route path="*">
               <NoMatch />
